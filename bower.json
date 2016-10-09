@@ -4,7 +4,7 @@
   "description": "Full-Stack JavaScript with MongoDB, Express, AngularJS, and Node.js",
   "dependencies": {
     "bootstrap": "~3",
-    "angular-mocks": "~1.3",
+    "angular-mocks": "~1.4",
     "angular-bootstrap": "~0.13",
     "angular-ui-utils": "bower",
     "angular-ui-router": "~0.2",
@@ -23,7 +23,7 @@
     "ngstorage": "^0.3.11"
   },
   "devDependencies": {
-    "angular-mocks": "^1.4.0"
+    "angular-mocks": "1.4.0"
   },
   "moduleName": "slackchatApp",
   "overrides": {
@@ -36,6 +36,6 @@
     }
   },
   "resolutions": {
-    "angular": "1.3"
+    "angular": "1.4.0"
   }
 }
