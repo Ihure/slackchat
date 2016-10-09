@@ -1,0 +1,17 @@
+<div class="jumbotron" ng-controller="DiscussCtrl as ctrl">
+            <div class="row">
+                <div class="col-md-4" ng-repeat="topic in topics">
+                    <h2>
+                        {{topic.topic}}
+                    </h2>
+                    <p>
+                        created by: {{topic.name}}
+                    </p>
+                    <p>
+                        <a class="btn" href="#/comment?id={{topic._id}}">View discussion »</a>
+                    </p>
+                </div>
+            </div>
+
+
+</div>

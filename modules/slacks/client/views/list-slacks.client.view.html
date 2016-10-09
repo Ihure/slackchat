@@ -1,0 +1,22 @@
+<section>
+  <div class="page-header">
+    <h1>Slacks</h1>
+  </div>
+  <div class="list-group">
+    <a ng-repeat="slack in vm.slacks"
+       ui-sref="slacks.view({ slackId: slack._id })"
+       class="list-group-item">
+      <small class="list-group-item-text">
+        Posted on
+        <span ng-bind="slack.created | date:'mediumDate'"></span>
+        by
+        <span ng-if="slack.user" ng-bind="slack.user.displayName"></span>
+        <span ng-if="!slack.user">Deleted User</span>
+      </small>
+      <h4 class="list-group-item-heading" ng-bind="slack.name"></h4>
+    </a>
+  </div>
+  <div class="alert alert-warning text-center" ng-if="vm.slacks.$resolved && !vm.slacks.length">
+    No Slacks yet, why don't you <a ui-sref="slacks.create">create one</a>?
+  </div>
+</section>

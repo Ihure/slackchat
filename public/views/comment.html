@@ -1,0 +1,29 @@
+<div class="container-fluid" ng-controller="CommentCtrl as ctrl">
+    <div class="row jumbotron">
+    <h1>{{topic.topic}}</h1>
+    <p class="lead" align="left">Created by: {{topic.name}} </p>
+    <form ng-submit="ctrl.ok()" name="form" role="form">
+        <div  ng-class="{ 'has-error': form.comment.$dirty && form.comment.$error.required}" class="col-md-4" align="left">
+            <input type="text" name="comment" class="form-control" id="comment" placeholder="topic" ng-model="ctrl.comment" required>
+            <!--<button class="btn btn-primary" type="button" ng-disabled="form.$invalid" ng-click="ctrl.ok()">Comment</button>-->
+        </div>
+       <div class="modal-footer">
+            <button class="btn btn-primary" type="button" ng-disabled="form.$invalid" ng-click="ctrl.ok()">Comment</button>
+        </div>
+    </form>
+    </div>
+    <div class="row" ng-repeat="comment in comments">
+        <div class="col-md-4" >
+            <h2>
+                {{comment.body}}
+            </h2>
+            <p class="lead">
+                <img ng-src="{{comment.avator}}" alt="I'm {{comment.user}}"><br>
+                posted by: {{comment.user}}
+            </p>
+        </div>
+    </div>
+
+
+</div>
+

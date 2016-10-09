@@ -1,0 +1,19 @@
+<div class="jumbotron" ng-controller="SlackloginCtrl as ctrl">
+  <p></p>
+  <h1>'Allo, 'Allo!</h1>
+  <p class="lead">
+    <img src="images/yeoman.png" alt="I'm Yeoman"><br>
+  </p>
+  <p>{{myWelcome}}</p>
+  <p>{{name}}</p>
+  <p><button class="btn btn-primary" type="button" ng-click="ctrl.ok()">Test</button></p>
+    <p><a class="btn btn-lg btn-success" ng-click="" href="https://slack.com/oauth/authorize?client_id=87012615811.87769233137&scope=team%3Aread+users%3Aread+users.profile:read">Slack Authorize<span class="glyphicon glyphicon-ok"></span></a></p>
+  <oauth2 authorization-url="https://slack.com/oauth/authorize"
+          client-id="87012615811.87769233137"
+          redirect-url="http://localhost"
+          response-type="json"
+          scope="identity.basic">
+  </oauth2>
+</div>
+
+
