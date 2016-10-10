@@ -36,7 +36,7 @@
                         <p><a href ng-click="repsec1 = !repsec1">Reply</a> <!--<a href ng-click="replies = !replies">Replies</a>--></p>
                         <form ng-submit="ctrl.rep()" name="form" role="form">
                             <div  ng-show="repsec1">
-                                <input type="text" class="tb5" placeholder="Reply" name="reply1" id="reply1" ng-model="ctrl.reply1" required/>
+                                <input type="text"  placeholder="Reply" name="reply1" id="reply1" ng-model="ctrl.reply1" required/>
                                 <button class="btn btn-primary" type="button" ng-disabled="form.$invalid" ng-click="ctrl.rep(comment._id,1,comment.full_slug,comment.full_slug,comment.slug)">Comment</button>
                             </div>
                         </form>
@@ -51,7 +51,7 @@
                             <p><a href ng-click="repsec2 = !repsec2">Reply</a><!-- <a href ng-click="replies = !replies">Replies</a>--></p>
                             <form ng-submit="ctrl.rep()" name="form" role="form">
                                 <div  ng-show="repsec2">
-                                    <input type="text" class="tb5" placeholder="Reply" name="reply2" id="reply2" ng-model="ctrl.reply2" required/>
+                                    <input type="text"  placeholder="Reply" name="reply2" id="reply2" ng-model="ctrl.reply2" required/>
                                     <button class="btn btn-primary" type="button" ng-disabled="form.$invalid" ng-click="ctrl.rep(comment._id,2,reply.full_slug,reply.full_slug,reply.slug)">Comment</button>
                                 </div>
                             </form>
