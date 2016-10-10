@@ -42,7 +42,7 @@ angular.module('slackchatApp')
         });
       },
       testapi: function (token,user) {
-        return $http.get('/api/comment');
+        return $http.get('/api/slacks');
       },
       createtopic: function (topic,user,avator,name) {
           var data ={
@@ -70,7 +70,12 @@ angular.module('slackchatApp')
       getdiscussion: function (id) {
           return $http.get('/api/comment/'+id);
       },
-      postcomments: function (id,body,user,avator) {
+      postcomments: function (id,body,user,avator,parentid,level,slugabv,fullslug,slug) {
+          var level= level + 1;
+
+         var myslug = Math.random().toString(36).substring(2,5);
+          var fulslug = fullslug+'/'+myslug;
+
           return $http({
               method: "post",
               url: "/api/comment/",
@@ -78,6 +83,11 @@ angular.module('slackchatApp')
                   body:body,
                   user:user,
                   avator:avator,
+                  parentid:parentid,
+                  level:level,
+                  slugabove:slugabv,
+                  slug:myslug,
+                  full_slug:fulslug,
                   _topic:id
               }
           });

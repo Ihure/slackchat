@@ -16,8 +16,15 @@ module.exports = function(app) {
     .get(slacks.list_comments)
     .post(slacks.create_comment);
 
+  app.route('/api/reply').all()
+    .get(slacks.list_comments)
+    .post(slacks.create_reply);
+
   app.route('/api/comment/:commentId').all()
-    .get(slacks.read_comment)
+    .get(slacks.read_comment);
+
+  app.route('/api/reply/:replyId').all()
+    .get(slacks.read_reply);
 
   app.route('/api/slacks/:slackId').all()
     .get(slacks.read)
@@ -27,4 +34,5 @@ module.exports = function(app) {
   // Finish by binding the Slack middleware
   app.param('slackId', slacks.slackByID);
   app.param('commentId', slacks.commentByID);
+  app.param('replyId', slacks.replyByID);
 };

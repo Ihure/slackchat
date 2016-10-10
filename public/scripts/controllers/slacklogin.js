@@ -12,7 +12,7 @@ angular.module('slackchatApp')
     var ctrl = this;
 
     ctrl.ok = function () {
-      var promise = authenticationservice.testapi();
+      var promise = authenticationservice.getdiscussion('57fa10be887f5f16a0e621f9');
       promise.then(function(response) {
         $scope.myWelcome = response.data;
         $scope.name =$sessionStorage.real_name;

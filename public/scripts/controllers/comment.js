@@ -29,8 +29,15 @@ angular.module('slackchatApp')
                 $scope.token = errorPayload.data;
             });
 
-        ctrl.ok = function () {
-            var promise = authenticationservice.postcomments(id,ctrl.comment, $sessionStorage.real_name,$sessionStorage.avator);
+        ctrl.rep = function (parentid,level,slugabove,fullslug,slug) {
+            if(level==0){
+                var text = ctrl.reply0;
+            }else if(level== 1){
+                var text = ctrl.reply1;
+            }else{
+                var text = ctrl.reply2;
+            }
+            var promise = authenticationservice.postcomments(id,text, $sessionStorage.real_name,$sessionStorage.avator,parentid,level,slugabove,fullslug,slug);
                 promise.then(function(response) {
                     var promise = authenticationservice.gettopic(id);
                         promise.then(function(response) {

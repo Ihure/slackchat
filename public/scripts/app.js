@@ -43,7 +43,7 @@ angular
         controllerAs: 'ctrl'
       })
       .when('/comment', {
-        templateUrl: 'views/comment.html',
+        templateUrl: 'views/newcomment.html',
         controller: 'CommentCtrl',
         controllerAs: 'ctrl'
       })
@@ -52,6 +52,17 @@ angular
       });
 
   })
+ .filter('custom',[function () {
+   return function (comment,parentid,level,slugabv) {
+        var out=[];
+       angular.forEach(input, function(language) {
+            if(comment.parentid==parentid && comment.level==level && comment.slugabove==slugabv){
+                out.push(comment)
+            }
+       })
+        return out;
+   }  
+ }])
  .value('users', {
 
 });

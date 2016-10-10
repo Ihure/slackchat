@@ -1,29 +1,60 @@
-<div class="container-fluid" ng-controller="CommentCtrl as ctrl">
-    <div class="row jumbotron">
-    <h1>{{topic.topic}}</h1>
-    <p class="lead" align="left">Created by: {{topic.name}} </p>
-    <form ng-submit="ctrl.ok()" name="form" role="form">
-        <div  ng-class="{ 'has-error': form.comment.$dirty && form.comment.$error.required}" class="col-md-4" align="left">
-            <input type="text" name="comment" class="form-control" id="comment" placeholder="topic" ng-model="ctrl.comment" required>
-            <!--<button class="btn btn-primary" type="button" ng-disabled="form.$invalid" ng-click="ctrl.ok()">Comment</button>-->
-        </div>
-       <div class="modal-footer">
-            <button class="btn btn-primary" type="button" ng-disabled="form.$invalid" ng-click="ctrl.ok()">Comment</button>
-        </div>
-    </form>
-    </div>
-    <div class="row" ng-repeat="comment in comments">
-        <div class="col-md-4" >
-            <h2>
-                {{comment.body}}
-            </h2>
-            <p class="lead">
-                <img ng-src="{{comment.avator}}" alt="I'm {{comment.user}}"><br>
-                posted by: {{comment.user}}
-            </p>
-        </div>
-    </div>
-
-
+<div ng-controller="CommentCtrl as ctrl" style="background: #e5e5e5;" class="row">
+<div class="menu">
+    <div class="back"><i class="fa fa-chevron-left"></i> <img ng-src="{{topic.avator}}" draggable="false"/></div>
+    <div class="name">{{topic.topic}}</div>
+    <div class="last">{{topic.name}}</div>
 </div>
+<ol class="chat">
+    <div class="row" ng-repeat="comment in comments" >
+        <li class="other" >
+            <div class="avatar"><img ng-src="{{comment.avator}}" draggable="false"/></div>
+            <div class="msg">
+                <p>{{comment.user}}</p> <time ng-bind="comment.date | date:'h:mm:ss - dd/MMM'"> </time><br/>
+                <span> {{comment.body}}</span><br/>
 
+                <p><a href ng-click="reply = !reply">Reply</a> <a href ng-click="replies = !replies">Replies</a></p>
+                <form ng-submit="ctrl.rep()" name="form" role="form">
+                    <div  ng-show="reply">
+                        <input type="text" placeholder="Reply" name="reply" id="reply" ng-model="ctrl.reply" required/>
+                        <button class="btn btn-primary" type="button" ng-disabled="form.$invalid" ng-click="ctrl.rep()">Comment</button>
+                    </div>
+                </form>
+            </div>
+        </li>
+        <li class="self">
+            <div class="avatar"><img src="http://i.imgur.com/HYcn9xO.png" draggable="false"/></div>
+            <div class="msg">
+                <p>Puff...</p>
+                <p>Aún estoy haciendo el contexto de Góngora... <emoji class="books"/></p>
+                <p>Mejor otro día</p>
+                <time>20:18</time>
+            </div>
+        </li>
+
+    </div>
+    <!--<li class="self">
+        <div class="avatar"><img src="http://i.imgur.com/HYcn9xO.png" draggable="false"/></div>
+        <div class="msg">
+            <p>Puff...</p>
+            <p>Aún estoy haciendo el contexto de Góngora... <emoji class="books"/></p>
+            <p>Mejor otro día</p>
+            <time>20:18</time>
+        </div>
+    </li>-->
+</ol>
+    <form ng-submit="ctrl.ok()" name="form" role="form">
+        <div class="row">
+            <div class="col-md-10">
+                <input class="textarea" type="text" placeholder="Enter your Comment" name="comment" id="comment" ng-model="ctrl.comment" required/>
+            </div>
+            <div class="col-md-2">
+                <div class="emojis"><button class="btn btn-primary" type="button" ng-disabled="form.$invalid" ng-click="ctrl.ok()">Comment</button></div>
+            </div>
+
+        </div>
+        <!--<div class="emojis"></div>-->
+    </form>
+    <div class="clearfix">
+
+    </div>
+</div>

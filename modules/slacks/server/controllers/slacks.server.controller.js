@@ -7,6 +7,7 @@ var path = require('path'),
   mongoose = require('mongoose'),
   Slack = mongoose.model('Slack'),
   Comment = mongoose.model('Comments'),
+  Reply = mongoose.model('Reply'),
   errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller')),
   _ = require('lodash');
 
@@ -51,6 +52,26 @@ exports.create_comment = function(req, res) {
     });
 };
 /**
+* Create a reply
+*/
+exports.create_reply = function(req, res) {
+    var reply = new Comment(req.body);
+    /*topic.user = req.user;
+     topic.createdby= req.body.createdby;
+     topic.topic= req.topic;
+     topic.avator= req.avator;*/
+
+    reply.save(function(err) {
+        if (err) {
+            return res.status(400).send({
+                message: errorHandler.getErrorMessage(err)
+            });
+        } else {
+            res.jsonp(reply);
+        }
+    });
+};
+/**
  * Show the current topic
  */
 exports.read = function(req, res) {
@@ -61,33 +82,16 @@ exports.read = function(req, res) {
  * Show the current topic with comments
  */
 exports.read_comment = function(req, res) {
-  /* // convert mongoose document to JSON
-  var slack = req.slack ? req.slack.toJSON() : {};
-
-  // Add a custom field to the Article, for determining if the current User is the "owner".
-  // NOTE: This field is NOT persisted to the database, since it doesn't exist in the Article model.
-  //slack.isCurrentUserOwner = req.user && slack.user && slack.user._id.toString() === req.user._id.toString();
-  slack.findOne({ '_id': req.body.id }, 'name comments avator created topic', function (err, person) {
-    if (err) return handleError(err);
-      res.jsonp(slack); // Space Ghost is a talk show host.
-  })*/
-  /*Comment.find({_topic:req.id})
-      .populate('_topic')
-      .exec(function (err, story) {
-          if (err) {
-              return res.status(400).send({
-                  message: errorHandler.getErrorMessage(err)
-              });
-          } else {
-              res.jsonp(story);
-          }
-          //console.log('The creator is %s', story._creator.name);// prints "The creator is Aaron"
-          //res.jsonp(story)
-      });*/
 
   res.jsonp(req.slack);
 };
+/**
+ * read replies
+ */
+exports.read_reply = function(req, res) {
 
+    res.jsonp(req.slack);
+};
 /**
  * Update a Slack
  */
@@ -194,7 +198,27 @@ exports.commentByID = function(req, res, next, id) {
             return next(err);
         } else if (!slack) {
             return res.status(404).send({
-                message: 'No Slack with that identifier has been found'
+                message: 'No comment with that identifier has been found'
+            });
+        }
+        req.slack = slack;
+        next();
+    });
+};
+exports.replyByID = function(req, res, next, id) {
+
+  /*if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(400).send({
+      message: 'Slack is invalid'
+    });
+  }*/
+
+    Reply.find({_comment:id}).populate('_comment').exec(function (err, slack) {
+        if (err) {
+            return next(err);
+        } else if (!slack) {
+            return res.status(404).send({
+                message: 'No reply with that identifier has been found'
             });
         }
         req.slack = slack;
