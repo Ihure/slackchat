@@ -1,4 +1,4 @@
-body { background: #e3e0ef url('images/bg.png'); line-height: 1; font-family: Arial, sans-serif; padding-bottom: 65px; }
+body { background: #e3e0ef url('images/bg.png'); line-height: 1; font-family: Arial, sans-serif; }
 :selection { background: #d7d0f3; }
 ::-moz-selection { background: #d7d0f3; }
 ::-webkit-selection { background: #d7d0f3; }
@@ -35,7 +35,17 @@ a:hover { text-decoration: underline; }
     -moz-box-shadow: 1px 1px 1px rgba(0,0,0,0.3);
     box-shadow: 1px 1px 1px rgba(0,0,0,0.3);
 }
-
+#topics{
+    display: block;
+    background: #e1e1e1;
+    padding: 5px 5px;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    -webkit-box-shadow: 1px 1px 1px rgba(0,0,0,0.3);
+    -moz-box-shadow: 1px 1px 1px rgba(0,0,0,0.3);
+    box-shadow: 1px 1px 1px rgba(0,0,0,0.3);
+}
 
 /* comments area */
 #comments { display: block; }
@@ -67,7 +77,7 @@ a:hover { text-decoration: underline; }
 
 #comments .cmmnt .replies { margin-bottom: 7px; }
 .tb5 {
-    border:2px solid #456879;
+    border:1px solid #456879;
     border-radius:10px;
     height: 22px;
     width: 230px;

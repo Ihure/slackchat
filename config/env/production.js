@@ -4,8 +4,8 @@ module.exports = {
   secure: true,
   port: process.env.PORT || 8443,
   db: {
-    uri: process.env.MONGOHQ_URL || process.env.MONGOLAB_URI || 'mongodb://' + (process.env.DB_1_PORT_27017_TCP_ADDR || 'localhost') + '/mean',
-    //uri: process.env.MONGOHQ_URL || process.env.MONGOLAB_URI || 'mongodb://' + 'heroku_jmp6cjgj:v58k0f0d01ins5ijhes6bpj6pc@ds053196.mlab.com:53196/heroku_jmp6cjgj',
+    //uri: process.env.MONGOHQ_URL || process.env.MONGOLAB_URI || 'mongodb://' + (process.env.DB_1_PORT_27017_TCP_ADDR || 'localhost') + '/mean',
+    uri: process.env.MONGOHQ_URL || process.env.MONGOLAB_URI || 'mongodb://' + 'heroku_jmp6cjgj:v58k0f0d01ins5ijhes6bpj6pc@ds053196.mlab.com:53196/heroku_jmp6cjgj',
     options: {
       user: '',
       pass: ''

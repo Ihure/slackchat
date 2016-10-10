@@ -7,8 +7,8 @@
   <!--<p>{{user}}</p>
   <p>token: {{token}}</p>-->
 </div>
-<div class="row" ng-controller="DiscussCtrl as ctrl">
-  <div class="col-md-4" ng-repeat="topic in topics">
+<div class="row" ng-controller="DiscussCtrl as ctrl" id="container">
+  <div class="col-md-4" ng-repeat="topic in topics" id="topics">
     <h2>
       {{topic.topic}}
     </h2>
