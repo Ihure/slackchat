@@ -14,7 +14,7 @@ angular.module('slackchatApp')
     .controller('CommentCtrl',['authenticationservice','users','$routeParams','$scope','$location','$sessionStorage', function (authenticationservice,users,$routeParams,$scope,$location,$sessionStorage) {
         var ctrl = this;
 
-        var id = $routeParams.id;
+       var id = $routeParams.id;
         var promise = authenticationservice.gettopic(id);
             promise.then(function(response) {
                 $scope.topic = response.data;
@@ -56,5 +56,8 @@ angular.module('slackchatApp')
                 $location.path('/newtopic');
             });
         };
+
+        $scope.fname = $sessionStorage.real_name;
+        $scope.avator = $sessionStorage.avator;
 
     }]);

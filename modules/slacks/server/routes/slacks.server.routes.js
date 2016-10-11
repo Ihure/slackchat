@@ -12,6 +12,9 @@ module.exports = function(app) {
     .get(slacks.list)
     .post(slacks.create);
 
+  app.route('/api/topic').all()
+    .get(slacks.list_limit);
+
   app.route('/api/comment').all()
     .get(slacks.list_comments)
     .post(slacks.create_comment);

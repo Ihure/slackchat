@@ -1,0 +1,126 @@
+<div class="wrapper" ng-controller="DiscussCtrl as ctrl">
+    <header class="main-header" >
+        <!-- Logo -->
+        <a href="/#" class="logo">
+            <!-- mini logo for sidebar mini 50x50 pixels -->
+            <span class="logo-mini"><b>S</b>CH</span>
+            <!-- logo for regular state and mobile devices -->
+            <span class="logo-lg"><b>Slack</b>Chat</span>
+        </a>
+        <!-- Header Navbar: style can be found in header.less -->
+        <nav class="navbar navbar-static-top" role="navigation">
+            <!-- Sidebar toggle button-->
+
+            <div class="navbar-custom-menu">
+                <ul class="nav navbar-nav">
+
+                    <!-- User Account: style can be found in dropdown.less -->
+                    <li class="dropdown user user-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <img ng-src="{{avator}}" class="user-image" alt="User Image">
+                            <span class="hidden-xs">{{fname}}</span>
+                        </a>
+                    </li>
+                    <!-- Control Sidebar Toggle Button -->
+                </ul>
+            </div>
+        </nav>
+    </header>
+    <!-- Left side column. contains the logo and sidebar -->
+    <aside class="main-sidebar">
+        <!-- sidebar: style can be found in sidebar.less -->
+        <section class="sidebar">
+            <!-- Sidebar user panel -->
+            <div class="user-panel">
+                <div class="pull-left image">
+                    <img ng-src="{{avator}}" class="img-circle" alt="User Image">
+                </div>
+                <div class="pull-left info">
+                    <p>{{fname}}</p>
+
+                </div>
+            </div>
+            <!-- search form -->
+            <!-- /.search form -->
+            <!-- sidebar menu: : style can be found in sidebar.less -->
+            <ul class="sidebar-menu" >
+                <li class="header">Latest Topics</li>
+                <li ng-repeat="limtopic in limtopics">
+                    <a href="#/comment?id={{limtopic._id}}">
+                        <i class="fa fa-th"></i> <span>{{limtopic.topic}}</span>
+                    </a>
+                </li>
+                <li class="header">LINKS</li>
+                <!--<li><a href="#"><i class="fa fa-circle-o text-red"></i> <span>Important</span></a></li>
+                <li><a href="#"><i class="fa fa-circle-o text-yellow"></i> <span>Warning</span></a></li>-->
+                <li><a href="#/home"><i class="fa fa-circle-o text-aqua"></i> <span>All Topics</span></a></li>
+            </ul>
+        </section>
+        <!-- /.sidebar -->
+    </aside>
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper" >
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>
+            Topics for Discussion
+            <small>it all starts here</small>
+            <a class="btn btn-app" ng-click="ctrl.open('sm')">
+                <i  class="fa fa-plus"></i>Add
+            </a>
+        </h1>
+    </section>
+
+    <!-- Main content -->
+    <section class="content" >
+
+        <!-- Box Comment -->
+        <div class="box box-widget" ng-repeat="topic in topics" >
+            <div class='box-header with-border'>
+                <div class='user-block'>
+                    <img class='img-circle' ng-src="{{topic.avator}}" alt='user image'>
+                    <span class='username'><a href="#">{{topic.name}}</a></span>
+                    <span class='description' ng-bind="topic.created | date:'h:mm:ss - dd/MMM'"></span>
+                </div><!-- /.user-block -->
+                <div class='box-tools'>
+                    <button class='btn btn-box-tool' data-toggle='tooltip' title=''><i class='fa fa-circle-o'></i></button>
+                    <button class='btn btn-box-tool' data-widget='collapse'><i class='fa fa-minus'></i></button>
+                </div><!-- /.box-tools -->
+            </div><!-- /.box-header -->
+            <div class='box-body'>
+                <!-- post text -->
+                <p align="center">{{topic.topic}}</p>
+                <p>{{topic.description}}</p>
+                <form action="#/comment?id" name="form" role="form" style="margin-top: 10px">
+                <input type="hidden" placeholder="Comment" name="id" id="id" ng-model="ctrl.id" value="{{topic._id}}" style="width: 100%"/>
+                <!-- Social sharing buttons -->
+                <a ng-href="#/comment?id={{topic._id}}"><button class='btn btn-default btn-xs' ng-click="ctrl.comment(topic._id)" ><i class='fa fa-comment-o'></i> Join conversation</button></a>
+                    </form>
+                <!--<span class='pull-right text-muted'> 2 comments</span>-->
+            </div><!-- /.box-body -->
+        </div><!-- /.box -->
+
+    </section><!-- /.content -->
+</div><!-- /.content-wrapper -->
+
+    <script type="text/ng-template" id="addtopictemplate.html">
+        <div class="md-content">
+            <h3 class="modal-title" id="modal-title">Add topic</h3>
+            <form ng-submit="ctrl.ok()" name="form" role="form">
+                <div class="modal-body" id="modal-body" ng-class="{ 'has-error': form.desc.$dirty && form.desc.$error.required }">
+                    <label>Topic</label>
+                    <input type="text" name="topic" class="form-control" id="topic" placeholder="topic" ng-model="ctrl.topic" required>
+                    <label>Brief Description</label>
+                    <textarea class="textarea" placeholder="Give a small description" name="desc" id="desc" ng-model="ctrl.desc" required style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
+
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary" type="button" ng-disabled="form.$invalid" ng-click="ctrl.ok()">Add</button>
+                    <button class="btn btn-warning" type="button" ng-click="ctrl.cancel()">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </script>
+    <div class="control-sidebar-bg"></div>
+</div>
+

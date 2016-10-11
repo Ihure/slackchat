@@ -11,18 +11,29 @@
     <!-- endbower -->
     <!-- endbuild -->
     <!-- build:css(.tmp) styles/main.css -->
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-    <link rel="stylesheet" href="styles/main.css">
+    <!--<link rel="stylesheet" href="styles/bootstrap.min.css">-->
     <link rel="stylesheet" href="styles/style.css">
+    <!-- Font Awesome -->
+      <script src="http://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="styles/AdminLTE.min.css">
+    <!-- AdminLTE Skins. Choose a skin from the css/skins
+         folder instead of downloading all of them to reduce the load. -->
+    <link rel="stylesheet" href="styles/skins/_all-skins.min.css">
     <!-- endbuild -->
+    <link rel="stylesheet" href="js/bootstrap3-wysihtml5.min.css">
+      <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
   </head>
-  <body ng-app="slackchatApp">
+  <body ng-app="slackchatApp" class="hold-transition lockscreen skin-blue sidebar-mini">
     <!--[if lte IE 8]>
       <p class="browsehappy">You are using  <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
 
     <!-- Add your site or application content here -->
-    <div class="header">
+    <!--<div class="header">
       <div class="navbar navbar-default" role="navigation">
         <div class="container">
           <div class="navbar-header">
@@ -47,18 +58,11 @@
           </div>
         </div>
       </div>
-    </div>
-
-    <div class="container">
-    <div ng-view=""></div>
+    </div>-->
+    <div ng-view="">
 
     </div>
 
-    <div class="footer">
-      <div class="container">
-        <p><span class="glyphicon glyphicon-heart"></span> from the Yeoman team</p>
-      </div>
-    </div>
 
 
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
@@ -71,6 +75,7 @@
        ga('create', 'UA-XXXXX-X');
        ga('send', 'pageview');
     </script>
+
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     <!-- build:js(.) scripts/vendor.js -->
     <!-- bower:js -->
@@ -88,13 +93,13 @@
     <script src="lib/angular-md5/angular-md5.js"></script>
     <script src="lib/AngularJS-OAuth2/dist/angularJsOAuth2.js"></script>
     <script src="lib/ngstorage/ngStorage.min.js"></script>
+    <script src="lib/angular-bootstrap/ui-bootstrap-tpls.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
 
         <!-- build:js({.tmp,app}) scripts/scripts.js -->
         <script src="scripts/app.js"></script>
         <script src="scripts/controllers/main.js"></script>
-        <script src="scripts/controllers/about.js"></script>
         <script src="scripts/controllers/discuss.js"></script>
         <script src="scripts/controllers/comment.js"></script>
         <script src="scripts/controllers/slacklogin.js"></script>
@@ -102,5 +107,19 @@
         <script src="scripts/services/authenticationservice.js"></script>
         <script src="scripts/controllers/createtopic.js"></script>
         <!-- endbuild -->
+
+    <script src="https://cdn.ckeditor.com/4.4.3/standard/ckeditor.js"></script>
+    <!-- Bootstrap WYSIHTML5 -->
+    <script src="js/bootstrap3-wysihtml5.all.min.js"></script>
+  <!--adminlte js -->
+    <!--<script src="js/bootstrap.min.js"></script>-->
+    <!-- Slimscroll -->
+    <script src="js/jquery.slimscroll.min.js"></script>
+    <!-- FastClick -->
+    <script src="js/fastclick.min.js"></script>
+    <!-- AdminLTE App -->
+    <script src="js/app.min.js"></script>
+  <!--adminlte js -->
+
 </body>
 </html>

@@ -145,7 +145,23 @@ exports.list = function(req, res) {
     }
   });
 };
-
+/**
+ * limit to 5
+ */
+/**
+ * List of Slacks
+ */
+exports.list_limit = function(req, res) {
+    Slack.find().limit(6).sort('-created').populate('user', 'displayName').exec(function(err, slacks) {
+        if (err) {
+            return res.status(400).send({
+                message: errorHandler.getErrorMessage(err)
+            });
+        } else {
+            res.jsonp(slacks);
+        }
+    });
+};
 /**
  * List of comments
  */

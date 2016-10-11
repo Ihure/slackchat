@@ -44,7 +44,7 @@ angular.module('slackchatApp')
       testapi: function (token,user) {
         return $http.get('/api/slacks');
       },
-      createtopic: function (topic,user,avator,name) {
+      createtopic: function (topic,user,avator,name,desc) {
           var data ={
               topic:topic,
               createdby:user,
@@ -57,7 +57,8 @@ angular.module('slackchatApp')
                   topic:topic,
                   createdby:user,
                   avator:avator,
-                  name:name
+                  name:name,
+                  description:desc
               }
           });
       },
@@ -66,6 +67,9 @@ angular.module('slackchatApp')
       },
       gettopic: function (id) {
           return $http.get('/api/slacks/'+id);
+      },
+      getlimit: function () {
+          return $http.get('/api/topic');
       },
       getdiscussion: function (id) {
           return $http.get('/api/comment/'+id);
