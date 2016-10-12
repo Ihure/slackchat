@@ -13,7 +13,11 @@
 angular.module('slackchatApp')
     .controller('DiscussCtrl',['authenticationservice','users','$scope','$sessionStorage','$uibModal','$routeParams','$location', function (authenticationservice,users,$scope,$sessionStorage,$uibModal,$routeParams,$location) {
         var code = $routeParams.code;
-        if($sessionStorage.userid===''){
+        if($sessionStorage.fname !=''){
+            $scope.fname = $sessionStorage.real_name;
+            $scope.avator = $sessionStorage.avator;
+        }
+        else{
             var promise = authenticationservice.authorize(code);
             promise.then(function(response) {
                 //users.token = response.data.access_token;
@@ -37,10 +41,6 @@ angular.module('slackchatApp')
             }, function(errorPayload) {
                 $scope.token = errorPayload;
             });
-        }
-        else{
-            $scope.fname = $sessionStorage.real_name;
-            $scope.avator = $sessionStorage.avator;
         }
         $scope.code = code;
 
