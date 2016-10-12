@@ -34,8 +34,13 @@ angular.module('slackchatApp')
                 var text = ctrl.reply0;
             }else if(level== 1){
                 var text = ctrl.reply1;
-            }else{
+            }else if(level== 2){
                 var text = ctrl.reply2;
+            }else if(level== 3){
+                var text = ctrl.reply3;
+            }
+            else{
+                var text = ctrl.reply4;
             }
             var promise = authenticationservice.postcomments(id,text, $sessionStorage.real_name,$sessionStorage.avator,parentid,level,slugabove,fullslug,slug);
                 promise.then(function(response) {
