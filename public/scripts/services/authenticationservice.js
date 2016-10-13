@@ -44,7 +44,14 @@ angular.module('slackchatApp')
       testapi: function (token,user) {
         return $http.get('/api/slacks');
       },
-      createtopic: function (topic,user,avator,name,desc) {
+      createtopic: function (topic,user,avator,name,desc,link) {
+          var n = link.search("iframe");
+
+          if(n >= 0){
+              var status = 1;
+          }else{
+              status = 0;
+          }
           var data ={
               topic:topic,
               createdby:user,
@@ -58,7 +65,9 @@ angular.module('slackchatApp')
                   createdby:user,
                   avator:avator,
                   name:name,
-                  description:desc
+                  description:desc,
+                  link: link,
+                  status: status
               }
           });
       },

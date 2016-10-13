@@ -12,7 +12,7 @@ angular.module('slackchatApp')
       var ctrl = this;
 
       ctrl.ok = function () {
-          var create = authenticationservice.createtopic(ctrl.topic, $sessionStorage.userid, $sessionStorage.avator, $sessionStorage.real_name,ctrl.desc);
+          var create = authenticationservice.createtopic(ctrl.topic, $sessionStorage.userid, $sessionStorage.avator, $sessionStorage.real_name,ctrl.desc,ctrl.emb);
           create.then(function(response) {
               $uibModalInstance.dismiss('cancel');
               //$location.path('/home');

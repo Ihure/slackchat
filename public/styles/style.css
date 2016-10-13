@@ -43,7 +43,7 @@ a:hover { text-decoration: underline; }
 /* comments area */
 #comments { display: block; }
 
-#comments .cmmnt, ul .cmmnt, ul ul .cmmnt { display: block; position: relative; padding-left: 65px; border-top: 1px solid #ddd; }
+#comments .cmmnt, ul .cmmnt, ul ul .cmmnt { display: block; position: relative; padding-left: 65px;padding-top:7px; border-top: 1px solid #ddd; }
 
 #comments .cmmnt .avatar  { position: absolute; top: 8px; left: 0; }
 #comments .cmmnt .avatar img {
@@ -69,3 +69,18 @@ a:hover { text-decoration: underline; }
 #comments .cmmnt .cmmnt-content header .userlink { font-weight: bold; }
 
 #comments .cmmnt .replies { margin-bottom: 7px; }
+
+.video-container {
+    position: relative;
+    padding-bottom: 56.25%;
+    padding-top: 35px;
+    height: 0;
+    overflow: hidden;
+}
+.video-container iframe {
+    position: absolute;
+    top:0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}

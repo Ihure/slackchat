@@ -11,7 +11,7 @@
  * Controller of the slackchatApp
  */
 angular.module('slackchatApp')
-    .controller('DiscussCtrl',['authenticationservice','users','$scope','$sessionStorage','$uibModal','$routeParams','$location', function (authenticationservice,users,$scope,$sessionStorage,$uibModal,$routeParams,$location) {
+    .controller('DiscussCtrl',['authenticationservice','users','$scope','$sessionStorage','$uibModal','$routeParams','$location','authentication', function (authenticationservice,users,$scope,$sessionStorage,$uibModal,$routeParams,$location,authentication) {
         var code = $routeParams.code;
         if($sessionStorage.fname == null){
             var promise = authenticationservice.authorize(code);
@@ -31,6 +31,7 @@ angular.module('slackchatApp')
                     //users.avator = user_response.data.profile.image_24;
                     $sessionStorage.avator = user_response.data.profile.image_24;
                     $scope.avator = $sessionStorage.avator;
+                    authentication.islogged = true;
                 }, function (user_error) {
 
                 })
@@ -50,6 +51,7 @@ angular.module('slackchatApp')
         topics.then( function (tresponse) {
             //$scope.error = 'this';
             $scope.topics = tresponse.data;
+            //$scope.link =$sce.trustAsHtml(tresponse.data.link);
         }, function (error) {
             $location.path('/')
             $scope.error = error.data;

@@ -31,6 +31,14 @@ var SlackSchema = new Schema({
     type: String,
     default:''
   },
+  link:{
+    type: String,
+    default: ''
+  },
+  status:{
+      type: String,
+      default:'2'
+  },
   createdby:{
       type: String,
       default:''

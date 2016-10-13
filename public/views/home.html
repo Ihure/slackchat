@@ -53,7 +53,7 @@
                 <li class="header">LINKS</li>
                 <!--<li><a href="#"><i class="fa fa-circle-o text-red"></i> <span>Important</span></a></li>
                 <li><a href="#"><i class="fa fa-circle-o text-yellow"></i> <span>Warning</span></a></li>-->
-                <li><a href="#/home"><i class="fa fa-circle-o text-aqua"></i> <span>All Topics</span></a></li>
+                <li><a href="#/topics"><i class="fa fa-circle-o text-aqua"></i> <span>All Topics</span></a></li>
             </ul>
         </section>
         <!-- /.sidebar -->
@@ -90,6 +90,23 @@
             <div class='box-body'>
                 <!-- post text -->
                 <p align="center">{{topic.topic}}</p>
+                <div ng-show="topic.status == 1" class="video-container">
+                    <div ng-bind-html="topic.link | totrusted"></div>
+
+                </div>
+                <div ng-show="topic.status == 0" class="video-container">
+                    <iframe width="854" height="480" ng-src="{{topic.link}}" frameborder="0" allowfullscreen></iframe>
+                </div>
+                <div class="attachment-block clearfix" ng-show="topic.status == 0">
+                    <img class="attachment-img" src="images/apology.jpg" alt="sorry image">
+                    <div class="attachment-pushed">
+                        <h4 class="attachment-heading"></h4>
+                        <div class="attachment-text">
+                            We apologise if the media isn't showing click here to visit page<a href="{{topic.link}}">Go</a>
+                        </div><!-- /.attachment-text -->
+                    </div><!-- /.attachment-pushed -->
+                </div><!-- /.attachment-block -->
+                <p><br/></p>
                 <p>{{topic.description}}</p>
                 <form action="#/comment?id" name="form" role="form" style="margin-top: 10px">
                 <input type="hidden" placeholder="Comment" name="id" id="id" ng-model="ctrl.id" value="{{topic._id}}" style="width: 100%"/>
@@ -112,7 +129,8 @@
                     <input type="text" name="topic" class="form-control" id="topic" placeholder="topic" ng-model="ctrl.topic" required>
                     <label>Brief Description</label>
                     <textarea class="textarea" placeholder="Give a small description" name="desc" id="desc" ng-model="ctrl.desc" required style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
-
+                    <label>Embed Object (video/or link)</label>
+                    <textarea class="textarea" placeholder="Paste embed link here" name="emb" id="emb" ng-model="ctrl.emb"  style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
                 </div>
                 <div class="modal-footer">
                     <button class="btn btn-primary" type="button" ng-disabled="form.$invalid" ng-click="ctrl.ok()">Add</button>
