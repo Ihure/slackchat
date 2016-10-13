@@ -73,16 +73,16 @@ angular
 
 })
 .filter('trusturls',['$sce', function ($sce) {
-    return function (value) {
-        return $sce.trustAsResourceUrl(value);
+    return function (val) {
+        return $sce.trustAsResourceUrl(val);
     };
 }])
-.filter('totrusted', function ($sce) {
+.filter('totrusted',['$sce', function ($sce) {
     return function (value) {
         return $sce.trustAsHtml(value);
     };
 
-})
+}])
 
 
  .value('users', {
