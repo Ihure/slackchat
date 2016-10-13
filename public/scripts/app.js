@@ -78,6 +78,11 @@ angular
     };
 
 })
+.filter('trusturl', function ($sce) {
+    return function (value) {
+        return $sce.trustAsResourceUrl(value);
+    };
+})
 
  .value('users', {
 
