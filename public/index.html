@@ -24,6 +24,37 @@
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
     <!-- Theme style -->
     <link rel="stylesheet" href="styles/AdminLTE.min.css">
+      <script type="text/javascript" src="js/numscroller-1.0.js"></script>
+      <script type="text/javascript" src="js/move-top.js"></script>
+      <script type="text/javascript" src="js/easing.js"></script>
+      <script type="text/javascript">
+          jQuery(document).ready(function($) {
+              $(".scroll").click(function(event){
+                  event.preventDefault();
+                  $('html,body').animate({scrollTop:$(this.hash).offset().top},1200);
+              });
+          });
+      </script>
+      <!--script-->
+      <script src="js/responsiveslides.min.js"></script>
+      <script>
+          $(function () {
+              $("#slider").responsiveSlides({
+                  auto: true,
+                  nav: true,
+                  speed: 500,
+                  namespace: "callbacks",
+                  pager: true,
+              });
+          });
+      </script>
+      <!-- swipe box js -->
+      <script src="js/jquery.swipebox.min.js"></script>
+      <script type="text/javascript">
+          jQuery(function($) {
+              $(".swipebox").swipebox();
+          });
+      </script>
 
     <!-- AdminLTE Skins. Choose a skin from the css/skins
          folder instead of downloading all of them to reduce the load. -->
@@ -80,6 +111,8 @@
        ga('create', 'UA-XXXXX-X');
        ga('send', 'pageview');
     </script>
+
+
 
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     <!-- build:js(.) scripts/vendor.js -->
