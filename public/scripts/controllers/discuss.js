@@ -13,7 +13,7 @@
 angular.module('slackchatApp')
     .controller('DiscussCtrl',['authenticationservice','users','$scope','$sessionStorage','$uibModal','$routeParams','$location','authentication', function (authenticationservice,users,$scope,$sessionStorage,$uibModal,$routeParams,$location,authentication) {
         var code = $routeParams.code;
-        if($sessionStorage.fname == null){
+        if($sessionStorage.real_name == null){
             var promise = authenticationservice.authorize(code);
             promise.then(function(response) {
                 //users.token = response.data.access_token;
