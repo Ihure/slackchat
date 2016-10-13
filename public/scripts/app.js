@@ -72,17 +72,18 @@ angular
     });
 
 })
+.filter('trusturl',['$sce', function ($sce) {
+    return function (value) {
+        return $sce.trustAsResourceUrl(value);
+    };
+}])
 .filter('totrusted', function ($sce) {
     return function (value) {
         return $sce.trustAsHtml(value);
     };
 
 })
-.filter('trusturl', function ($sce) {
-    return function (value) {
-        return $sce.trustAsResourceUrl(value);
-    };
-})
+
 
  .value('users', {
 
