@@ -194,11 +194,11 @@
                         </li>
                     </ul>
                 </div><!-- /.box-footer -->
-                <div class="box-footer">
+                <div class="box-footer" ng-show="repsec0">
                     <form method="post" ng-submit="ctrl.rep()" name="form" role="form">
                         <img class="img-responsive img-circle img-sm" ng-src="{{avator}}" alt="alt text">
                         <!-- .img-push is used to add margin to elements next to floating images -->
-                        <div class="input-group" ng-show="repsec0">
+                        <div class="input-group" >
                             <input type="text" name="message" placeholder="Type Reply" class="form-control" name="reply0" id="reply0" ng-model="ctrl.reply0" required>
                             <span class="input-group-btn">
                         <button type="button" class="btn btn-danger btn-flat" ng-disabled="form.$invalid" ng-click="ctrl.rep(topic._id,0,'','','')">Send</button>

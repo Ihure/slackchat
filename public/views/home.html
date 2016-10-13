@@ -1,3 +1,17 @@
+<style>
+    .md-content .modal {
+        position: relative;
+        top: auto;
+        bottom: auto;
+        right: auto;
+        left: auto;
+        display: block;
+        z-index: 1;
+    }
+    .md-content .modal {
+        background: transparent !important;
+    }
+</style>
 <div class="wrapper" ng-controller="DiscussCtrl as ctrl">
     <header class="main-header" >
         <!-- Logo -->
@@ -15,7 +29,7 @@
                 <ul class="nav navbar-nav">
                     <li class="dropdown notifications-menu">
                         <a ng-click="ctrl.open('sm')" class="dropdown-toggle" data-toggle="dropdown">
-                            <i class="fa fa-square-o"></i>
+                            <i class="fa fa-plus"></i>
                         </a>
                     </li>
                     <!-- User Account: style can be found in dropdown.less -->
@@ -126,21 +140,29 @@
 
     <script type="text/ng-template" id="addtopictemplate.html">
         <div class="md-content">
-            <h3 class="modal-title" id="modal-title">Add topic</h3>
-            <form ng-submit="ctrl.ok()" name="form" role="form">
-                <div class="modal-body" id="modal-body" ng-class="{ 'has-error': form.desc.$dirty && form.desc.$error.required }">
-                    <label>Topic</label>
-                    <input type="text" name="topic" class="form-control" id="topic" placeholder="topic" ng-model="ctrl.topic" required>
-                    <label>Brief Description</label>
-                    <textarea class="textarea" placeholder="Give a small description" name="desc" id="desc" ng-model="ctrl.desc" required style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
-                    <label>Embed Object (video/or link)</label>
-                    <textarea class="textarea" placeholder="Paste embed link here" name="emb" id="emb" ng-model="ctrl.emb"  style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
+            <div class="modal modal-primary">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h3 class="modal-title" id="modal-title">Add topic</h3>
+                        </div>
+                        <form ng-submit="ctrl.ok()" name="form" role="form">
+                            <div class="modal-body" id="modal-body" ng-class="{ 'has-error': form.desc.$dirty && form.desc.$error.required }">
+                                <label>Topic</label>
+                                <input type="text" name="topic" class="form-control" id="topic" placeholder="topic" ng-model="ctrl.topic" required>
+                                <label>Brief Description</label>
+                                <textarea class="textarea" placeholder="Give a small description" name="desc" id="desc" ng-model="ctrl.desc" required style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
+                                <label>Embed Object (video/or link)</label>
+                                <textarea class="textarea" placeholder="Paste embed link here" name="emb" id="emb" ng-model="ctrl.emb"  style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
+                            </div>
+                            <div class="modal-footer">
+                                <button class="btn btn-primary" type="button" ng-disabled="form.$invalid" ng-click="ctrl.ok()">Add</button>
+                                <button class="btn btn-warning" type="button" ng-click="ctrl.cancel()">Cancel</button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
-                <div class="modal-footer">
-                    <button class="btn btn-primary" type="button" ng-disabled="form.$invalid" ng-click="ctrl.ok()">Add</button>
-                    <button class="btn btn-warning" type="button" ng-click="ctrl.cancel()">Cancel</button>
-                </div>
-            </form>
+            </div>
         </div>
     </script>
     <div class="control-sidebar-bg"></div>
