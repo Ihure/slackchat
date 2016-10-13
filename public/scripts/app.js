@@ -72,7 +72,7 @@ angular
     });
 
 })
-.filter('trusturl',['$sce', function ($sce) {
+.filter('trusturls',['$sce', function ($sce) {
     return function (value) {
         return $sce.trustAsResourceUrl(value);
     };
