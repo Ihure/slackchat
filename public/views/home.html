@@ -149,9 +149,9 @@
         }else{
             $(".video-container").hide();
         }*/
-        $('.ifrm').each(function() {
+        $('iframe').each(function() {
             //var src = this.src.toLowerCase();
-            if ($(this).find("iframe").contents().find("body").length > 0) {
+            if ($(this).contents().find("body").contents().length > 0) {
                 $(this).show();
             } else {
                 $(this).hide();
