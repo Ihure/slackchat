@@ -46,11 +46,13 @@ angular.module('slackchatApp')
       },
       createtopic: function (topic,user,avator,name,desc,link) {
           var n = link.search("iframe");
-
+          var t = link.search("http");
           if(n >= 0){
               var status = 1;
-          }else{
+          }else if( t>= 0){
               status = 0;
+          }else {
+              status = 2;
           }
           var data ={
               topic:topic,
