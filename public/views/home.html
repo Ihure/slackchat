@@ -99,7 +99,7 @@
 
                 </div>
                 <div ng-show="topic.status == 0" class="video-container">
-                    <iframe src="{{topic.link | trusturls}}" frameborder="0"></iframe>
+                    <iframe class="ifrm" src="{{topic.link | trusturls}}" frameborder="0"></iframe>
                 </div>
                 <div class="attachment-block clearfix" ng-show="topic.status == 0">
                     <img class="attachment-img" src="images/apology.jpg" alt="sorry image">
@@ -149,9 +149,9 @@
         }else{
             $(".video-container").hide();
         }*/
-        $('.video-container').each(function() {
+        $('.ifrm').each(function() {
             //var src = this.src.toLowerCase();
-            if (this.find("iframe").contents().find("body").contents().length > 0) {
+            if ($(this).find("iframe").contents().find("body").length > 0) {
                 $(this).show();
             } else {
                 $(this).hide();
