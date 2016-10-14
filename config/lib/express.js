@@ -83,6 +83,9 @@ module.exports.initMiddleware = function (app) {
   app.use(bodyParser.json());
   app.use(methodOverride());
 
+  //prerender for meta data
+  app.use(require('prerender-node'));
+
   // Add the cookie parser and flash middleware
   app.use(cookieParser());
   app.use(flash());

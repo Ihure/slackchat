@@ -19,7 +19,8 @@ angular
     'ngSanitize',
     'ngTouch',
     'ngStorage',
-    'ui.bootstrap'
+    'ui.bootstrap',
+    'updateMeta'
   ])
   .config(function ($routeProvider) {
     $routeProvider
@@ -50,8 +51,6 @@ angular
       .otherwise({
         redirectTo: '/'
       });
-
-
        })
 .run(function ($rootScope, $location, $cookieStore, $http,$route,$sessionStorage) {
     /*// keep user logged in after page refresh

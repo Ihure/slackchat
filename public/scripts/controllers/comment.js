@@ -11,7 +11,7 @@
  * Controller of the slackchatApp
  */
 angular.module('slackchatApp')
-    .controller('CommentCtrl',['authenticationservice','users','$routeParams','$scope','$location','$sessionStorage', function (authenticationservice,users,$routeParams,$scope,$location,$sessionStorage) {
+    .controller('CommentCtrl',['authenticationservice','users','$routeParams','$scope','$location','$sessionStorage','$uibModal', function (authenticationservice,users,$routeParams,$scope,$location,$sessionStorage,$uibModal) {
         var ctrl = this;
 
        var id = $routeParams.id;
@@ -28,7 +28,19 @@ angular.module('slackchatApp')
             }, function(errorPayload) {
                 $scope.token = errorPayload.data;
             });
+        ctrl.animationsEnabled = true;
 
+        ctrl.open = function (size) {
+            var modalInstance = $uibModal.open({
+                animation: ctrl.animationsEnabled,
+                arialabelledBy: 'modal-title',
+                ariaDescribedBy: 'modal-body',
+                templateUrl: 'addtopictemplate.html',
+                controller:'createtopicCtrl',
+                controllerAs: 'ctrl',
+                size: size,
+            });
+        };
         ctrl.rep = function (parentid,level,slugabove,fullslug,slug) {
             if(level==0){
                 var text = ctrl.reply0;

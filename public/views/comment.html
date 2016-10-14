@@ -1,9 +1,11 @@
 <div class="wrapper" ng-controller="CommentCtrl as ctrl">
-    <meta property="og:title" content="{{topic.topic}}" />
-    <meta property="og:description" content="{{topic.description}}" />
-    <meta property="twitter:label1" content="Posted By:" />
-    <meta property="twitter:label2" content="{{topic.name}}" />
-    <meta property="twitter:data1" content="{{topic.created}}" />
+    <update-meta name="description" content="Frictionless, asynchronous conversations. For Slack"></update-meta>
+    <update-meta property="og:title" content="{{topic.topic}}" ></update-meta>
+    <update-meta property="og:description" content="{{topic.description}} " ></update-meta>
+    <update-meta property="og:url" content="http://www.flowtalk.io/" ></update-meta>
+    <update-meta property="twitter:label1" content="Posted by:" ></update-meta>
+    <update-meta property="twitter:label2" content="{{topic.name}}" ></update-meta>
+    <update-meta property="twitter:data1" content="{{topic.created}}" ></update-meta>
 
     <header class="main-header" >
         <!-- Logo -->
@@ -19,7 +21,11 @@
 
             <div class="navbar-custom-menu">
                 <ul class="nav navbar-nav">
-
+                    <li class="dropdown notifications-menu">
+                        <a ng-click="ctrl.open('sm')" class="dropdown-toggle" data-toggle="dropdown">
+                            <i class="fa fa-plus"></i>
+                        </a>
+                    </li>
                     <!-- User Account: style can be found in dropdown.less -->
                     <li class="dropdown user user-menu">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -106,7 +112,7 @@
                     <p><br/></p>
                     <p>{{topic.description}}</p>
                     <a ng-click="repsec0 = !repsec0">Reply</a>
-                    <form method="post" ng-submit="ctrl.rep()" name="form" role="form" ng-show="repsec0">
+                    <form method="post" ng-submit="ctrl.rep(topic._id,0,'','','')" name="form" role="form" ng-show="repsec0">
                         <img class="img-responsive img-circle img-sm" ng-src="{{avator}}" alt="alt text">
                         <!-- .img-push is used to add margin to elements next to floating images -->
                         <div class="input-group" >
@@ -128,7 +134,7 @@
                                 <header><a href="javascript:void(0);" class="userlink">{{comment.user}}</a> - <span class="pubdate" ng-bind="comment.date | date:'h:mm:ss - dd/MMM'"></span></header>
                                 <p>{{comment.body}}</p>
                                 <p><a href ng-click="repsec1 = !repsec1">Reply</a> <!--<a href ng-click="replies = !replies">Replies</a>--></p>
-                                <form ng-submit="ctrl.rep()" name="form" role="form" >
+                                <form ng-submit="ctrl.rep(comment._id,1,comment.full_slug,comment.full_slug,comment.slug)" name="form" role="form" >
                                     <div class="input-group input-group-sm" ng-show="repsec1">
                                         <input type="text" class="form-control"  placeholder="Reply" name="reply1" id="reply1" ng-model="ctrl.reply1" required>
                                         <span class="input-group-btn">
@@ -149,7 +155,7 @@
                                         <header><a href="javascript:void(0);" class="userlink">{{reply.user}}</a> - <span class="pubdate" ng-bind="reply.date | date:'h:mm:ss - dd/MMM'"></span></header>
                                         <p>{{reply.body}}</a></p>
                                         <p><a href ng-click="repsec2 = !repsec2">Reply</a><!-- <a href ng-click="replies = !replies">Replies</a>--></p>
-                                        <form ng-submit="ctrl.rep()" name="form" role="form">
+                                        <form ng-submit="ctrl.rep(comment._id,2,reply.full_slug,reply.full_slug,reply.slug)" name="form" role="form">
                                             <div class="input-group input-group-sm" ng-show="repsec2">
                                                 <input type="text" class="form-control"  placeholder="Reply" name="reply2" id="reply2" ng-model="ctrl.reply2" required>
                                                 <span class="input-group-btn">
@@ -166,7 +172,7 @@
                                                 <header><a href="javascript:void(0);" class="userlink">{{rep.user}}</a> - <span class="pubdate" ng-bind="rep.date | date:'h:mm:ss - dd/MMM'"></span></header>
                                                 <p>{{rep.body}}</p>
                                                 <p><a href ng-click="repsec3 = !repsec3">Reply</a><!-- <a href ng-click="replies = !replies">Replies</a>--></p>
-                                                <form ng-submit="ctrl.rep()" name="form" role="form">
+                                                <form ng-submit="ctrl.rep(comment._id,3,rep.full_slug,rep.full_slug,rep.slug)" name="form" role="form">
                                                     <div class="input-group input-group-sm" ng-show="repsec3">
                                                         <input type="text" class="form-control"  placeholder="Reply" name="reply3" id="reply3" ng-model="ctrl.reply3" required>
                                                         <span class="input-group-btn">
@@ -182,7 +188,7 @@
                                                         <header><a href="javascript:void(0);" class="userlink">{{frep.user}}</a> - <span class="pubdate" ng-bind="frep.date | date:'h:mm:ss - dd/MMM'"></span></header>
                                                         <p>{{frep.body}}</p>
                                                         <p><a href ng-click="repsec4 = !repsec4">Reply</a><!-- <a href ng-click="replies = !replies">Replies</a>--></p>
-                                                        <form ng-submit="ctrl.rep()" name="form" role="form">
+                                                        <form ng-submit="ctrl.rep(comment._id,4,frep.full_slug,frep.full_slug,frep.slug)" name="form" role="form">
                                                             <div class="input-group input-group-sm" ng-show="repsec4">
                                                                 <input type="text" class="form-control"  placeholder="Reply" name="reply4" id="reply4" ng-model="ctrl.reply4" required>
                                                                 <span class="input-group-btn">
@@ -234,6 +240,25 @@
                 }
             });
         });
+    </script>
+    <script type="text/ng-template" id="addtopictemplate.html">
+        <div class="md-content">
+            <h3 class="modal-title" id="modal-title">Add topic</h3>
+            <form ng-submit="ctrl.ok()" name="form" role="form">
+                <div class="modal-body" id="modal-body" ng-class="{ 'has-error': form.desc.$dirty && form.desc.$error.required }">
+                    <label>Topic</label>
+                    <input type="text" name="topic" class="form-control" id="topic" placeholder="topic" ng-model="ctrl.topic" required>
+                    <label>Brief Description</label>
+                    <textarea class="textarea" placeholder="Give a small description" name="desc" id="desc" ng-model="ctrl.desc" required style="font-size: 14px;border: 1px solid #dddddd; padding: 10px;"></textarea>
+                    <label>Embed Object (video/or link)</label>
+                    <textarea class="textarea" placeholder="Paste embed link here" name="emb" id="emb" ng-model="ctrl.emb"  style="font-size: 14px; border: 1px solid #dddddd; padding: 10px;"></textarea>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary" type="button" ng-disabled="form.$invalid" ng-click="ctrl.ok()">Add</button>
+                    <button class="btn btn-warning" type="button" ng-click="ctrl.cancel()">Cancel</button>
+                </div>
+            </form>
+        </div>
     </script>
     <div class="control-sidebar-bg"></div>
 </div>
