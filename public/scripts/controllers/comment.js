@@ -62,6 +62,7 @@ angular.module('slackchatApp')
                         var comments = authenticationservice.getdiscussion(id);
                         comments.then(function (responsec) {
                                 $scope.comments= responsec.data;
+                                $scope.repsec0 = false;
                             }, function (errorc) {
                                 $scope.token = errorc.data;
                             }
@@ -73,6 +74,8 @@ angular.module('slackchatApp')
                 $location.path('/newtopic');
             });
         };
+
+        
 
         $scope.fname = $sessionStorage.real_name;
         $scope.avator = $sessionStorage.avator;
