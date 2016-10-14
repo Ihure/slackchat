@@ -1,4 +1,10 @@
 <div class="wrapper" ng-controller="CommentCtrl as ctrl">
+    <meta property="og:title" content="{{topic.topic}}" />
+    <meta property="og:description" content="{{topic.description}}" />
+    <meta property="twitter:label1" content="Posted By:" />
+    <meta property="twitter:label2" content="{{topic.name}}" />
+    <meta property="twitter:data1" content="{{topic.created}}" />
+
     <header class="main-header" >
         <!-- Logo -->
         <a href="#/" class="logo">
@@ -99,7 +105,7 @@
                     </div><!-- /.attachment-block -->
                     <p><br/></p>
                     <p>{{topic.description}}</p>
-                    <a ng-click="repsec0 = !repsec0"><button class='btn btn-default btn-xs' ><i class='fa fa-comment-o'></i>Comment</button></a>
+                    <a ng-click="repsec0 = !repsec0">Reply</a>
                     <form method="post" ng-submit="ctrl.rep()" name="form" role="form" ng-show="repsec0">
                         <img class="img-responsive img-circle img-sm" ng-src="{{avator}}" alt="alt text">
                         <!-- .img-push is used to add margin to elements next to floating images -->
@@ -212,7 +218,23 @@
 
         </section><!-- /.content -->
     </div><!-- /.content-wrapper -->
-
+    <script type="application/javascript" >
+        /* if($(".video-container").find("iframe").contents().find("body").contents().length > 0){
+         $(".video-container").show();
+         }else{
+         $(".video-container").hide();
+         }*/
+        jQuery(document).ready(function () {
+            $("iframe").each(function () {
+                //var src = this.src.toLowerCase();
+                if ($(this).contents().find("body").contents().length >0) {
+                    $(this).show();
+                } else {
+                    $(this).hide();
+                }
+            });
+        });
+    </script>
     <div class="control-sidebar-bg"></div>
 </div>
 

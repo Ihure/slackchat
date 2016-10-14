@@ -1,4 +1,7 @@
 <div class="wrapper" ng-controller="DiscussCtrl as ctrl">
+    <meta property="og:title" content="Flowtalks topics" />
+    <meta property="og:description" content="Frictionless, asynchronous conversations. For Slack" />
+    <meta property="twitter:label1" content="Flow talks available topics" />
     <header class="main-header" >
         <!-- Logo -->
         <a href="/#" class="logo">
@@ -149,14 +152,16 @@
         }else{
             $(".video-container").hide();
         }*/
-        $('.ifrm').each(function() {
-            //var src = this.src.toLowerCase();
-            if ($(this).contents().find("body").length) {
-                $(this).show();
-            } else {
-                $(this).hide();
-            }
-        });
+       jQuery(document).ready(function () {
+           $("iframe").each(function () {
+               //var src = this.src.toLowerCase();
+               if ($(this).contents().find("body").contents().length >0) {
+                   $(this).show();
+               } else {
+                   $(this).hide();
+               }
+           });
+       });
     </script>
     <div class="control-sidebar-bg"></div>
 </div>
