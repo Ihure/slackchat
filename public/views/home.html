@@ -99,7 +99,7 @@
 
                 </div>
                 <div ng-show="topic.status == 0" class="video-container">
-                    <iframe ng-src="{{topic.link | trusturls}}" frameborder="0"></iframe>
+                    <iframe src="{{topic.link | trusturls}}" frameborder="0"></iframe>
                 </div>
                 <div class="attachment-block clearfix" ng-show="topic.status == 0">
                     <img class="attachment-img" src="images/apology.jpg" alt="sorry image">
