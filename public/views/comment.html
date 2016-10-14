@@ -112,10 +112,8 @@
                     <p><br/></p>
                     <p>{{topic.description}}</p>
                     <a ng-click="repsec0 = !repsec0">Reply</a>
-                    <form method="post" ng-submit="ctrl.rep(topic._id,0,'','','')" name="form" role="form" ng-show="repsec0">
-                        <img class="img-responsive img-circle img-sm" ng-src="{{avator}}" alt="alt text">
-                        <!-- .img-push is used to add margin to elements next to floating images -->
-                        <div class="input-group" >
+                    <form method="post" ng-submit="ctrl.rep(topic._id,0,'','','')" name="form" role="form" >
+                        <div class="input-group" ng-show="repsec0">
                             <input type="text" name="message" placeholder="Type Reply" class="form-control" name="reply0" id="reply0" ng-model="ctrl.reply0" required>
                             <span class="input-group-btn">
                         <button type="button" class="btn btn-danger btn-flat" ng-disabled="form.$invalid" ng-click="ctrl.rep(topic._id,0,'','','')">Send</button>
