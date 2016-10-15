@@ -41,34 +41,43 @@ angular.module('slackchatApp')
                     }, function (user_error) {
 
                     })
-
-                    $location.search('code', null);
-                    $location.search('state', null);
             }, function(errorPayload) {
                 $scope.token = errorPayload;
             });
+             $location.search('code', null);
+             $location.search('state', null);
 
         }
         else if(state == 'add' && $sessionStorage.real_name != null){
-            var code = $routeParams.code;
-            var promise = authenticationservice.authorize(code);
-            promise.then(function (response) {
-                $sessionStorage.authtoken = response.data.access_token;
-                $scope.token = $sessionStorage.token;
-                //$sessionStorage.userid = response.data.user_id;
-                var tname = response.data.team_name;
-                var tid = response.data.team_id;
-                var wurl = response.data.incoming_webhook.url;
-                var wchnl = response.data.incoming_webhook.channel;
-                var wcurl = response.data.incoming_webhook.configuration_url;
-                var bid = response.data.bot.bot_user_id;
-                var btkn = response.data.bot.bot_access_token;
-                var create = authenticationservice.createhook($sessionStorage.authtoken,tname,tid,wurl,wchnl,wcurl,bid,btkn);
-                create.then(function(success){
-                   Notification({message: 'flowtalk was successfully added'}, 'success');
+           var hook = authenticationservice.getahook($sessionStorage.team_id);
+            hook.then(function (thehook) {
+                if(thehook.data.length > 0){
+                    Notification({message: 'Flowtalk has already been added to your team'}, 'warning');
+                }else{
+                    var code = $routeParams.code;
+                    var promise = authenticationservice.authorize(code);
+                    promise.then(function (response) {
+                        $sessionStorage.authtoken = response.data.access_token;
+                        $scope.token = $sessionStorage.token;
+                        //$sessionStorage.userid = response.data.user_id;
+                        var tname = response.data.team_name;
+                        var tid = response.data.team_id;
+                        var wurl = response.data.incoming_webhook.url;
+                        var wchnl = response.data.incoming_webhook.channel;
+                        var wcurl = response.data.incoming_webhook.configuration_url;
+                        var bid = response.data.bot.bot_user_id;
+                        var btkn = response.data.bot.bot_access_token;
+                        var create = authenticationservice.createhook($sessionStorage.authtoken,tname,tid,wurl,wchnl,wcurl,bid,btkn);
+                        create.then(function(success){
+                            Notification({message: 'flowtalk was successfully added'}, 'success');
 
-                });
+                        });
+                    });
+                }
+            },function (hookerror) {
+                Notification({message: 'there was a problem fetching database'}, 'error');
             });
+
             $location.search('code', null);
             $location.search('state', null);
             $scope.fname = $sessionStorage.real_name;
