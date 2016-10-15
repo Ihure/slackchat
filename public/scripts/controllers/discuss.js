@@ -92,11 +92,13 @@ angular.module('slackchatApp')
             $location.path('/')
             $scope.error = error.data;
         });
-        var ctrl = this;
-        
-        ctrl.slackadd = function () {
 
-        }
+        var followedtopics = authenticationservice.getfollowedbyteam($sessionStorage.team_id);
+            followedtopics.then(function (topics) {
+                $scope.foltopics = topics.data;
+            });
+        var ctrl = this;
+
 
         ctrl.ok = function () {
             var promise = authenticationservice.createtopic(ctrl.topic, $sessionStorage.userid, $sessionStorage.avator);

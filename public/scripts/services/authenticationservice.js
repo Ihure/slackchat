@@ -123,6 +123,9 @@ angular.module('slackchatApp')
       getafollow: function (tmid,tpid) {
           return $http.get('/api/follow/'+tpid+'/'+tmid);
       },
+      getfollowedbyteam: function (tmid) {
+          return $http.get('/api/follows/'+tmid);
+      },
       getlimit: function () {
           return $http.get('/api/topic');
       },

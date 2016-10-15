@@ -284,6 +284,26 @@ exports.replyByID = function(req, res, next, id) {
         next();
     });
 };
+exports.flwByID = function(req, res, next, id) {
+
+  /*if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(400).send({
+      message: 'Slack is invalid'
+    });
+  }*/
+
+    Follows.find({team_id:id}).exec(function (err, slack) {
+        if (err) {
+            return next(err);
+        } else if (!slack) {
+            return res.status(404).send({
+                message: 'No reply with that identifier has been found'
+            });
+        }
+        req.slack = slack;
+        next();
+    });
+};
 
 exports.hookByID = function(req, res, next, id) {
 

@@ -56,16 +56,19 @@
             <!-- /.search form -->
             <!-- sidebar menu: : style can be found in sidebar.less -->
             <ul class="sidebar-menu" ng-controller="DiscussCtrl as ctrl" >
+                <li><a href="#/logout"><i class="fa fa-power-off text-danger"></i> logout</a></li>
                 <li class="header">Latest Topics</li>
                 <li ng-repeat="limtopic in limtopics">
                     <a href="#/comment?id={{limtopic._id}}">
                         <i class="fa fa-th"></i> <span>{{limtopic.topic}}</span>
                     </a>
                 </li>
-                <li class="header">LINKS</li>
+                <li class="header">Links</li>
+                <li><a href="#/topics"><i class="fa fa-circle-o text-aqua"></i> <span>All Topics</span></a></li>
+                <li class="header">Subscribed Topics</li>
                 <!--<li><a href="#"><i class="fa fa-circle-o text-red"></i> <span>Important</span></a></li>
                 <li><a href="#"><i class="fa fa-circle-o text-yellow"></i> <span>Warning</span></a></li>-->
-                <li><a href="#/topics"><i class="fa fa-circle-o text-aqua"></i> <span>All Topics</span></a></li>
+                <li ng-repeat="foltopic in foltopics"><a href="#/comment?id={{foltopic.topic_id}}"><i class="fa fa-circle-o text-yellow"></i> <span>{{foltopic.topic}}</span></a></li>
             </ul>
         </section>
         <!-- /.sidebar -->

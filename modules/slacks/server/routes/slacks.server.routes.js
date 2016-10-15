@@ -41,6 +41,9 @@ module.exports = function(app) {
   app.route('/api/follow/:topicId/:teamId').all()
     .get(slacks.read_follow);
 
+  app.route('/api/follows/:tmId').all()
+    .get(slacks.read_follow);
+
   app.route('/api/slacks/:slackId').all()
     .get(slacks.read)
     .put(slacks.update)
@@ -53,4 +56,5 @@ module.exports = function(app) {
   app.param('hookId', slacks.hookByID);
   app.param('topicId', slacks.followByID);
   app.param('teamId', slacks.followByID);
+  app.param('tmId', slacks.flwByID);
 };
