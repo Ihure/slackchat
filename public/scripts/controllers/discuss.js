@@ -37,6 +37,8 @@ angular.module('slackchatApp')
                         $sessionStorage.team_id = user_response.data.team.id;
                         $sessionStorage.team = user_response.data.team.name;
                         $sessionStorage.islogged = 1;
+                        $location.search('code', null);
+                        $location.search('state', null);
                     }, function (user_error) {
 
                     })
@@ -62,7 +64,13 @@ angular.module('slackchatApp')
                 var bid = response.data.bot.bot_user_id;
                 var btkn = response.data.bot.bot_access_token;
                 var create = authenticationservice.createhook($sessionStorage.authtoken,tname,tid,wurl,wchnl,wcurl,bid,btkn);
+                create.then(function(success){
+                   Notification({message: 'flowtalk was successfully added'}, 'success');
+
+                });
             });
+            $location.search('code', null);
+            $location.search('state', null);
             $scope.fname = $sessionStorage.real_name;
             $scope.avator = $sessionStorage.avator;
         }
