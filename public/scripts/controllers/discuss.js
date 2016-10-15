@@ -148,7 +148,7 @@ angular.module('slackchatApp')
                             var bid = success.data.bot_id;
                             var btkn = success.data.bot_token;
                             //$scope.ferror = 'b';
-                            if(weburl == null){
+                            if(weburl === null){
                                 Notification({message: 'Ask your team admin to add flowtalk to your team before you can follow a topic'}, 'error');
                             }else{
                                 var addfollow = authenticationservice.addfollow($sessionStorage.real_name,$sessionStorage.userid,topic,topicid,weburl,bid,btkn,$sessionStorage.team_id);
