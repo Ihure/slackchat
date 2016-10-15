@@ -37,13 +37,13 @@ angular.module('slackchatApp')
                         $sessionStorage.team_id = user_response.data.team.id;
                         $sessionStorage.team = user_response.data.team.name;
                         $sessionStorage.islogged = 1;
-                        $location.search('code', null);
-                        $location.search('state', null);
+                        
                     }, function (user_error) {
 
                     })
 
-
+                    $location.search('code', null);
+                    $location.search('state', null);
             }, function(errorPayload) {
                 $scope.token = errorPayload;
             });
