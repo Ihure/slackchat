@@ -117,7 +117,7 @@
                     <p><a href ng-click="repsec0 = !repsec0">Reply</a></p>
                     <form method="post" ng-submit="ctrl.rep(topic._id,0,'','','')" name="form" role="form" >
                         <div class="input-group" ng-hide="!repsec0">
-                            <input type="text" name="message" placeholder="Type Reply" class="form-control" name="reply0" id="reply0" ng-model="ctrl.reply0" required>
+                            <input type="text" name="message" placeholder="Type Reply" class="form-control" name="reply0" id="reply0" ng-model="ctrl.reply0" required autofocus>
                             <span class="input-group-btn">
                         <button type="button" class="btn btn-danger btn-flat" ng-disabled="form.$invalid" ng-click="ctrl.rep(topic._id,0,'','','')">Send</button>
                       </span>
@@ -137,7 +137,7 @@
                                 <p><a href ng-click="repsec1 = !repsec1">Reply</a> <!--<a href ng-click="replies = !replies">Replies</a>--></p>
                                 <form ng-submit="ctrl.rep(comment._id,1,comment.full_slug,comment.full_slug,comment.slug)" name="form" role="form" >
                                     <div class="input-group input-group-sm" ng-show="repsec1">
-                                        <input type="text" class="form-control"  placeholder="Reply" name="reply1" id="reply1" ng-model="ctrl.reply1" required>
+                                        <input type="text" class="form-control"  placeholder="Reply" name="reply1" id="reply1" ng-model="ctrl.reply1" required autofocus>
                                         <span class="input-group-btn">
                                           <button class="btn btn-info btn-flat" type="button" ng-disabled="form.$invalid" ng-click="ctrl.rep(comment._id,1,comment.full_slug,comment.full_slug,comment.slug)">Reply</button>
                                         </span>
@@ -158,7 +158,7 @@
                                         <p><a href ng-click="repsec2 = !repsec2">Reply</a><!-- <a href ng-click="replies = !replies">Replies</a>--></p>
                                         <form ng-submit="ctrl.rep(comment._id,2,reply.full_slug,reply.full_slug,reply.slug)" name="form" role="form">
                                             <div class="input-group input-group-sm" ng-show="repsec2">
-                                                <input type="text" class="form-control"  placeholder="Reply" name="reply2" id="reply2" ng-model="ctrl.reply2" required>
+                                                <input type="text" class="form-control"  placeholder="Reply" name="reply2" id="reply2" ng-model="ctrl.reply2" required autofocus>
                                                 <span class="input-group-btn">
                                                   <button class="btn btn-info btn-flat" type="button" ng-disabled="form.$invalid" ng-click="ctrl.rep(comment._id,2,reply.full_slug,reply.full_slug,reply.slug)">Reply</button>
                                                 </span>
@@ -175,7 +175,7 @@
                                                 <p><a href ng-click="repsec3 = !repsec3">Reply</a><!-- <a href ng-click="replies = !replies">Replies</a>--></p>
                                                 <form ng-submit="ctrl.rep(comment._id,3,rep.full_slug,rep.full_slug,rep.slug)" name="form" role="form">
                                                     <div class="input-group input-group-sm" ng-show="repsec3">
-                                                        <input type="text" class="form-control"  placeholder="Reply" name="reply3" id="reply3" ng-model="ctrl.reply3" required>
+                                                        <input type="text" class="form-control"  placeholder="Reply" name="reply3" id="reply3" ng-model="ctrl.reply3" required autofocus>
                                                         <span class="input-group-btn">
                                                   <button class="btn btn-info btn-flat" type="button" ng-disabled="form.$invalid" ng-click="ctrl.rep(comment._id,3,rep.full_slug,rep.full_slug,rep.slug)">Reply</button>
                                                 </span>
@@ -191,7 +191,7 @@
                                                         <p><a href ng-click="repsec4 = !repsec4">Reply</a><!-- <a href ng-click="replies = !replies">Replies</a>--></p>
                                                         <form ng-submit="ctrl.rep(comment._id,4,frep.full_slug,frep.full_slug,frep.slug)" name="form" role="form">
                                                             <div class="input-group input-group-sm" ng-show="repsec4">
-                                                                <input type="text" class="form-control"  placeholder="Reply" name="reply4" id="reply4" ng-model="ctrl.reply4" required>
+                                                                <input type="text" class="form-control"  placeholder="Reply" name="reply4" id="reply4" ng-model="ctrl.reply4" required autofocus>
                                                                 <span class="input-group-btn">
                                                                   <button class="btn btn-info btn-flat" type="button" ng-disabled="form.$invalid" ng-click="ctrl.rep(comment._id,4,frep.full_slug,frep.full_slug,frep.slug)">Reply</button>
                                                                 </span>

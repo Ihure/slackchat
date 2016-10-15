@@ -14,7 +14,7 @@ angular.module('slackchatApp')
     .controller('DiscussCtrl',['authenticationservice','users','$scope','$sessionStorage','$uibModal','$routeParams','$location','authentication','Notification', function (authenticationservice,users,$scope,$sessionStorage,$uibModal,$routeParams,$location,authentication,Notification) {
 
         var state = $routeParams.state;
-        if($sessionStorage.real_name == null || $sessionStorage.islogged == 'undefined' || $sessionStorage.islogged == 0 ){
+        if($sessionStorage.real_name == null ){
             var code = $routeParams.code;
             $sessionStorage.authorize = false;
             var promise = authenticationservice.authorize(code);
