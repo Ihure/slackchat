@@ -11,36 +11,64 @@
  * Controller of the slackchatApp
  */
 angular.module('slackchatApp')
-    .controller('DiscussCtrl',['authenticationservice','users','$scope','$sessionStorage','$uibModal','$routeParams','$location','authentication', function (authenticationservice,users,$scope,$sessionStorage,$uibModal,$routeParams,$location,authentication) {
-        var code = $routeParams.code;
-        if($sessionStorage.real_name == null){
+    .controller('DiscussCtrl',['authenticationservice','users','$scope','$sessionStorage','$uibModal','$routeParams','$location','authentication','Notification', function (authenticationservice,users,$scope,$sessionStorage,$uibModal,$routeParams,$location,authentication,Notification) {
+
+        var state = $routeParams.state;
+        if($sessionStorage.real_name == null || $sessionStorage.islogged == 'undefined' || $sessionStorage.islogged == 0 ){
+            var code = $routeParams.code;
+            $sessionStorage.authorize = false;
             var promise = authenticationservice.authorize(code);
             promise.then(function(response) {
-                //users.token = response.data.access_token;
+                var scope = response.data.scope;
                 $sessionStorage.token = response.data.access_token;
-                //$scope.token = response.data.access_token;
                 $scope.token = $sessionStorage.token;
-                //var user_id = response.data.user_id;
-                //users.userid = response.data.user_id;
                 $sessionStorage.userid = response.data.user_id;
-                var user = authenticationservice.getProfile($sessionStorage.token,$sessionStorage.userid);
-                user.then(function (user_response) {
-                    //users.real_name = user_response.data.profile.real_name;
-                    $sessionStorage.real_name = user_response.data.profile.real_name;
-                    $scope.fname = $sessionStorage.real_name;
-                    //users.avator = user_response.data.profile.image_24;
-                    $sessionStorage.avator = user_response.data.profile.image_24;
-                    $scope.avator = $sessionStorage.avator;
-                    authentication.islogged = true;
-                }, function (user_error) {
 
-                })
+                    var user = authenticationservice.getProfile($sessionStorage.token,$sessionStorage.userid);
+                    user.then(function (user_response) {
+                        //users.real_name = user_response.data.profile.real_name;
+                        $sessionStorage.real_name = user_response.data.user.name;
+                        $scope.fname = $sessionStorage.real_name;
+                        $scope.error = user_response.data.error;
+                        $scope.data = user_response.data;
+                        //users.avator = user_response.data.profile.image_24;
+                        $sessionStorage.avator = user_response.data.user.image_24;
+                        $scope.avator = $sessionStorage.avator;
+                        $sessionStorage.team_id = user_response.data.team.id;
+                        $sessionStorage.team = user_response.data.team.name;
+                        $sessionStorage.islogged = 1;
+                    }, function (user_error) {
+
+                    })
+
+
             }, function(errorPayload) {
                 $scope.token = errorPayload;
             });
 
         }
+        else if(state == 'add' && $sessionStorage.real_name != null){
+            var code = $routeParams.code;
+            var promise = authenticationservice.authorize(code);
+            promise.then(function (response) {
+                $sessionStorage.authtoken = response.data.access_token;
+                $scope.token = $sessionStorage.token;
+                //$sessionStorage.userid = response.data.user_id;
+                var tname = response.data.team_name;
+                var tid = response.data.team_id;
+                var wurl = response.data.incoming_webhook.url;
+                var wchnl = response.data.incoming_webhook.channel;
+                var wcurl = response.data.incoming_webhook.configuration_url;
+                var bid = response.data.bot.bot_user_id;
+                var btkn = response.data.bot.bot_access_token;
+                var create = authenticationservice.createhook($sessionStorage.authtoken,tname,tid,wurl,wchnl,wcurl,bid,btkn);
+            });
+            $scope.fname = $sessionStorage.real_name;
+            $scope.avator = $sessionStorage.avator;
+        }
         else{
+
+
             //$scope.fname = 'dunk';
             $scope.fname = $sessionStorage.real_name;
             $scope.avator = $sessionStorage.avator;
@@ -65,6 +93,10 @@ angular.module('slackchatApp')
             $scope.error = error.data;
         });
         var ctrl = this;
+        
+        ctrl.slackadd = function () {
+
+        }
 
         ctrl.ok = function () {
             var promise = authenticationservice.createtopic(ctrl.topic, $sessionStorage.userid, $sessionStorage.avator);
@@ -80,6 +112,58 @@ angular.module('slackchatApp')
             }, function(errorPayload) {
                 $location.path('/newtopic');
             });
+        };
+
+        ctrl.follow = function (topic,topicid) {
+            var getfollow = authenticationservice.getafollow($sessionStorage.team_id,topicid);
+            //var getfollow = authenticationservice.gettopic(topicid);
+                getfollow.then(function (success) {
+
+                    if(success.data.length > 0){
+                        Notification({message: 'This Topic has already been followed by a member of your team'}, 'warning');
+                    }else{
+                        var gethook = authenticationservice.getahook($sessionStorage.team_id);
+                        gethook.then(function (success) {
+
+                            var weburl = success.data.webhk_url;
+                            var bid = success.data.bot_id;
+                            var btkn = success.data.bot_token;
+                            //$scope.ferror = 'b';
+                            if(weburl == null){
+                                Notification({message: 'Ask your team admin to add flowtalk to your team before you can follow a topic'}, 'error');
+                            }else{
+                                var addfollow = authenticationservice.addfollow($sessionStorage.real_name,$sessionStorage.userid,topic,topicid,weburl,bid,btkn,$sessionStorage.team_id);
+                                Notification({message: 'This topic has been added to your team'}, 'success');
+                            }
+
+                        }, function (error) {
+                            Notification({message: 'Unable to add topic to your team'}, 'warning');
+                            //$scope.ferror = 'c';
+                        });
+                    };
+                   /* if (success.data.user){
+                        Notification({message: 'This Topic has already been followed by a member of your team'}, 'warning');
+                    }else{
+                        var gethook = authenticationservice.getahook($sessionStorage.team_id);
+                        gethook.then(function (success) {
+
+                            var weburl = success.data.webhk_url;
+                            var bid = success.data.bot_id;
+                            var btkn = success.data.bot_token;
+                            //$scope.ferror = 'b';
+                            var addfollow = authenticationservice.addfollow($sessionStorage.real_name,$sessionStorage.userid,topic,topicid,weburl,bid,btkn,$sessionStorage.team_id);
+                            Notification({message: 'This topic has been added to your team'}, 'success');
+                        }, function (error) {
+                            Notification({message: 'Unable to add topic to your team'}, 'warning');
+                            //$scope.ferror = 'c';
+                        });
+                    }*/
+                },function (errorgetfollow) {
+                    Notification({message: 'error getting team'}, 'warning');
+
+                }); 
+            
+
         };
 
         ctrl.animationsEnabled = true;

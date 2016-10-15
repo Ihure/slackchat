@@ -8,10 +8,6 @@
  * Controller of the slackchatApp
  */
 angular.module('slackchatApp')
-  .controller('MainCtrl', function () {
-    this.awesomeThings = [
-      'HTML5 Boilerplate',
-      'AngularJS',
-      'Karma'
-    ];
+  .controller('MainCtrl', function ($sessionStorage) {
+    $sessionStorage.islogged=0;
   });

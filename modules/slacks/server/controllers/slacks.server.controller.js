@@ -8,6 +8,8 @@ var path = require('path'),
   Slack = mongoose.model('Slack'),
   Comment = mongoose.model('Comments'),
   Reply = mongoose.model('Reply'),
+  WebHook = mongoose.model('WebHook'),
+  Follows = mongoose.model('Follows'),
   errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller')),
   _ = require('lodash');
 
@@ -32,14 +34,44 @@ exports.create = function(req, res) {
   });
 };
 /**
+* Create a Webhook
+*/
+
+exports.create_hook = function(req, res) {
+    var hook = new WebHook(req.body);
+
+    hook.save(function(err) {
+        if (err) {
+            return res.status(400).send({
+                message: errorHandler.getErrorMessage(err)
+            });
+        } else {
+            res.jsonp(hook);
+        }
+    });
+};
+/**
+* Add a Follow
+*/
+
+exports.create_follow = function(req, res) {
+    var follow = new Follows(req.body);
+
+    follow.save(function(err) {
+        if (err) {
+            return res.status(400).send({
+                message: errorHandler.getErrorMessage(err)
+            });
+        } else {
+            res.jsonp(follow);
+        }
+    });
+};
+/**
 * Create a Comment
 */
 exports.create_comment = function(req, res) {
     var comment = new Comment(req.body);
-    /*topic.user = req.user;
-     topic.createdby= req.body.createdby;
-     topic.topic= req.topic;
-     topic.avator= req.avator;*/
 
     comment.save(function(err) {
         if (err) {
@@ -89,6 +121,20 @@ exports.read_comment = function(req, res) {
  * read replies
  */
 exports.read_reply = function(req, res) {
+
+    res.jsonp(req.slack);
+};
+/**
+ * read hook
+ */
+exports.read_hook = function(req, res) {
+
+    res.jsonp(req.slack);
+};
+/**
+ * read a follow
+ */
+exports.read_follow = function(req, res) {
 
     res.jsonp(req.slack);
 };
@@ -146,10 +192,7 @@ exports.list = function(req, res) {
   });
 };
 /**
- * limit to 5
- */
-/**
- * List of Slacks
+ * List of Slacks limit to 6
  */
 exports.list_limit = function(req, res) {
     Slack.find().limit(6).sort('-created').populate('user', 'displayName').exec(function(err, slacks) {
@@ -241,3 +284,38 @@ exports.replyByID = function(req, res, next, id) {
         next();
     });
 };
+
+exports.hookByID = function(req, res, next, id) {
+
+        WebHook.find({team_id:id}).exec(function (err, slack) {
+            if (err) {
+                return next(err);
+            } else if (!slack) {
+                return res.status(404).send({
+                    message: 'No hook with that identifier has been found'
+                });
+            }
+            req.slack = slack;
+            next();
+        });
+
+
+};
+exports.followByID = function(req, res, next, id) {
+
+        //Follows.find({team_id:req.params.teamId,topic_id:req.params.topicId}).exec(function (err, slack) {
+        Follows.find({team_id:req.params.teamId,topic_id:req.params.topicId}).exec(function (err, slack) {
+            if (err) {
+                return next(err);
+            } else if (!slack) {
+                return res.status(404).send({
+                    message: 'No hook with that identifier has been found'
+                });
+            }
+            req.slack = slack;
+            next();
+        });
+
+
+};
+

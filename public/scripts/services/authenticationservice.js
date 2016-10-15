@@ -36,7 +36,7 @@ angular.module('slackchatApp')
         }
         return $http({
           method: "post",
-          url: "https://slack.com/api/users.profile.get",
+          url: "https://slack.com/api/users.identity",
           data: $.param(data),
           headers: {'Content-Type': 'application/x-www-form-urlencoded'}
         });
@@ -45,7 +45,7 @@ angular.module('slackchatApp')
         return $http.get('/api/slacks');
       },
       createtopic: function (topic,user,avator,name,desc,link) {
-          var n = link.search("iframe");
+          var n = link.search("<iframe");
           var t = link.search("http");
           if(n >= 0){
               var status = 1;
@@ -73,11 +73,55 @@ angular.module('slackchatApp')
               }
           });
       },
+    createhook: function (tkn,tnm,tid,wurl,wchnl,wcurl,bid,btkn) {
+
+     /* var data ={
+          topic:topic,
+          createdby:user,
+          avator:avator
+      }*/
+      return $http({
+          method: "post",
+          url: "/api/hook",
+          data: {
+              token:tkn,
+              team_name:tnm,
+              team_id:tid,
+              webhk_url:wurl,
+              webhk_channel:wchnl,
+              webhk_cnfgurl: wcurl,
+              bot_id: bid,
+              bot_token: btkn
+          }
+      });
+      },
+     addfollow: function (user,userid,topic,topicid,weburl,bid,btkn,tmid) {
+          return $http({
+              method: "post",
+              url: "/api/follow",
+              data: {
+                  user:user,
+                  user_id:userid,
+                  topic:topic,
+                  topic_id:topicid,
+                  webhk_url:weburl,
+                  bot_id: bid,
+                  bot_token: btkn,
+                  team_id: tmid
+              }
+          });
+      },
       listtopic: function () {
           return $http.get('/api/slacks');
       },
       gettopic: function (id) {
           return $http.get('/api/slacks/'+id);
+      },
+      getahook: function (id) {
+          return $http.get('/api/hook/'+id);
+      },
+      getafollow: function (tmid,tpid) {
+          return $http.get('/api/follow/'+tpid+'/'+tmid);
       },
       getlimit: function () {
           return $http.get('/api/topic');

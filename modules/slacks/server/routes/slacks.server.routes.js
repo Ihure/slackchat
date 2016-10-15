@@ -12,6 +12,12 @@ module.exports = function(app) {
     .get(slacks.list)
     .post(slacks.create);
 
+  app.route('/api/hook').all()
+    .post(slacks.create_hook);
+
+  app.route('/api/follow').all()
+    .post(slacks.create_follow);
+
   app.route('/api/topic').all()
     .get(slacks.list_limit);
 
@@ -29,6 +35,12 @@ module.exports = function(app) {
   app.route('/api/reply/:replyId').all()
     .get(slacks.read_reply);
 
+  app.route('/api/hook/:hookId').all()
+    .get(slacks.read_hook);
+
+  app.route('/api/follow/:topicId/:teamId').all()
+    .get(slacks.read_follow);
+
   app.route('/api/slacks/:slackId').all()
     .get(slacks.read)
     .put(slacks.update)
@@ -38,4 +50,7 @@ module.exports = function(app) {
   app.param('slackId', slacks.slackByID);
   app.param('commentId', slacks.commentByID);
   app.param('replyId', slacks.replyByID);
+  app.param('hookId', slacks.hookByID);
+  app.param('topicId', slacks.followByID);
+  app.param('teamId', slacks.followByID);
 };

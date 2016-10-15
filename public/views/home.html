@@ -14,7 +14,7 @@
     <update-meta property="twitter:data2" content="Awesome Discussion" ></update-meta>
     <header class="main-header" >
         <!-- Logo -->
-        <a href="/#" class="logo">
+        <a href="#/topics" class="logo">
             <!-- mini logo for sidebar mini 50x50 pixels -->
             <span class="logo-mini"><b>F</b>T</span>
             <!-- logo for regular state and mobile devices -->
@@ -24,8 +24,11 @@
         <nav class="navbar navbar-static-top" role="navigation">
             <!-- Sidebar toggle button-->
 
-            <div class="navbar-custom-menu">
+                <div class="navbar-custom-menu">
                 <ul class="nav navbar-nav">
+                    <li class="dropdown ">
+                        <a href="https://slack.com/oauth/authorize?scope=incoming-webhook,commands,bot&client_id=87012615811.87769233137&state=add"><img alt="Add to Slack" height="25"  src="https://platform.slack-edge.com/img/add_to_slack.png" srcset="https://platform.slack-edge.com/img/add_to_slack.png 1x, https://platform.slack-edge.com/img/add_to_slack@2x.png 2x" /></a>
+                    </li>
                     <li class="dropdown notifications-menu">
                         <a ng-click="ctrl.open('sm')" class="dropdown-toggle" data-toggle="dropdown">
                             <i class="fa fa-plus"></i>
@@ -61,6 +64,7 @@
             <!-- /.search form -->
             <!-- sidebar menu: : style can be found in sidebar.less -->
             <ul class="sidebar-menu" >
+                <li><a href="#/logout"><i class="fa fa-power-off text-success"></i> logout</a></li>
                 <li class="header">Latest Topics</li>
                 <li ng-repeat="limtopic in limtopics">
                     <a href="#/comment?id={{limtopic._id}}">
@@ -85,7 +89,10 @@
             <!--<a class="btn btn-app" ng-click="ctrl.open('sm')">
                 <i  class="fa fa-plus"></i>Add
             </a>-->
+            {{ferror}}
+            {{gerror}}
         </h1>
+
     </section>
 
     <!-- Main content -->
@@ -128,8 +135,10 @@
                 <form action="#/comment?id" name="form" role="form" style="margin-top: 10px">
                 <input type="hidden" placeholder="Comment" name="id" id="id" ng-model="ctrl.id" value="{{topic._id}}" style="width: 100%"/>
                 <!-- Social sharing buttons -->
-                <a ng-href="#/comment?id={{topic._id}}"><button class='btn btn-default btn-xs' ng-click="ctrl.comment(topic._id)" ><i class='fa fa-comment-o'></i> Join conversation</button></a>
-                    </form>
+                <a ng-href="#/comment?id={{topic._id}}"><button class='btn btn-default btn-xs'  ><i class='fa fa-comment-o'></i> Join conversation</button></a>
+                </form>
+                    <span class='pull-right text-muted'><button class="btn btn-social-icon btn-slack" ng-click="ctrl.follow(topic.topic,topic._id)"><i class="fa fa-slack"></i></button></span>
+
                 <!--<span class='pull-right text-muted'> 2 comments</span>-->
             </div><!-- /.box-body -->
         </div><!-- /.box -->
@@ -150,7 +159,7 @@
                         <textarea class="textarea" placeholder="Paste embed link here" name="emb" id="emb" ng-model="ctrl.emb"  style="font-size: 14px; border: 1px solid #dddddd; padding: 10px;"></textarea>
                     </div>
                     <div class="modal-footer">
-                        <button class="btn btn-primary" type="button" ng-disabled="form.$invalid" ng-click="ctrl.ok()">Add</button>
+                        <button class="btn btn-primary" type="button" ng-disabled="form.$invalid" ng-click="ctrl.add()">Add</button>
                         <button class="btn btn-warning" type="button" ng-click="ctrl.cancel()">Cancel</button>
                     </div>
                 </form>

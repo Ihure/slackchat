@@ -46,7 +46,89 @@ var SlackSchema = new Schema({
   description:{
       type: String,
       default:''
+  },
+  team:{
+      type: String,
+      default:''
   }
+});
+
+var WebHooksSchema = new Schema({
+    token: {
+        type: String,
+        default: ''
+    },
+    date: {
+        type:Date,
+        default: Date.now
+    },
+    team_name:{
+        type: String,
+        default: ''
+    },
+    team_id: {
+        type: String,
+        default: ''
+    },
+    webhk_url: {
+        type: String,
+        default: ''
+    },
+    webhk_channel: {
+        type: String,
+        default: ''
+    },
+    webhk_cnfgurl: {
+        type: String,
+        default: ''
+    },
+    bot_id: {
+        type: String,
+        default: ''
+    },
+    bot_token: {
+        type: String,
+        default: ''
+    }
+});
+
+var FollowsSchema = new Schema({
+    user: {
+        type: String,
+        default: ''
+    },
+    date: {
+        type:Date,
+        default: Date.now
+    },
+    user_id:{
+        type: String,
+        default: ''
+    },
+    topic: {
+        type: String,
+        default: ''
+    },
+    topic_id: {
+        type: String,
+        default: ''
+    },
+    webhk_url: {
+        type: String,
+        default: ''
+    },
+    bot_id: {
+        type: String,
+        default: ''
+    },
+    bot_token: {
+        type: String,
+        default: ''
+    },
+    team_id: {
+        type: String,
+        default: ''
+    }
 });
 
 var CommentSchema = new Schema({
@@ -87,3 +169,5 @@ var ReplySchema = new Schema({
 mongoose.model('Slack', SlackSchema);
 mongoose.model('Comments', CommentSchema);
 mongoose.model('Reply', ReplySchema);
+mongoose.model('WebHook', WebHooksSchema);
+mongoose.model('Follows', FollowsSchema);

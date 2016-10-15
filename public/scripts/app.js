@@ -20,9 +20,10 @@ angular
     'ngTouch',
     'ngStorage',
     'ui.bootstrap',
-    'updateMeta'
+    'updateMeta',
+    'ui-notification'
   ])
-  .config(function ($routeProvider) {
+  .config(function ($routeProvider,NotificationProvider) {
     $routeProvider
       .when('/', {
         title:'Authorize',
@@ -51,7 +52,17 @@ angular
       .otherwise({
         redirectTo: '/'
       });
-       })
+      NotificationProvider
+        .setOptions({
+          delay: 10000,
+          startTop: 20,
+          startRight: 10,
+          verticalSpacing: 20,
+          horizontalSpacing: 20,
+          positionX: 'left',
+          positionY: 'bottom'
+      });
+  })
 .run(function ($rootScope, $location, $cookieStore, $http,$route,$sessionStorage) {
     /*// keep user logged in after page refresh
     $rootScope.globals = $cookieStore.get('globals') || {};
