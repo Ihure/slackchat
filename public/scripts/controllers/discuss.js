@@ -14,7 +14,7 @@ angular.module('slackchatApp')
     .controller('DiscussCtrl',['authenticationservice','users','$scope','$sessionStorage','$uibModal','$routeParams','$location','authentication','Notification', function (authenticationservice,users,$scope,$sessionStorage,$uibModal,$routeParams,$location,authentication,Notification) {
 
         var state = $routeParams.state;
-        if($sessionStorage.authorize == false || $sessionStorage.authorize == undefined ){
+        if($sessionStorage.real_name == null){
             var code = $routeParams.code;
             $sessionStorage.fcode = code;
             $sessionStorage.authorize = true;
@@ -50,6 +50,7 @@ angular.module('slackchatApp')
 
         }
         else if(state == 'add'){
+            Notification({message: 'adding flowtalk to your team'}, 'success');
            var hook = authenticationservice.getahook($sessionStorage.team_id);
             hook.then(function (thehook) {
                 if(thehook.data.webhk_url == undefined){
@@ -86,7 +87,7 @@ angular.module('slackchatApp')
             $scope.avator = $sessionStorage.avator;
         }
         else{
-
+            Notification({message: 'welcome to flowtalk'}, 'success');
 
             //$scope.fname = 'dunk';
             $scope.fname = $sessionStorage.real_name;
