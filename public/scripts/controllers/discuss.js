@@ -52,7 +52,7 @@ angular.module('slackchatApp')
         else if(state == 'add' && $sessionStorage.authorize == true){
            var hook = authenticationservice.getahook($sessionStorage.team_id);
             hook.then(function (thehook) {
-                if(thehook.data == undefined){
+                if(thehook.data.webhk_url == undefined){
                     var code = $routeParams.code;
                     $sessionStorage.scode = code;
                     var promise = authenticationservice.authorize($sessionStorage.scode);
@@ -140,7 +140,7 @@ angular.module('slackchatApp')
             //var getfollow = authenticationservice.gettopic(topicid);
                 getfollow.then(function (success) {
 
-                    if(success.data == undefined){
+                    if(success.data.topic == undefined){
                         var gethook = authenticationservice.getahook($sessionStorage.team_id);
                         gethook.then(function (success) {
 
