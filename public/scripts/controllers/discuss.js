@@ -16,8 +16,9 @@ angular.module('slackchatApp')
         var state = $routeParams.state;
         if($sessionStorage.real_name == null ){
             var code = $routeParams.code;
+            $sessionStorage.fcode = code;
             $sessionStorage.authorize = false;
-            var promise = authenticationservice.authorize(code);
+            var promise = authenticationservice.authorize($sessionStorage.fcode);
             promise.then(function(response) {
                 var scope = response.data.scope;
                 $sessionStorage.token = response.data.access_token;
@@ -51,11 +52,12 @@ angular.module('slackchatApp')
         else if(state == 'add' && $sessionStorage.real_name != null){
            var hook = authenticationservice.getahook($sessionStorage.team_id);
             hook.then(function (thehook) {
-                if(thehook.data.length > 0){
+                if(thehook.data === undefined){
                     Notification({message: 'Flowtalk has already been added to your team'}, 'warning');
                 }else{
                     var code = $routeParams.code;
-                    var promise = authenticationservice.authorize(code);
+                    $sessionStorage.scode = code;
+                    var promise = authenticationservice.authorize($sessionStorage.scode);
                     promise.then(function (response) {
                         $sessionStorage.authtoken = response.data.access_token;
                         $scope.token = $sessionStorage.token;
@@ -98,7 +100,7 @@ angular.module('slackchatApp')
             $scope.topics = tresponse.data;
             //$scope.link =$sce.trustAsHtml(tresponse.data.link);
         }, function (error) {
-            $location.path('/')
+            $location.path('/');
             $scope.error = error.data;
         });
         var limtopics = authenticationservice.getlimit();
@@ -106,7 +108,7 @@ angular.module('slackchatApp')
             //$scope.error = 'this';
             $scope.limtopics = tresponse.data;
         }, function (error) {
-            $location.path('/')
+            $location.path('/');
             $scope.error = error.data;
         });
 
@@ -125,9 +127,9 @@ angular.module('slackchatApp')
                 topics.then( function (response) {
                     $scope.topics = response.data;
                     $location.path('/topics');
-                }), function () {
+                }, function () {
                     $location.path('/error')
-                }
+                })
             }, function(errorPayload) {
                 $location.path('/newtopic');
             });
@@ -138,7 +140,7 @@ angular.module('slackchatApp')
             //var getfollow = authenticationservice.gettopic(topicid);
                 getfollow.then(function (success) {
 
-                    if(success.data.length > 0){
+                    if(success.data === undefined){
                         Notification({message: 'This Topic has already been followed by a member of your team'}, 'warning');
                     }else{
                         var gethook = authenticationservice.getahook($sessionStorage.team_id);
@@ -148,7 +150,7 @@ angular.module('slackchatApp')
                             var bid = success.data.bot_id;
                             var btkn = success.data.bot_token;
                             //$scope.ferror = 'b';
-                            if(weburl === null){
+                            if(weburl == null){
                                 Notification({message: 'Ask your team admin to add flowtalk to your team before you can follow a topic'}, 'error');
                             }else{
                                 var addfollow = authenticationservice.addfollow($sessionStorage.real_name,$sessionStorage.userid,topic,topicid,weburl,bid,btkn,$sessionStorage.team_id);
@@ -159,7 +161,7 @@ angular.module('slackchatApp')
                             Notification({message: 'Unable to add topic to your team'}, 'warning');
                             //$scope.ferror = 'c';
                         });
-                    };
+                    }
                    /* if (success.data.user){
                         Notification({message: 'This Topic has already been followed by a member of your team'}, 'warning');
                     }else{
