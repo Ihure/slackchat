@@ -14,10 +14,10 @@ angular.module('slackchatApp')
     .controller('DiscussCtrl',['authenticationservice','users','$scope','$sessionStorage','$uibModal','$routeParams','$location','authentication','Notification', function (authenticationservice,users,$scope,$sessionStorage,$uibModal,$routeParams,$location,authentication,Notification) {
 
         var state = $routeParams.state;
-        if($sessionStorage.real_name == null ){
+        if($sessionStorage.authorize == false ){
             var code = $routeParams.code;
             $sessionStorage.fcode = code;
-            $sessionStorage.authorize = false;
+            $sessionStorage.authorize = true;
             var promise = authenticationservice.authorize($sessionStorage.fcode);
             promise.then(function(response) {
                 var scope = response.data.scope;
@@ -49,12 +49,10 @@ angular.module('slackchatApp')
              $location.search('state', null);
 
         }
-        else if(state == 'add' && $sessionStorage.real_name != null){
+        else if(state == 'add' && $sessionStorage.authorize == true){
            var hook = authenticationservice.getahook($sessionStorage.team_id);
             hook.then(function (thehook) {
-                if(thehook.data === undefined){
-                    Notification({message: 'Flowtalk has already been added to your team'}, 'warning');
-                }else{
+                if(thehook.data == undefined){
                     var code = $routeParams.code;
                     $sessionStorage.scode = code;
                     var promise = authenticationservice.authorize($sessionStorage.scode);
@@ -75,6 +73,8 @@ angular.module('slackchatApp')
 
                         });
                     });
+                }else{
+                    Notification({message: 'Flowtalk has already been added to your team'}, 'warning');
                 }
             },function (hookerror) {
                 Notification({message: 'there was a problem fetching database'}, 'error');
@@ -140,9 +140,7 @@ angular.module('slackchatApp')
             //var getfollow = authenticationservice.gettopic(topicid);
                 getfollow.then(function (success) {
 
-                    if(success.data === undefined){
-                        Notification({message: 'This Topic has already been followed by a member of your team'}, 'warning');
-                    }else{
+                    if(success.data == undefined){
                         var gethook = authenticationservice.getahook($sessionStorage.team_id);
                         gethook.then(function (success) {
 
@@ -161,6 +159,10 @@ angular.module('slackchatApp')
                             Notification({message: 'Unable to add topic to your team'}, 'warning');
                             //$scope.ferror = 'c';
                         });
+                    }else{
+
+
+                        Notification({message: 'This Topic has already been followed by a member of your team'}, 'warning');
                     }
                    /* if (success.data.user){
                         Notification({message: 'This Topic has already been followed by a member of your team'}, 'warning');
