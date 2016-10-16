@@ -307,7 +307,7 @@ exports.flwByID = function(req, res, next, id) {
 
 exports.hookByID = function(req, res, next, id) {
 
-        WebHook.find({team_id:id}).exec(function (err, slack) {
+        WebHook.findOne({team_id:id}).select('bot_token webhk_url webhk_channel bot_id team_id').exec(function (err, slack) {
             if (err) {
                 return next(err);
             } else if (!slack) {

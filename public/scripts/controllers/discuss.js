@@ -11,11 +11,15 @@
  * Controller of the slackchatApp
  */
 angular.module('slackchatApp')
-    .controller('DiscussCtrl',['authenticationservice','users','$scope','$sessionStorage','$uibModal','$routeParams','$location','authentication','Notification', function (authenticationservice,users,$scope,$sessionStorage,$uibModal,$routeParams,$location,authentication,Notification) {
+    .controller('DiscussCtrl',['authenticationservice','users','$scope','$sessionStorage','$uibModal','$routeParams','$location','authentication','Notification','$route', function (authenticationservice,users,$scope,$sessionStorage,$uibModal,$routeParams,$location,authentication,Notification,$route) {
 
         var state = $routeParams.state;
+        var code = $routeParams.code;
+        /*var hook = authenticationservice.getahook($sessionStorage.team_id);
+            hook.then(function (hook) {
+                $scope.hkdata = hook.data.webhk_url;
+            });*/
         if($sessionStorage.real_name == null){
-            var code = $routeParams.code;
             $sessionStorage.fcode = code;
             $sessionStorage.authorize = true;
             var promise = authenticationservice.authorize($sessionStorage.fcode);
@@ -50,14 +54,17 @@ angular.module('slackchatApp')
 
         }
         else if(state == 'add'){
-            Notification({message: 'adding flowtalk to your team'}, 'success');
-           var hook = authenticationservice.getahook($sessionStorage.team_id);
-            hook.then(function (thehook) {
+
+           var dhook = authenticationservice.getahook($sessionStorage.team_id);
+            dhook.then(function (thehook) {
+                //Notification({message: 'testing hook'+thehook.data.webhk_url}, 'success');
                 if(thehook.data.webhk_url == undefined){
-                    var code = $routeParams.code;
+
                     $sessionStorage.scode = code;
                     var promise = authenticationservice.authorize($sessionStorage.scode);
                     promise.then(function (response) {
+                        //Notification({message: 'adding flowtalk to your team'+response.data.incoming_webhook.url}, 'success');
+                        $scope.data = response.data;
                         $sessionStorage.authtoken = response.data.access_token;
                         $scope.token = $sessionStorage.token;
                         //$sessionStorage.userid = response.data.user_id;
@@ -87,7 +94,7 @@ angular.module('slackchatApp')
             $scope.avator = $sessionStorage.avator;
         }
         else{
-            Notification({message: 'welcome to flowtalk'}, 'success');
+           // Notification({message: 'welcome to flowtalk'}, 'success');
 
             //$scope.fname = 'dunk';
             $scope.fname = $sessionStorage.real_name;
@@ -141,7 +148,7 @@ angular.module('slackchatApp')
             //var getfollow = authenticationservice.gettopic(topicid);
                 getfollow.then(function (success) {
 
-                    if(success.data.topic == undefined){
+                    if(success.data.length == 0){
                         var gethook = authenticationservice.getahook($sessionStorage.team_id);
                         gethook.then(function (success) {
 
@@ -185,9 +192,9 @@ angular.module('slackchatApp')
                 },function (errorgetfollow) {
                     Notification({message: 'error getting team'}, 'warning');
 
-                }); 
-            
+                });
 
+            $route.reload();
         };
 
         ctrl.animationsEnabled = true;
