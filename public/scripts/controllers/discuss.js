@@ -49,7 +49,7 @@ angular.module('slackchatApp')
              $location.search('state', null);
 
         }
-        else if(state == 'add' && $sessionStorage.authorize == true){
+        else if(state == 'add'){
            var hook = authenticationservice.getahook($sessionStorage.team_id);
             hook.then(function (thehook) {
                 if(thehook.data.webhk_url == undefined){
