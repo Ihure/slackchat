@@ -55,10 +55,10 @@ angular.module('slackchatApp')
         }
         else if(state == 'add'){
 
-          /* var dhook = authenticationservice.getahook($sessionStorage.team_id);
+           var dhook = authenticationservice.getahook($sessionStorage.team_id);
             dhook.then(function (thehook) {
                 //Notification({message: 'testing hook'+thehook.data.webhk_url}, 'success');
-                if(thehook.data.webhk_url == undefined){*/
+                if(thehook.data.webhk_url == undefined){
 
                     $sessionStorage.scode = code;
                     var promise = authenticationservice.authorize($sessionStorage.scode);
@@ -81,12 +81,12 @@ angular.module('slackchatApp')
 
                         });
                     });
-               /* }else{
+                }else{
                     Notification({message: 'Flowtalk has already been added to your team'}, 'warning');
                 }
             },function (hookerror) {
                 Notification({message: 'there was a problem fetching database'}, 'error');
-            });*/
+            });
 
             $location.search('code', null);
             $location.search('state', null);
