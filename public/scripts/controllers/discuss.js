@@ -148,7 +148,7 @@ angular.module('slackchatApp')
             //var getfollow = authenticationservice.gettopic(topicid);
                 getfollow.then(function (success) {
 
-                    if(success.data.length == 0){
+                    if(success.data.topic_id == undefined){
                         var gethook = authenticationservice.getahook($sessionStorage.team_id);
                         gethook.then(function (success) {
 

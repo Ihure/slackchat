@@ -324,7 +324,7 @@ exports.hookByID = function(req, res, next, id) {
 exports.followByID = function(req, res, next, id) {
 
         //Follows.find({team_id:req.params.teamId,topic_id:req.params.topicId}).exec(function (err, slack) {
-        Follows.find({team_id:req.params.teamId,topic_id:req.params.topicId}).exec(function (err, slack) {
+        Follows.findOne({topic_id:req.params.topicId,team_id:req.params.teamId}).exec(function (err, slack) {
             if (err) {
                 return next(err);
             } else if (!slack) {
