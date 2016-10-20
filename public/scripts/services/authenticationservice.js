@@ -111,8 +111,8 @@ angular.module('slackchatApp')
               }
           });
       },
-      listtopic: function () {
-          return $http.get('/api/slacks');
+      listtopic: function (userid) {
+          return $http.get('/api/topics/'+userid);
       },
       gettopic: function (id) {
           return $http.get('/api/slacks/'+id);

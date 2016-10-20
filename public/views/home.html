@@ -23,6 +23,12 @@
         <!-- Header Navbar: style can be found in header.less -->
         <nav class="navbar navbar-static-top" role="navigation">
             <!-- Sidebar toggle button-->
+            <a href  class="sidebar-toggle" data-toggle="offcanvas" role="button">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </a>
 
                 <div class="navbar-custom-menu">
                 <ul class="nav navbar-nav">
@@ -47,7 +53,7 @@
         </nav>
     </header>
     <!-- Left side column. contains the logo and sidebar -->
-    <aside class="main-sidebar">
+    <aside class="main-sidebar" >
         <!-- sidebar: style can be found in sidebar.less -->
         <section class="sidebar">
             <!-- Sidebar user panel -->
@@ -64,19 +70,19 @@
             <!-- /.search form -->
             <!-- sidebar menu: : style can be found in sidebar.less -->
             <ul class="sidebar-menu" >
-                <li><a href="#/logout"><i class="fa fa-power-off text-danger"></i> logout</a></li>
-                <li class="header">Latest Topics</li>
+                <!--<li><a href="#/logout"><i class="fa fa-power-off text-danger"></i> logout</a></li>-->
+                <li class="header">My Topics</li>
                 <li ng-repeat="limtopic in limtopics">
                     <a href="#/comment?id={{limtopic._id}}">
                         <i class="fa fa-th"></i> <span>{{limtopic.topic}}</span>
                     </a>
                 </li>
-                <li class="header">Topics</li>
+                <!--<li class="header">Topics</li>
                 <li><a href="#/topics"><i class="fa fa-circle-o text-aqua"></i> <span>All Topics</span></a></li>
                 <li class="header">Subscribed Topics</li>
                 <!--<li><a href="#"><i class="fa fa-circle-o text-red"></i> <span>Important</span></a></li>
-                <li><a href="#"><i class="fa fa-circle-o text-yellow"></i> <span>Warning</span></a></li>-->
-                <li ng-repeat="foltopic in foltopics"><a href="#/comment?id={{foltopic.topic_id}}"><i class="fa fa-circle-o text-yellow"></i> <span>{{foltopic.topic}}</span></a></li>
+                <li><a href="#"><i class="fa fa-circle-o text-yellow"></i> <span>Warning</span></a></li>--
+                <li ng-repeat="foltopic in foltopics"><a href="#/comment?id={{foltopic.topic_id}}"><i class="fa fa-circle-o text-yellow"></i> <span>{{foltopic.topic}}</span></a></li>-->
             </ul>
         </section>
         <!-- /.sidebar -->
@@ -86,7 +92,7 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
         <h1>
-            Topics for Discussion
+            My topics
             <small>it all starts here</small>
             <!--<a class="btn btn-app" ng-click="ctrl.open('sm')">
                 <i  class="fa fa-plus"></i>Add

@@ -244,6 +244,27 @@ exports.slackByID = function(req, res, next, id) {
   });
 };
 
+exports.topicByID = function(req, res, next, id) {
+
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(400).send({
+      message: 'Slack is invalid'
+    });
+  }
+
+  Slack.find({createdby:req.params.userId}).exec(function (err, slack) {
+    if (err) {
+      return next(err);
+    } else if (!slack) {
+      return res.status(404).send({
+        message: 'No Slack with that identifier has been found'
+      });
+    }
+    req.slack = slack;
+    next();
+  });
+};
+
 exports.commentByID = function(req, res, next, id) {
 
   /*if (!mongoose.Types.ObjectId.isValid(id)) {
