@@ -44,14 +44,14 @@ angular.module('slackchatApp')
                 size: size,
             });
         };
-        ctrl.rep = function (parentid,level,slugabove,fullslug,slug) {
+        ctrl.rep = function (id,parentid,level,slugabove,fullslug,slug) {
             if($sessionStorage.userid == null || $sessionStorage== undefined){
                 var modalInstance = $uibModal.open({
                     animation: ctrl.animationsEnabled,
                     arialabelledBy: 'modal-title2',
                     ariaDescribedBy: 'modal-body2',
-                    templateUrl: 'signin.html',
-                    size: size,
+                    templateUrl: 'signin2.html',
+                    size: 'sm',
                 });
             }else {
 
@@ -70,7 +70,7 @@ angular.module('slackchatApp')
                 }
                 var promise = authenticationservice.postcomments(id, text, $sessionStorage.real_name, $sessionStorage.avator, parentid, level, slugabove, fullslug, slug);
                 promise.then(function (response) {
-                    var promise = authenticationservice.gettopic(id);
+                    var promise = authenticationservice.gettopic(tname,ctopic);
                     promise.then(function (response) {
                         $scope.topic = response.data;
                         var comments = authenticationservice.getdiscussion(id);

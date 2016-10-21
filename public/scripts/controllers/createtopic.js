@@ -20,7 +20,7 @@ angular.module('slackchatApp')
           var teamnames = $sessionStorage.team;
           var teamname = teamnames.replace(/([~!@#$%^&*()_+=`{}\[\]\|\\:;'<>,.\/? ])+/g, '_').replace(/^(_)+|(_)+$/g,'');
           var condtopic = ctrl.topic.replace(/([~!@#$%^&*()_+=`{}\[\]\|\\:;'<>,.\/? ])+/g, '_').replace(/^(_)+|(_)+$/g,'');
-          var url = $location.protocol()+'://'+location.host+'/#/'+teamname+'/'+condtopic;
+          var url = $location.protocol()+'://'+location.host+'/#/comments/'+teamname+'/'+condtopic;
           var encoded = encodeURI(url);
           var create = authenticationservice.createtopic(ctrl.topic, $sessionStorage.userid, $sessionStorage.avator, $sessionStorage.real_name,ctrl.desc,emb,teamname,condtopic,url,encoded);
           create.then(function(response) {

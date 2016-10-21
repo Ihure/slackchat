@@ -24,7 +24,7 @@ angular
     'ui-notification',
     'ngclipboard'
   ])
-  .config(function ($routeProvider,NotificationProvider) {
+  .config(function ($routeProvider,NotificationProvider,$locationProvider) {
     $routeProvider
       .when('/', {
         title:'Authorize',
@@ -69,6 +69,7 @@ angular
           positionX: 'left',
           positionY: 'bottom'
       });
+      //$locationProvider.hashPrefix('!');
   })
 .run(function ($rootScope,$route) {
     $rootScope.$on('$routeChangeSuccess', function() {
@@ -87,7 +88,16 @@ angular
     };
 
 }])
-
+.directive('showFocus', function($timeout) {
+    return function(scope, element, attrs) {
+        scope.$watch(attrs.showFocus,
+            function (newValue) {
+                $timeout(function() {
+                    newValue && element.focus();
+                });
+            },true);
+    };
+})
 
  .value('users', {
 
