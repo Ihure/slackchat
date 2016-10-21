@@ -44,7 +44,7 @@ angular.module('slackchatApp')
       testapi: function (token,user) {
         return $http.get('/api/slacks');
       },
-      createtopic: function (topic,user,avator,name,desc,link) {
+      createtopic: function (topic,user,avator,name,desc,link,tname,ctopic,url) {
           var n = link.search("<iframe");
           var t = link.search("http");
           if(n >= 0){
@@ -69,11 +69,14 @@ angular.module('slackchatApp')
                   name:name,
                   description:desc,
                   link: link,
-                  status: status
+                  status: status,
+                  cond_tname:tname,
+                  cond_topic:ctopic,
+                  url:url
               }
           });
       },
-    createhook: function (tkn,tnm,tid,wurl,wchnl,wcurl,bid,btkn) {
+    createhook: function (tkn,tnm,tid,wurl,wchnl,wcurl,bid,btkn,enc) {
 
      /* var data ={
           topic:topic,
@@ -91,7 +94,8 @@ angular.module('slackchatApp')
               webhk_channel:wchnl,
               webhk_cnfgurl: wcurl,
               bot_id: bid,
-              bot_token: btkn
+              bot_token: btkn,
+              encoded:enc
           }
       });
       },
@@ -114,8 +118,8 @@ angular.module('slackchatApp')
       listtopic: function (userid) {
           return $http.get('/api/topics/'+userid);
       },
-      gettopic: function (id) {
-          return $http.get('/api/slacks/'+id);
+      gettopic: function (tname,ctopic) {
+          return $http.get('/api/slack/'+tname+'/'+ctopic);
       },
       getahook: function (id) {
           return $http.get('/api/hook/'+id);

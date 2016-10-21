@@ -15,10 +15,7 @@ angular.module('slackchatApp')
 
         var state = $routeParams.state;
         var code = $routeParams.code;
-        /*var hook = authenticationservice.getahook($sessionStorage.team_id);
-            hook.then(function (hook) {
-                $scope.hkdata = hook.data.webhk_url;
-            });*/
+
         if(state == 'signin'){
             $sessionStorage.fcode = code;
             //$sessionStorage.authorize = true;
@@ -33,6 +30,7 @@ angular.module('slackchatApp')
                     user.then(function (user_response) {
                         //users.real_name = user_response.data.profile.real_name;
                         $sessionStorage.real_name = user_response.data.user.name;
+                        $sessionStorage.userid = user_response.data.user.id;
                         $scope.fname = $sessionStorage.real_name;
                         $scope.error = user_response.data.error;
                         $scope.data = user_response.data;
@@ -54,40 +52,48 @@ angular.module('slackchatApp')
 
         }
         else if(state == 'add'){
-/*
-           var dhook = authenticationservice.getahook($sessionStorage.team_id);
-            dhook.then(function (thehook) {
-                //Notification({message: 'testing hook'+thehook.data.webhk_url}, 'success');
-                if(thehook.data.webhk_url == undefined){
-                    */
-
                     $sessionStorage.scode = code;
                     var promise = authenticationservice.authorize($sessionStorage.scode);
                     promise.then(function (response) {
                         //Notification({message: 'adding flowtalk to your team'+response.data.incoming_webhook.url}, 'success');
-                        $scope.data = response.data;
+                        //$scope.data = response.data;
                         $sessionStorage.authtoken = response.data.access_token;
-                        $scope.token = $sessionStorage.token;
+                        $scope.token = $sessionStorage.authtoken;
                         //$sessionStorage.userid = response.data.user_id;
                         var tname = response.data.team_name;
+                        $sessionStorage.team =tname;
                         var tid = response.data.team_id;
+                        $sessionStorage.team_id = tid;
                         var wurl = response.data.incoming_webhook.url;
                         var wchnl = response.data.incoming_webhook.channel;
                         var wcurl = response.data.incoming_webhook.configuration_url;
                         var bid = response.data.bot.bot_user_id;
                         var btkn = response.data.bot.bot_access_token;
-                        var create = authenticationservice.createhook($sessionStorage.authtoken,tname,tid,wurl,wchnl,wcurl,bid,btkn);
-                        create.then(function(success){
-                            var post = slackinteraction.welcome(wurl);
-                                post.then(function (succ) {
-                                    Notification({message: 'slack response '+succ.data}, 'warning');
-                                },function (err) {
-                                    Notification({message: 'slack error '+err.data}, 'error');
-                                })
 
-                            Notification({message: 'flowtalk was successfully added, you can now add topics here or through slack'}, 'success');
+                        var dhook = authenticationservice.getahook(tid);
+                        dhook.then( function (thehook) {
+                            if(thehook.data.webhk_url == undefined){
+                                var create = authenticationservice.createhook($sessionStorage.authtoken,tname,tid,wurl,wchnl,wcurl,bid,btkn);
+                                create.then(function(success){
+                                    var post = slackinteraction.welcome(wurl);
+                                    post.then(function (succ) {
+                                        //Notification({message: 'slack response '}, 'success');
+                                    },function (err) {
+                                        Notification({message: 'slack error '+err.data}, 'error');
+                                    })
 
-                        });
+                                    Notification({message: 'flowtalk was successfully added, you can now add topics here or through slack'}, 'success');
+
+                                },function (error) {
+                                    Notification({message: 'there was a problem creating a hook '+error.data}, 'error');
+                                });
+                            }else{
+                                Notification({message: 'Flowtalk has already been added to your team'}, 'warning');
+                            }
+                        },function (thehookerr) {
+                            Notification({message: 'problem querying database '+thehookerr.data.error}, 'error');
+                        })
+
                     });
             /* }else{
                     Notification({message: 'Flowtalk has already been added to your team'}, 'warning');
@@ -98,22 +104,19 @@ angular.module('slackchatApp')
 
             $location.search('code', null);
             $location.search('state', null);
+
             $scope.fname = $sessionStorage.real_name;
             $scope.avator = $sessionStorage.avator;
         }
-        else{
-           // Notification({message: 'welcome to flowtalk'}, 'success');
-
-            //$scope.fname = 'dunk';
-            if($sessionStorage.real_name== null){
+        else if($sessionStorage.real_name== null){
                 $scope.fname = 'Guest';
                 $scope.avator = 'images/guest.png';
-            }
-            else{
-                $scope.fname = $sessionStorage.real_name;
-                $scope.avator = $sessionStorage.avator;
-            }
         }
+        else{
+            $scope.fname = $sessionStorage.real_name;
+            $scope.avator = $sessionStorage.avator;
+        }
+
         $scope.code = code;
         if($sessionStorage.real_name == null){
 
@@ -128,10 +131,10 @@ angular.module('slackchatApp')
                 $scope.error = error.data;
             });
 
-            var followedtopics = authenticationservice.getfollowedbyteam($sessionStorage.team_id);
+            /*var followedtopics = authenticationservice.getfollowedbyteam($sessionStorage.team_id);
             followedtopics.then(function (topics) {
                 $scope.foltopics = topics.data;
-            });
+            });*/
         }
 
        /* var limtopics = authenticationservice.getlimit();
@@ -220,15 +223,28 @@ angular.module('slackchatApp')
         ctrl.animationsEnabled = true;
 
         ctrl.open = function (size) {
-            var modalInstance = $uibModal.open({
-                animation: ctrl.animationsEnabled,
-                arialabelledBy: 'modal-title',
-                ariaDescribedBy: 'modal-body',
-                templateUrl: 'addtopictemplate.html',
-                controller:'createtopicCtrl',
-                controllerAs: 'ctrl',
-                size: size,
-            });
+            if($sessionStorage.userid == null || $sessionStorage.userid == undefined){
+                var modalInstance = $uibModal.open({
+                    animation: ctrl.animationsEnabled,
+                    arialabelledBy: 'modal-title2',
+                    ariaDescribedBy: 'modal-body2',
+                    templateUrl: 'signin.html',
+                    controller:'createtopicCtrl',
+                    controllerAs: 'ctrl',
+                    size: size,
+                });
+            }else{
+                var modalInstance = $uibModal.open({
+                    animation: ctrl.animationsEnabled,
+                    arialabelledBy: 'modal-title',
+                    ariaDescribedBy: 'modal-body',
+                    templateUrl: 'addtopictemplate.html',
+                    controller:'createtopicCtrl',
+                    controllerAs: 'ctrl',
+                    size: size,
+                });
+            }
+
         };
         
         ctrl.comment =function (id) {

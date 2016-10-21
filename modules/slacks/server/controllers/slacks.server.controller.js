@@ -244,15 +244,28 @@ exports.slackByID = function(req, res, next, id) {
   });
 };
 
+
+
+exports.slacksByID = function(req, res, next, id) {
+
+  Slack.findOne({cond_tname:req.params.tmId,cond_topic:req.params.tpcID}).exec(function (err, slack) {
+    if (err) {
+      return next(err);
+    } else if (!slack) {
+      return res.status(404).send({
+        message: 'No Slack with that identifier has been found'
+      });
+    }
+    req.slack = slack;
+    next();
+  });
+};
+
+
 exports.topicByID = function(req, res, next, id) {
 
-  if (!mongoose.Types.ObjectId.isValid(id)) {
-    return res.status(400).send({
-      message: 'Slack is invalid'
-    });
-  }
 
-  Slack.find({createdby:req.params.userId}).exec(function (err, slack) {
+  Slack.find({createdby:req.params.creatorId}).exec(function (err, slack) {
     if (err) {
       return next(err);
     } else if (!slack) {
@@ -328,7 +341,7 @@ exports.flwByID = function(req, res, next, id) {
 
 exports.hookByID = function(req, res, next, id) {
 
-        WebHook.findOne({team_id:id}).select('bot_token webhk_url webhk_channel bot_id team_id').exec(function (err, slack) {
+        WebHook.findOne({team_id:req.params.hookId}).select('bot_token webhk_url webhk_channel bot_id team_id').exec(function (err, slack) {
             if (err) {
                 return next(err);
             } else if (!slack) {

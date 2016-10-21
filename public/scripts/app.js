@@ -21,7 +21,8 @@ angular
     'ngStorage',
     'ui.bootstrap',
     'updateMeta',
-    'ui-notification'
+    'ui-notification',
+    'ngclipboard'
   ])
   .config(function ($routeProvider,NotificationProvider) {
     $routeProvider
@@ -41,6 +42,12 @@ angular
         title:'Topics',
         templateUrl: 'views/home.html',
         controller: 'DiscussCtrl',
+        controllerAs: 'ctrl'
+      })
+      .when('/comments/:teamname/:topic', {
+        title:'Comments',
+        templateUrl: 'views/comment.html',
+        controller: 'CommentCtrl',
         controllerAs: 'ctrl'
       })
       .when('/comment', {

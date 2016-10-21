@@ -98,7 +98,7 @@
                 <i  class="fa fa-plus"></i>Add
             </a>-->
             {{ferror}}
-            {{hkdata}}
+            {{data}}
         </h1>
 
     </section>
@@ -143,9 +143,10 @@
                 <form action="#/comment?id" name="form" role="form" style="margin-top: 10px">
                 <input type="hidden" placeholder="Comment" name="id" id="id" ng-model="ctrl.id" value="{{topic._id}}" style="width: 100%"/>
                 <!-- Social sharing buttons -->
-                <a ng-href="#/comment?id={{topic._id}}"><button class='btn btn-default btn-xs'  ><i class='fa fa-comment-o'></i> Join conversation</button></a>
+                <a ng-href="#/comments/{{topic.cond_tname}}/{{topic.cond_topic}}"><button class='btn btn-default btn-xs'  ><i class='fa fa-comment-o'></i> Join conversation</button></a>
                 </form>
-                    <span class='pull-right text-muted'><button class="btn btn-social-icon btn-slack" ng-click="ctrl.follow(topic.topic,topic._id)"><i class="fa fa-slack"></i></button></span>
+                    <!--<span class='pull-right text-muted'><button class="btn " ngclipboard data-clipboard-target="#foo"><i class="fa fa-clipboard"></i></button>
+                    </span>-->
 
                 <!--<span class='pull-right text-muted'> 2 comments</span>-->
             </div><!-- /.box-body -->
@@ -156,7 +157,7 @@
 
     <script type="text/ng-template" id="addtopictemplate.html">
         <div class="md-content">
-            <h3 class="modal-title" id="modal-title">Add topic</h3>
+            <h3 class="modal-title" id="modal-title" align="center">Add topic</h3>
                 <form ng-submit="ctrl.ok()" name="form" role="form">
                     <div class="modal-body" id="modal-body" ng-class="{ 'has-error': form.desc.$dirty && form.desc.$error.required }">
                         <label>Topic</label>
@@ -171,6 +172,15 @@
                         <button class="btn btn-warning" type="button" ng-click="ctrl.cancel()">Cancel</button>
                     </div>
                 </form>
+        </div>
+    </script>
+    <script type="text/ng-template" id="signin.html">
+        <div class="md-content">
+            <h3 class="modal-title" id="modal-title2" align="center">Sign In</h3>
+            <div class="modal-body" id="modal-body2">
+                <p>Before you can create a topic you have to sign in</p>
+                <a href="https://slack.com/oauth/authorize?scope=identity.basic,identity.email,identity.team,identity.avatar&client_id=87012615811.87769233137&state=signin"><img alt="Sign in with Slack" height="40" width="172" src="https://platform.slack-edge.com/img/sign_in_with_slack.png" srcset="https://platform.slack-edge.com/img/sign_in_with_slack.png 1x, https://platform.slack-edge.com/img/sign_in_with_slack@2x.png 2x" /></a>
+            </div>
         </div>
     </script>
     <script type="application/javascript" >

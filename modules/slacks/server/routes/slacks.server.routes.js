@@ -44,7 +44,7 @@ module.exports = function(app) {
   app.route('/api/follows/:tmId').all()
     .get(slacks.read_follow);
 
-  app.route('/api/topics/:userId').all()
+  app.route('/api/topics/:creatorId').all()
     .get(slacks.read_follow);
 
   app.route('/api/slacks/:slackId').all()
@@ -52,13 +52,19 @@ module.exports = function(app) {
     .put(slacks.update)
     .delete(slacks.delete);
 
+  app.route('/api/slack/:tmId/:tpcID').all()
+      .get(slacks.read_follow);
+
   // Finish by binding the Slack middleware
   app.param('slackId', slacks.slackByID);
   app.param('commentId', slacks.commentByID);
   app.param('replyId', slacks.replyByID);
   app.param('hookId', slacks.hookByID);
+  //app.param('chnlID', slacks.hookByID);
   app.param('topicId', slacks.followByID);
   app.param('teamId', slacks.followByID);
   app.param('tmId', slacks.flwByID);
-  app.param('userId', slacks.topicByID);
+  app.param('creatorId', slacks.topicByID);
+  app.param('tmId', slacks.slacksByID);
+  app.param('tpcID', slacks.slacksByID);
 };
