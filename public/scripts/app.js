@@ -22,7 +22,8 @@ angular
     'ui.bootstrap',
     'updateMeta',
     'ui-notification',
-    'ngclipboard'
+    'ngclipboard',
+      //'ngMeta'
   ])
   .config(function ($routeProvider,NotificationProvider,$locationProvider) {
     $routeProvider
@@ -44,7 +45,7 @@ angular
         controller: 'DiscussCtrl',
         controllerAs: 'ctrl'
       })
-      .when('/comments/:teamname/:topic', {
+      .when('/:teamname/:topic', {
         title:'Comments',
         templateUrl: 'views/comment.html',
         controller: 'CommentCtrl',
@@ -59,6 +60,9 @@ angular
       .otherwise({
         redirectTo: '/'
       });
+      //$locationProvider.html5Mode(true);
+      $locationProvider
+          .html5Mode(true);
       NotificationProvider
         .setOptions({
           delay: 10000,
@@ -69,14 +73,18 @@ angular
           positionX: 'left',
           positionY: 'bottom'
       });
+      //ngMetaProvider.useTitleSuffix(true);
+      //ngMetaProvider.setDefaultTitle('FLowtalk');
+      //ngMetaProvider.setDefaultTitleSuffix(' | Flowtalk');
+      //ngMetaProvider.setDefaultTag('author', 'John Smith');
       //$locationProvider.hashPrefix('!');
   })
-.run(function ($rootScope,$route) {
+.run(['$rootScope', '$route',  function ($rootScope,$route) {
+    //ngMeta.init();
     $rootScope.$on('$routeChangeSuccess', function() {
         document.title = $route.current.title;
-    });
-
-})
+    })
+}])
 .filter('trusturls',['$sce', function ($sce) {
     return function (val) {
         return $sce.trustAsResourceUrl(val);

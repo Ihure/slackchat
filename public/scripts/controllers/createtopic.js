@@ -12,20 +12,22 @@ angular.module('slackchatApp')
       var ctrl = this;
 
       ctrl.add = function () {
-          if(ctrl.emb == null){
+          /*if(ctrl.emb == null || ctrl.emb == undefined){
               var emb = '';
           }else{
               emb = ctrl.emb;
-          }
+          }*/
+          var emb = '';
           var teamnames = $sessionStorage.team;
           var teamname = teamnames.replace(/([~!@#$%^&*()_+=`{}\[\]\|\\:;'<>,.\/? ])+/g, '_').replace(/^(_)+|(_)+$/g,'');
           var condtopic = ctrl.topic.replace(/([~!@#$%^&*()_+=`{}\[\]\|\\:;'<>,.\/? ])+/g, '_').replace(/^(_)+|(_)+$/g,'');
-          var url = $location.protocol()+'://'+location.host+'/#/comments/'+teamname+'/'+condtopic;
+          //var url = $location.protocol()+'://'+location.host+'/#/comments/'+teamname+'/'+condtopic;
+          var url = $location.protocol()+'://'+location.host+'/'+teamname+'/'+condtopic;
           var encoded = encodeURI(url);
           var create = authenticationservice.createtopic(ctrl.topic, $sessionStorage.userid, $sessionStorage.avator, $sessionStorage.real_name,ctrl.desc,emb,teamname,condtopic,url,encoded);
           create.then(function(response) {
               $uibModalInstance.dismiss('cancel');
-              $location.path('/comments/'+teamname+'/'+condtopic);
+              $location.path('/'+teamname+'/'+condtopic);
               //$route.reload();
           }, function(errorPayload) {
 

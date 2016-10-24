@@ -9,6 +9,7 @@ var config = require('../config'),
   bodyParser = require('body-parser'),
   session = require('express-session'),
   MongoStore = require('connect-mongo')(session),
+  prerender = require('prerender-node'),
   multer = require('multer'),
   favicon = require('serve-favicon'),
   compress = require('compression'),
@@ -84,7 +85,7 @@ module.exports.initMiddleware = function (app) {
   app.use(methodOverride());
 
   //prerender for meta data
-  app.use(require('prerender-node'));
+  app.use(prerender.set('prerenderToken', 'maSLKgSF7QR5GCtlAoTe'));
 
   // Add the cookie parser and flash middleware
   app.use(cookieParser());
@@ -145,6 +146,15 @@ module.exports.initHelmetHeaders = function (app) {
   app.use(helmet.ienoopen());
   app.disable('x-powered-by');
 };
+/**
+ * Configure the modules server routes
+ */
+module.exports.initModulesServerRoutes = function (app) {
+  // Globbing routing files
+  config.files.server.routes.forEach(function (routePath) {
+    require(path.resolve(routePath))(app);
+  });
+};
 
 /**
  * Configure the modules static routes
@@ -152,6 +162,11 @@ module.exports.initHelmetHeaders = function (app) {
 module.exports.initModulesClientRoutes = function (app) {
   // Setting the app router and static folder
   app.use('/', express.static(path.resolve('./public')));
+
+ app.get(/^((?!\/(api)).)*$/, function(req, res, next) {
+    // Just send the index.html for other files to support HTML5Mode
+    res.sendFile('index.html', { root: path.resolve('./public')});
+  });
 
   // Globbing static routing
   config.folders.client.forEach(function (staticPath) {
@@ -169,15 +184,7 @@ module.exports.initModulesServerPolicies = function (app) {
   });
 };
 
-/**
- * Configure the modules server routes
- */
-module.exports.initModulesServerRoutes = function (app) {
-  // Globbing routing files
-  config.files.server.routes.forEach(function (routePath) {
-    require(path.resolve(routePath))(app);
-  });
-};
+
 
 /**
  * Configure error handling

@@ -3,10 +3,11 @@
     <update-meta property="og:title" content="{{topic.topic}}" ></update-meta>
     <update-meta property="og:description" content="{{topic.description}} " ></update-meta>
     <update-meta property="og:url" content="{{topic.url}}" ></update-meta>
-    <update-meta property="twitter:label1" content="Posted by:" ></update-meta>
+    <update-meta property="twitter:label1" content="Created by:" ></update-meta>
     <update-meta property="twitter:label2" content="{{topic.name}}" ></update-meta>
-    <update-meta property="twitter:data1" content="{{topic.created}}" ></update-meta>
-    <update-meta property="twitter:data2" content="Awesome Discussion" ></update-meta>
+    <update-meta property="twitter:data1" content="Posted" ></update-meta>
+    <update-meta property="twitter:data2" content="{{topic.created | date:'hh:mm:a - EEE/dd/MMM'}}"></update-meta>
+    <div ng-controller="DiscussCtrl as ctrl">
     <header class="main-header" >
         <!-- Logo -->
         <a href="#/topics" class="logo">
@@ -39,7 +40,7 @@
         </nav>
     </header>
     <!-- Left side column. contains the logo and sidebar -->
-    <aside class="main-sidebar" >
+    <aside class="main-sidebar"  >
         <!-- sidebar: style can be found in sidebar.less -->
         <section class="sidebar">
             <!-- Sidebar user panel -->
@@ -73,6 +74,7 @@
         </section>
         <!-- /.sidebar -->
     </aside>
+    </div>
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper" >
         <!-- Content Header (Page header) -->
@@ -83,6 +85,7 @@
         </section>
         <!-- Main content -->
         <section class="content" >
+
             <div class="box box-widget" >
                 <div class='box-header with-border'>
                     <div class='user-block'>
@@ -94,7 +97,7 @@
                         <div class="input-group input-group-sm pull-right" style="width: 30%" >
                             <input type="text" class="form-control"  placeholder="Reply" id="foo" value="{{topic.url}}">
                             <span class="input-group-btn">
-                                          <button class="btn btn-info btn-flat" ngclipboard data-clipboard-target="#foo"><i class="fa fa-clipboard"></i></button>
+                                          <button class="btn btn-info btn-flat" ngclipboard ngclipboard-success="onSuccess(e);" data-clipboard-target="#foo"><i class="fa fa-clipboard"></i></button>
                                         </span>
                         </div>
                     </div><!-- /.box-tools -->
@@ -255,15 +258,15 @@
     </script>
     <script type="text/ng-template" id="addtopictemplate.html">
         <div class="md-content">
-            <h3 class="modal-title" id="modal-title">Add topic</h3>
+            <h3 class="modal-title" id="modal-title" align="center">Add topic</h3>
             <form ng-submit="ctrl.ok()" name="form" role="form">
                 <div class="modal-body" id="modal-body" ng-class="{ 'has-error': form.desc.$dirty && form.desc.$error.required }">
                     <label>Topic</label>
                     <input type="text" name="topic" class="form-control" id="topic" placeholder="topic" ng-model="ctrl.topic" required>
                     <label>Brief Description</label>
                     <textarea class="textarea" placeholder="Give a small description" name="desc" id="desc" ng-model="ctrl.desc" required style="font-size: 14px;border: 1px solid #dddddd; padding: 10px;"></textarea>
-                    <label>Embed Object (video/or link)</label>
-                    <textarea class="textarea" placeholder="Paste embed link here" name="emb" id="emb" ng-model="ctrl.emb"  style="font-size: 14px; border: 1px solid #dddddd; padding: 10px;"></textarea>
+                    <!--<label>Embed Object (video/or link)</label>
+                    <textarea class="textarea" placeholder="Paste embed link here" name="emb" id="emb" ng-model="ctrl.emb"  style="font-size: 14px; border: 1px solid #dddddd; padding: 10px;"></textarea>-->
                 </div>
                 <div class="modal-footer">
                     <button class="btn btn-primary" type="button" ng-disabled="form.$invalid" ng-click="ctrl.ok()">Add</button>
@@ -276,8 +279,8 @@
         <div class="md-content">
             <h3 class="modal-title" id="modal-title2" align="center">Sign In</h3>
             <div class="modal-body" id="modal-body2">
-                <p>Before you can create a topic you have to sign in</p>
-                <a href="https://slack.com/oauth/authorize?scope=identity.basic,identity.email,identity.team,identity.avatar&client_id=87012615811.87769233137&state=signin&redirect_uri={{topic.encoded}}"><img alt="Sign in with Slack" height="40" width="172" src="https://platform.slack-edge.com/img/sign_in_with_slack.png" srcset="https://platform.slack-edge.com/img/sign_in_with_slack.png 1x, https://platform.slack-edge.com/img/sign_in_with_slack@2x.png 2x" /></a>
+                <p>Before you can comment you have to sign in</p>
+                <a href="https://slack.com/oauth/authorize?scope=identity.basic,identity.email,identity.team,identity.avatar&client_id=87012615811.87769233137&state=signin&redirect_uri={{topic.url}}"><img alt="Sign in with Slack" height="40" width="172" src="https://platform.slack-edge.com/img/sign_in_with_slack.png" srcset="https://platform.slack-edge.com/img/sign_in_with_slack.png 1x, https://platform.slack-edge.com/img/sign_in_with_slack@2x.png 2x" /></a>
             </div>
         </div>
     </script>

@@ -97,14 +97,17 @@
             <!--<a class="btn btn-app" ng-click="ctrl.open('sm')">
                 <i  class="fa fa-plus"></i>Add
             </a>-->
-            {{ferror}}
+            {{etoken}}
+            {{error}}
             {{data}}
+            {{token }}
         </h1>
 
     </section>
 
     <!-- Main content -->
     <section class="content" >
+
 
         <!-- Box Comment -->
         <div class="box box-widget" ng-repeat="topic in topics" >
@@ -158,14 +161,14 @@
     <script type="text/ng-template" id="addtopictemplate.html">
         <div class="md-content">
             <h3 class="modal-title" id="modal-title" align="center">Add topic</h3>
-                <form ng-submit="ctrl.ok()" name="form" role="form">
+                <form ng-submit="ctrl.add()" name="form" role="form">
                     <div class="modal-body" id="modal-body" ng-class="{ 'has-error': form.desc.$dirty && form.desc.$error.required }">
                         <label>Topic</label>
                         <input type="text" name="topic" class="form-control" id="topic" placeholder="topic" ng-model="ctrl.topic" required>
                         <label>Brief Description</label>
                         <textarea class="textarea" placeholder="Give a small description" name="desc" id="desc" ng-model="ctrl.desc" required style="font-size: 14px;border: 1px solid #dddddd; padding: 10px;"></textarea>
-                        <label>Embed Object (video/or link)</label>
-                        <textarea class="textarea" placeholder="Paste embed link here" name="emb" id="emb" ng-model="ctrl.emb"  style="font-size: 14px; border: 1px solid #dddddd; padding: 10px;"></textarea>
+                        <!--<label>Embed Object (video/or link)</label>
+                        <textarea class="textarea" placeholder="Paste embed link here" name="emb" id="emb" ng-model="ctrl.emb"  style="font-size: 14px; border: 1px solid #dddddd; padding: 10px;"></textarea>-->
                     </div>
                     <div class="modal-footer">
                         <button class="btn btn-primary" type="button" ng-disabled="form.$invalid" ng-click="ctrl.add()">Add</button>
@@ -179,7 +182,7 @@
             <h3 class="modal-title" id="modal-title2" align="center">Sign In</h3>
             <div class="modal-body" id="modal-body2">
                 <p>Before you can create a topic you have to sign in</p>
-                <a href="https://slack.com/oauth/authorize?scope=identity.basic,identity.email,identity.team,identity.avatar&client_id=87012615811.87769233137&state=signin"><img alt="Sign in with Slack" height="40" width="172" src="https://platform.slack-edge.com/img/sign_in_with_slack.png" srcset="https://platform.slack-edge.com/img/sign_in_with_slack.png 1x, https://platform.slack-edge.com/img/sign_in_with_slack@2x.png 2x" /></a>
+                <a href="https://slack.com/oauth/authorize?scope=identity.basic,identity.email,identity.team,identity.avatar&client_id=87012615811.87769233137&state=signin&redirect_uri={{url}}"><img alt="Sign in with Slack" height="40" width="172" src="https://platform.slack-edge.com/img/sign_in_with_slack.png" srcset="https://platform.slack-edge.com/img/sign_in_with_slack.png 1x, https://platform.slack-edge.com/img/sign_in_with_slack@2x.png 2x" /></a>
             </div>
         </div>
     </script>

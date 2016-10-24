@@ -11,7 +11,12 @@
  * Controller of the slackchatApp
  */
 angular.module('slackchatApp')
-    .controller('CommentCtrl',['authenticationservice','users','$routeParams','$scope','$location','$sessionStorage','$uibModal', function (authenticationservice,users,$routeParams,$scope,$location,$sessionStorage,$uibModal) {
+    .controller('CommentCtrl',['authenticationservice','users','$routeParams','$scope','$location','$sessionStorage','$uibModal','Notification', function (authenticationservice,users,$routeParams,$scope,$location,$sessionStorage,$uibModal,Notification) {
+
+
+
+        //ngMeta.setTag('description', 'Matthew Cooper');
+        //ngMeta.setTag('image', 'http://placeholder.com/abc.jpg');
         var ctrl = this;
 
        //var id = $routeParams.id;
@@ -51,6 +56,7 @@ angular.module('slackchatApp')
                     arialabelledBy: 'modal-title2',
                     ariaDescribedBy: 'modal-body2',
                     templateUrl: 'signin2.html',
+                    controller:'CommentCtrl',
                     size: 'sm',
                 });
             }else {
@@ -90,7 +96,9 @@ angular.module('slackchatApp')
             }
         };
 
-        
+        $scope.onSuccess = function(e) {
+            Notification({message: 'Link copied to clipboard'}, 'success');
+        };
 
         $scope.fname = $sessionStorage.real_name;
         $scope.avator = $sessionStorage.avator;

@@ -11,6 +11,10 @@ angular.module('slackchatApp')
   .controller('SlackloginCtrl',['$location','authenticationservice','$rootScope','$scope','users','$sessionStorage', function ($location,authenticationservice,$rootScope,$scope,users,$sessionStorage) {
     var ctrl = this;
 
+
+      var url = $location.protocol()+'://'+location.host+'/home';
+      $scope.url = url;
+
     ctrl.ok = function () {
       var promise = authenticationservice.getdiscussion('57fa10be887f5f16a0e621f9');
       promise.then(function(response) {
