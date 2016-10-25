@@ -265,6 +265,29 @@ angular.module('slackchatApp')
             }
 
         };
+
+        ctrl.openm = function (size) {
+            if($sessionStorage.userid == null || $sessionStorage== undefined){
+                var modalInstance = $uibModal.open({
+                    animation: ctrl.animationsEnabled,
+                    arialabelledBy: 'modal-title2',
+                    ariaDescribedBy: 'modal-body2',
+                    templateUrl: 'signin2.html',
+                    controller:'CommentCtrl',
+                    size: size,
+                });
+            }else{
+                var modalInstance = $uibModal.open({
+                    animation: ctrl.animationsEnabled,
+                    arialabelledBy: 'modal-title',
+                    ariaDescribedBy: 'modal-body',
+                    templateUrl: 'addtopictemplate.html',
+                    controller:'createtopicCtrl',
+                    controllerAs: 'ctrl',
+                    size: size,
+                });
+            }
+        };
         
         ctrl.comment =function (id) {
             //var id = ctrl.id;

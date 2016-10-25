@@ -38,7 +38,7 @@ angular.module('slackchatApp')
             });
         ctrl.animationsEnabled = true;
 
-        ctrl.open = function (size) {
+        ctrl.openm = function (size) {
             var modalInstance = $uibModal.open({
                 animation: ctrl.animationsEnabled,
                 arialabelledBy: 'modal-title',
