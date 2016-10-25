@@ -10,6 +10,6 @@
 angular.module('slackchatApp')
   .controller('MainCtrl', function ($sessionStorage,$scope,$location) {
       var url = $location.protocol()+'://'+location.host+'/home';
-      $scope.url = url;
-    $sessionStorage.islogged=0;
+      $scope.url = encodeURI(url);
+    //$sessionStorage.islogged=0;
   });

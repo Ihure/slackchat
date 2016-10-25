@@ -17,113 +17,114 @@ angular.module('slackchatApp')
         //ngMeta.setTag('og:title', 'My ass');
 
         var state = $routeParams.state;
-        var code = $routeParams.code;
+
+        $scope.state = state;
+
 
         if(state == 'signin'){
-            $sessionStorage.fcode = code;
-            //$sessionStorage.authorize = true;
-            var promise = authenticationservice.authorize($sessionStorage.fcode);
-            promise.then(function(response) {
-                //var scope = response.data.scope;
-                $sessionStorage.token = response.data.access_token;
-                $scope.token = $sessionStorage.token;
-                $sessionStorage.userid = response.data.user_id;
+            //$scope.test = 't';
+            var code = $routeParams.code;
+            //$sessionStorage.code =code;
+            //$scope.code = $sessionStorage.code;
 
-                var user = authenticationservice.getProfile($sessionStorage.token,$sessionStorage.userid);
-                user.then(function (user_response) {
-                    //users.real_name = user_response.data.profile.real_name;
-                    $sessionStorage.real_name = user_response.data.user.name;
-                    $sessionStorage.userid = user_response.data.user.id;
-                    $scope.fname = $sessionStorage.real_name;
-                    $scope.error = user_response.data.error;
-                    $scope.data = user_response.data;
-                    //users.avator = user_response.data.profile.image_24;
-                    $sessionStorage.avator = user_response.data.user.image_24;
-                    $scope.avator = $sessionStorage.avator;
-                    $sessionStorage.team_id = user_response.data.team.id;
-                    $sessionStorage.team = user_response.data.team.name;
-                    $sessionStorage.islogged = 1;
+            var auth = authenticationservice.authorize(code);
+               auth.then(function (auth_succ) {
+                   $sessionStorage.token = auth_succ.data.access_token;
+                   $sessionStorage.user_id = auth_succ.data.user_id;
+                   $sessionStorage.real_name = auth_succ.data.user.name;
+                   $sessionStorage.userid = auth_succ.data.user.id;
+                   $scope.fname = $sessionStorage.real_name;
+                   $scope.error = auth_succ.data.error;
+                   //$scope.authdata = auth_succ;
+                   $sessionStorage.avator = auth_succ.data.user.image_24;
+                   $scope.avator = $sessionStorage.avator;
+                   $sessionStorage.team_id = auth_succ.data.team.id;
+                   $sessionStorage.team = auth_succ.data.team.name;
+                   $sessionStorage.islogged = 1;
+                   if($sessionStorage.user_id == undefined){
 
-                }, function (user_error) {
+                   }else{
+                       var prof = authenticationservice.getProfile($sessionStorage.token,$sessionStorage.user_id);
+                       prof.then(function (prof_succ) {
+                           $sessionStorage.real_name = prof_succ.data.user.name;
+                           $sessionStorage.user_id = prof_succ.data.user.id;
+                           $scope.fname = $sessionStorage.real_name;
+                           $scope.error = prof_succ.data.error;
+                           $scope.authdata = prof_succ;
+                           $sessionStorage.avator = prof_succ.data.user.image_24;
+                           $scope.avator = $sessionStorage.avator;
+                           $sessionStorage.team_id = prof_succ.data.team.id;
+                           $sessionStorage.team = prof_succ.data.team.name;
+                           $sessionStorage.islogged = 1;
 
-                })
-            }, function(errorPayload) {
-                $scope.token = errorPayload;
-            });
+
+                       },function (prof_err) {
+                           Notification({message: 'there was a problem fetching user profile'}, 'error');
+                       });
+                   }
+
+                },function (auth_err) {
+                    Notification({message: 'there was a problem authorizing slack'}, 'error');
+                });
             $location.search('code', null);
             $location.search('state', null);
 
-        }
-        else if(state == 'add'){
-            $sessionStorage.scode = code;
-            var promise = authenticationservice.authorize($sessionStorage.scode);
-            promise.then(function (response) {
-                //Notification({message: 'adding flowtalk to your team'+response.data.incoming_webhook.url}, 'success');
-                //$scope.data = response.data;
-                $sessionStorage.authtoken = response.data.access_token;
-                $scope.token = $sessionStorage.authtoken;
-                //$sessionStorage.userid = response.data.user_id;
-                var tname = response.data.team_name;
-                $sessionStorage.team =tname;
-                var tid = response.data.team_id;
-                $sessionStorage.team_id = tid;
-                var wurl = response.data.incoming_webhook.url;
-                var wchnl = response.data.incoming_webhook.channel;
-                var wcurl = response.data.incoming_webhook.configuration_url;
-                var bid = response.data.bot.bot_user_id;
-                var btkn = response.data.bot.bot_access_token;
+            $scope.fname = $sessionStorage.real_name;
+            $scope.avator = $sessionStorage.avator;
 
-                var dhook = authenticationservice.getahook(tid);
-                dhook.then( function (thehook) {
-                    if(thehook.data.webhk_url == undefined){
-                        var create = authenticationservice.createhook($sessionStorage.authtoken,tname,tid,wurl,wchnl,wcurl,bid,btkn);
-                        create.then(function(success){
-                            var post = slackinteraction.welcome(wurl);
-                            post.then(function (succ) {
-                                //Notification({message: 'slack response '}, 'success');
-                            },function (err) {
-                                Notification({message: 'slack error '+err.data}, 'error');
-                            })
+        }else if (state == 'add'){
+            var code = $routeParams.code;
+            //$sessionStorage.code =code;
+            //$scope.code = $sessionStorage.code;
 
-                            Notification({message: 'flowtalk was successfully added, you can now add topics here or through slack'}, 'success');
+            var auth = authenticationservice.authorize(code);
+                auth.then(function (auth_succ) {
+                    $sessionStorage.authtoken = auth_succ.data.access_token;
+                    var tname = auth_succ.data.team_name;
+                    $sessionStorage.team = tname;
+                    var tid = auth_succ.data.team_id;
+                    $sessionStorage.team_id = tid;
+                    var wurl = auth_succ.data.incoming_webhook.url;
+                    var wchnl = auth_succ.data.incoming_webhook.channel;
+                    var wcurl = auth_succ.data.incoming_webhook.configuration_url;
+                    var bid = auth_succ.data.bot.bot_user_id;
+                    var btkn = auth_succ.data.bot.bot_access_token;
+                    
+                    var hook = authenticationservice.getahook(tid);
+                        hook.then(function (hook_succ) {
+                            if(hook_succ.data.webhk_url == undefined){
+                                var createHook = authenticationservice.createhook($sessionStorage.authtoken,tname,tid,wurl,wchnl,wcurl,bid,btkn);
+                                    createHook.then(function (ch_succ) {
+                                        var post = slackinteraction.welcome(wurl);
+                                            post.then(function (succ) {
+                                                //Notification({message: 'slack response '}, 'success');
+                                            },function (err) {
+                                                Notification({message: 'slack error '+err.data}, 'error');
+                                            });
 
-                        },function (error) {
-                            Notification({message: 'there was a problem creating a hook '+error.data}, 'error');
+                                        Notification({message: 'flowtalk was successfully added, you can now add topics here or through slack'}, 'success');
+
+                                    },function (ch_err) {
+                                        Notification({message: 'there was a problem creating a hook '+ch_err.data}, 'error');
+                                    });
+                            }else{
+                                Notification({message: 'Flowtalk has already been added to your team'}, 'warning');
+                            }
+                        }, function (hook_err) {
+                            Notification({message: 'problem querying database '+hook_err.data.error}, 'error');
                         });
-                    }else{
-                        Notification({message: 'Flowtalk has already been added to your team'}, 'warning');
-                    }
-                },function (thehookerr) {
-                    Notification({message: 'problem querying database '+thehookerr.data.error}, 'error');
-                })
-
-            });
-            /* }else{
-             Notification({message: 'Flowtalk has already been added to your team'}, 'warning');
-             }
-             },function (hookerror) {
-             Notification({message: 'there was a problem fetching database'}, 'error');
-             });*/
-
-            $location.search('code', null);
-            $location.search('state', null);
+                },function (auth_err) {
+                    Notification({message: 'problem authenticating flowtalk with slack'}, 'error');
+                });
+            //$location.search('code', null);
+            //$location.search('state', null);
 
             $scope.fname = $sessionStorage.real_name;
             $scope.avator = $sessionStorage.avator;
         }
-        else if($sessionStorage.real_name== null){
-            $scope.fname = 'Guest';
-            $scope.avator = 'images/guest.png';
-        }
-        else{
-            $scope.fname = $sessionStorage.real_name;
-            $scope.avator = $sessionStorage.avator;
-        }
 
 
-
-        $scope.code = code;
-        if($sessionStorage.real_name == null){
+        if($sessionStorage.userid == null){
 
         }else{
             var topics = authenticationservice.listtopic($sessionStorage.userid);
@@ -132,15 +133,18 @@ angular.module('slackchatApp')
                 $scope.topics = tresponse.data;
                 //$scope.link =$sce.trustAsHtml(tresponse.data.link);
             }, function (error) {
-                $location.path('/');
+                //$location.path('/');
                 $scope.error = error.data;
             });
+        }
 
+       /**
+        $scope.code = code;
             /*var followedtopics = authenticationservice.getfollowedbyteam($sessionStorage.team_id);
             followedtopics.then(function (topics) {
                 $scope.foltopics = topics.data;
-            });*/
-        }
+            });
+        */
 
        /* var limtopics = authenticationservice.getlimit();
         limtopics.then( function (tresponse) {
@@ -150,6 +154,16 @@ angular.module('slackchatApp')
             $location.path('/');
             $scope.error = error.data;
         });*/
+        if($sessionStorage.real_name == null){
+            $scope.test = 'n';
+            $scope.fname = 'Guest';
+            $scope.avator = 'images/guest.png';
+        }
+        else{
+            $scope.fname = $sessionStorage.real_name;
+            $scope.avator = $sessionStorage.avator;
+        }
+
 
 
         var ctrl = this;
@@ -274,6 +288,12 @@ angular.module('slackchatApp')
                 $scope.token = 'g';
             });
 
-        }
+        };
+
+        var url = $location.protocol()+'://'+location.host+'/home';
+        $scope.url = encodeURI(url);
+
+        //$location.search('code', null);
+        //$location.search('state', null);
 
     }]);

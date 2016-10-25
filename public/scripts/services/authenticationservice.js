@@ -8,7 +8,7 @@
  * Factory in the slackchatApp.
  */
 angular.module('slackchatApp')
-  .factory('authenticationservice',['$http', '$cookieStore', '$rootScope', function ($http, $cookieStore, $rootScope) {
+  .factory('authenticationservice',['$http', '$cookieStore', '$rootScope','$location', function ($http, $cookieStore, $rootScope,$location) {
     // Service logic
     // ...
     var service = {};
@@ -18,7 +18,8 @@ angular.module('slackchatApp')
         var data ={
           client_id:'87012615811.87769233137',
           client_secret:'e90b3fd0d83f266e7d3f25e7370f73d8',
-          code:code
+          code:code,
+          redirect_uri:$location.protocol()+'://'+location.host+'/home'
         }
        return $http({
           method: "post",
