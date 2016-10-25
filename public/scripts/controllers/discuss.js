@@ -20,17 +20,20 @@ angular.module('slackchatApp')
 
         $scope.state = state;
 
+        var url = $location.protocol()+'://'+location.host+$location.path();
+        url = encodeURI(url);
 
         if(state == 'signin'){
             //$scope.test = 't';
             var code = $routeParams.code;
             //$sessionStorage.code =code;
-            //$scope.code = $sessionStorage.code;
+            $scope.authcode = 'test';
 
-            var auth = authenticationservice.authorize(code);
+            var auth = authenticationservice.authorize(code,url);
                auth.then(function (auth_succ) {
                    $sessionStorage.token = auth_succ.data.access_token;
                    $sessionStorage.user_id = auth_succ.data.user_id;
+                   //$scope.authdata = auth_succ;
                    $sessionStorage.real_name = auth_succ.data.user.name;
                    $sessionStorage.userid = auth_succ.data.user.id;
                    $scope.fname = $sessionStorage.real_name;
@@ -41,6 +44,7 @@ angular.module('slackchatApp')
                    $sessionStorage.team_id = auth_succ.data.team.id;
                    $sessionStorage.team = auth_succ.data.team.name;
                    $sessionStorage.islogged = 1;
+                   $scope.$apply();
                    if($sessionStorage.user_id == undefined){
 
                    }else{
@@ -155,7 +159,7 @@ angular.module('slackchatApp')
             $scope.error = error.data;
         });*/
         if($sessionStorage.real_name == null){
-            $scope.test = 'n';
+            //$scope.test = 'n';
             $scope.fname = 'Guest';
             $scope.avator = 'images/guest.png';
         }
@@ -163,7 +167,7 @@ angular.module('slackchatApp')
             $scope.fname = $sessionStorage.real_name;
             $scope.avator = $sessionStorage.avator;
         }
-
+        //$scope.authcode = 'test';
 
 
         var ctrl = this;
@@ -281,7 +285,7 @@ angular.module('slackchatApp')
                     animation: ctrl.animationsEnabled,
                     arialabelledBy: 'modal-title',
                     ariaDescribedBy: 'modal-body',
-                    templateUrl: 'addtopictemplate.html',
+                    templateUrl: 'addtopic.html',
                     controller:'createtopicCtrl',
                     controllerAs: 'ctrl',
                     size: size,

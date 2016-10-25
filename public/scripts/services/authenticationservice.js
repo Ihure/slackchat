@@ -14,13 +14,13 @@ angular.module('slackchatApp')
     var service = {};
 
     return{
-      authorize: function (code) {
+      authorize: function (code,url) {
         var data ={
           client_id:'87012615811.87769233137',
           client_secret:'e90b3fd0d83f266e7d3f25e7370f73d8',
           code:code,
-          redirect_uri:$location.protocol()+'://'+location.host+'/home'
-        }
+          redirect_uri:url
+        };
        return $http({
           method: "post",
           url: "https://slack.com/api/oauth.access",
@@ -45,7 +45,7 @@ angular.module('slackchatApp')
       testapi: function (token,user) {
         return $http.get('/api/slacks');
       },
-      createtopic: function (topic,user,avator,name,desc,link,tname,ctopic,url) {
+      createtopic: function (topic,user,avator,name,desc,link,tname,ctopic,url,encoded) {
           var n = link.search("<iframe");
           var t = link.search("http");
           if(n >= 0){
@@ -73,7 +73,8 @@ angular.module('slackchatApp')
                   status: status,
                   cond_tname:tname,
                   cond_topic:ctopic,
-                  url:url
+                  url:url,
+                  encoded:encoded
               }
           });
       },
