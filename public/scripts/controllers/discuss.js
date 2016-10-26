@@ -11,12 +11,14 @@
  * Controller of the slackchatApp
  */
 angular.module('slackchatApp')
-    .controller('DiscussCtrl',['authenticationservice','users','$scope','$sessionStorage','$uibModal','$routeParams','$location','authentication','Notification','$route','slackinteraction','$timeout', function (authenticationservice,users,$scope,$sessionStorage,$uibModal,$routeParams,$location,authentication,Notification,$route,slackinteraction,$timeout) {
+    .controller('DiscussCtrl',['authenticationservice','users','$scope','$sessionStorage','$uibModal','$routeParams','$location','authentication','Notification','$route','slackinteraction','$timeout','$cookieStore', function (authenticationservice,users,$scope,$sessionStorage,$uibModal,$routeParams,$location,authentication,Notification,$route,slackinteraction,$timeout,$cookieStore) {
 
         //ngMeta.setTag('description', 'Matthew Cooper');
         //ngMeta.setTag('og:title', 'My ass');
 
         var state = $routeParams.state;
+        var tname = $routeParams.teamname;
+        var ctopic = $routeParams.topic;
 
         $scope.state = state;
 
@@ -46,7 +48,7 @@ angular.module('slackchatApp')
                            $sessionStorage.team_id = prof_succ.data.team.id;
                            $sessionStorage.team = prof_succ.data.team.name;
                            $sessionStorage.islogged = 1;
-
+                           console.log('fetched profile at'+ Date.now());
 
                        },function (prof_err) {
                            Notification({message: 'there was a problem fetching user profile'}, 'error');
@@ -64,6 +66,7 @@ angular.module('slackchatApp')
                        $sessionStorage.team = auth_succ.data.team.name;
                        $sessionStorage.islogged = 1;
                        $scope.$apply();
+                       console.log('fetched profile at'+ Date.now());
                    }
 
                 },function (auth_err) {
@@ -137,6 +140,7 @@ angular.module('slackchatApp')
                 //$scope.test = 'n';
                 $scope.fname = 'Guest';
                 $scope.avator = 'images/guest.png';
+                console.log('set avator at'+ Date.now());
             }
             else{
                 var topics = authenticationservice.listtopic($sessionStorage.userid);
@@ -151,14 +155,84 @@ angular.module('slackchatApp')
 
                 $scope.fname = $sessionStorage.real_name;
                 $scope.avator = $sessionStorage.avator;
+                console.log('set avator at'+ Date.now());
             }
 
             //$scope.$apply();
+            if($cookieStore.get('reply') == 'comment'){
+                var rtext = $cookieStore.get('rtext');
+                var rid = $cookieStore.get('rid');
+                var rpid = $cookieStore.get('rpid');
+                var rlvl = $cookieStore.get('rlvl');
+                var rslabv = $cookieStore.get('rslabv');
+                var rfslg = $cookieStore.get('rfslg');
+                var rslg = $cookieStore.get('rslg')
+                var promises = authenticationservice.postcomments(rid,rtext, $sessionStorage.real_name, $sessionStorage.avator,rpid,rlvl,rslabv,rfslg,rslg);
+                promises.then(function (response) {
+                    var promise = authenticationservice.gettopic(tname,ctopic);
+                    promise.then(function (response) {
+                        $scope.topic = response.data;
+                        var comments = authenticationservice.getdiscussion(rid);
+                        comments.then(function (responsec) {
+                                $scope.comments = responsec.data;
+                                $scope.repsec0 = false;
+                            }, function (errorc) {
+                                $scope.token = errorc.data;
+                            }
+                        )
+                    }, function (errorPayload) {
+                        $scope.token = errorPayload.data;
+                    });
+                }, function (errorPayload) {
+                    $location.path('/newtopic');
+                });
 
+                //$sessionStorage.reply = 'reply';
+                $cookieStore.put('reply','reply');
+            }
 
-        }
+        };
 
-        $timeout( function(){ $scope.callAtTimeout(); }, 2000);
+        $timeout( function(){ $scope.callAtTimeout(); }, 1000);
+
+        /*$scope.callreply = function () {
+            if($cookieStore.get('reply') == 'comment'){
+                var rtext = $cookieStore.get('rtext');
+                var rid = $cookieStore.get('rid');
+                var rpid = $cookieStore.get('rpid');
+                var rlvl = $cookieStore.get('rlvl');
+                var rslabv = $cookieStore.get('rslabv');
+                var rfslg = $cookieStore.get('rfslg');
+                var rslg = $cookieStore.get('rslg')
+                var promises = authenticationservice.postcomments(rid,rtext, $sessionStorage.real_name, $sessionStorage.avator,rpid,rlvl,rslabv,rfslg,rslg);
+                promises.then(function (response) {
+                    var promise = authenticationservice.gettopic(tname,ctopic);
+                    promise.then(function (response) {
+                        $scope.topic = response.data;
+                        var comments = authenticationservice.getdiscussion(rid);
+                        comments.then(function (responsec) {
+                                $scope.comments = responsec.data;
+                                $scope.repsec0 = false;
+                            }, function (errorc) {
+                                $scope.token = errorc.data;
+                            }
+                        )
+                    }, function (errorPayload) {
+                        $scope.token = errorPayload.data;
+                    });
+                }, function (errorPayload) {
+                    $location.path('/newtopic');
+                });
+
+                //$sessionStorage.reply = 'reply';
+                $cookieStore.put('reply','reply');
+            }
+            $scope.$apply()
+        };
+
+        $timeout( function(){ $scope.$apply(function () {
+            $scope.callreply();
+        }); }, 1600);*/
         //$timeout(updatescope, 4000);
 
        /**

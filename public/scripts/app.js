@@ -23,6 +23,7 @@ angular
     'updateMeta',
     'ui-notification',
     'ngclipboard',
+      'ngClipboard'
       //'ngMeta'
   ])
   .config(function ($routeProvider,NotificationProvider,$locationProvider) {
