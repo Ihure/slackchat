@@ -11,7 +11,7 @@
  * Controller of the slackchatApp
  */
 angular.module('slackchatApp')
-    .controller('DiscussCtrl',['authenticationservice','users','$scope','$sessionStorage','$uibModal','$routeParams','$location','authentication','Notification','$route','slackinteraction', function (authenticationservice,users,$scope,$sessionStorage,$uibModal,$routeParams,$location,authentication,Notification,$route,slackinteraction) {
+    .controller('DiscussCtrl',['authenticationservice','users','$scope','$sessionStorage','$uibModal','$routeParams','$location','authentication','Notification','$route','slackinteraction','$timeout', function (authenticationservice,users,$scope,$sessionStorage,$uibModal,$routeParams,$location,authentication,Notification,$route,slackinteraction,$timeout) {
 
         //ngMeta.setTag('description', 'Matthew Cooper');
         //ngMeta.setTag('og:title', 'My ass');
@@ -31,23 +31,9 @@ angular.module('slackchatApp')
 
             var auth = authenticationservice.authorize(code,url);
                auth.then(function (auth_succ) {
-                   $sessionStorage.token = auth_succ.data.access_token;
-                   $sessionStorage.user_id = auth_succ.data.user_id;
-                   //$scope.authdata = auth_succ;
-                   $sessionStorage.real_name = auth_succ.data.user.name;
-                   $sessionStorage.userid = auth_succ.data.user.id;
-                   $scope.fname = $sessionStorage.real_name;
-                   $scope.error = auth_succ.data.error;
-                   //$scope.authdata = auth_succ;
-                   $sessionStorage.avator = auth_succ.data.user.image_24;
-                   $scope.avator = $sessionStorage.avator;
-                   $sessionStorage.team_id = auth_succ.data.team.id;
-                   $sessionStorage.team = auth_succ.data.team.name;
-                   $sessionStorage.islogged = 1;
-                   $scope.$apply();
-                   if($sessionStorage.user_id == undefined){
 
-                   }else{
+                   if(auth_succ.data.user.name == undefined){
+                       $sessionStorage.user_id = auth_succ.data.user_id;
                        var prof = authenticationservice.getProfile($sessionStorage.token,$sessionStorage.user_id);
                        prof.then(function (prof_succ) {
                            $sessionStorage.real_name = prof_succ.data.user.name;
@@ -65,6 +51,19 @@ angular.module('slackchatApp')
                        },function (prof_err) {
                            Notification({message: 'there was a problem fetching user profile'}, 'error');
                        });
+                   }else{
+                       $sessionStorage.token = auth_succ.data.access_token;
+                       //$scope.authdata = auth_succ;
+                       $sessionStorage.real_name = auth_succ.data.user.name;
+                       $sessionStorage.userid = auth_succ.data.user.id;
+                       $scope.fname = $sessionStorage.real_name;
+                       $scope.error = auth_succ.data.error;
+                       $sessionStorage.avator = auth_succ.data.user.image_24;
+                       $scope.avator = $sessionStorage.avator;
+                       $sessionStorage.team_id = auth_succ.data.team.id;
+                       $sessionStorage.team = auth_succ.data.team.name;
+                       $sessionStorage.islogged = 1;
+                       $scope.$apply();
                    }
 
                 },function (auth_err) {
@@ -73,8 +72,8 @@ angular.module('slackchatApp')
             $location.search('code', null);
             $location.search('state', null);
 
-            $scope.fname = $sessionStorage.real_name;
-            $scope.avator = $sessionStorage.avator;
+            //$scope.fname = $sessionStorage.real_name;
+            //$scope.avator = $sessionStorage.avator;
 
         }else if (state == 'add'){
             var code = $routeParams.code;
@@ -127,20 +126,40 @@ angular.module('slackchatApp')
             $scope.avator = $sessionStorage.avator;
         }
 
+        /**
+         * timeout test
+         *
+        $scope.callAtTimeout = function() {
+            console.log("$scope.callAtTimeout - Timeout occurred");
+        }*/
+        $scope.callAtTimeout = function () {
+            if($sessionStorage.real_name == null){
+                //$scope.test = 'n';
+                $scope.fname = 'Guest';
+                $scope.avator = 'images/guest.png';
+            }
+            else{
+                var topics = authenticationservice.listtopic($sessionStorage.userid);
+                topics.then( function (tresponse) {
+                    //$scope.error = 'this';
+                    $scope.topics = tresponse.data;
+                    //$scope.link =$sce.trustAsHtml(tresponse.data.link);
+                }, function (error) {
+                    //$location.path('/');
+                    $scope.error = error.data;
+                });
 
-        if($sessionStorage.userid == null){
+                $scope.fname = $sessionStorage.real_name;
+                $scope.avator = $sessionStorage.avator;
+            }
 
-        }else{
-            var topics = authenticationservice.listtopic($sessionStorage.userid);
-            topics.then( function (tresponse) {
-                //$scope.error = 'this';
-                $scope.topics = tresponse.data;
-                //$scope.link =$sce.trustAsHtml(tresponse.data.link);
-            }, function (error) {
-                //$location.path('/');
-                $scope.error = error.data;
-            });
+            //$scope.$apply();
+
+
         }
+
+        $timeout( function(){ $scope.callAtTimeout(); }, 2000);
+        //$timeout(updatescope, 4000);
 
        /**
         $scope.code = code;
@@ -158,15 +177,7 @@ angular.module('slackchatApp')
             $location.path('/');
             $scope.error = error.data;
         });*/
-        if($sessionStorage.real_name == null){
-            //$scope.test = 'n';
-            $scope.fname = 'Guest';
-            $scope.avator = 'images/guest.png';
-        }
-        else{
-            $scope.fname = $sessionStorage.real_name;
-            $scope.avator = $sessionStorage.avator;
-        }
+
         //$scope.authcode = 'test';
 
 
@@ -324,3 +335,28 @@ angular.module('slackchatApp')
         //$location.search('state', null);
 
     }]);
+function updatescope () {
+    if($sessionStorage.real_name == null){
+        //$scope.test = 'n';
+        $scope.fname = 'Guest';
+        $scope.avator = 'images/guest.png';
+    }
+    else{
+        var topics = authenticationservice.listtopic($sessionStorage.userid);
+        topics.then( function (tresponse) {
+            //$scope.error = 'this';
+            $scope.topics = tresponse.data;
+            //$scope.link =$sce.trustAsHtml(tresponse.data.link);
+        }, function (error) {
+            //$location.path('/');
+            $scope.error = error.data;
+        });
+
+        $scope.fname = $sessionStorage.real_name;
+        $scope.avator = $sessionStorage.avator;
+    }
+
+    //$scope.$apply();
+
+
+}
