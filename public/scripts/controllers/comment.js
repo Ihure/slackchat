@@ -37,7 +37,20 @@ angular.module('slackchatApp')
                 size: size,
             });
         };
-
+        var promises = authenticationservice.gettopic(tname,ctopic);
+                                promises.then(function(response) {
+                                    $scope.topicc = response.data;
+                                    var id = response.data._id;
+                                    var commentsc = authenticationservice.getdiscussion(id);
+                                    commentsc.then(function (response) {
+                                            $scope.commentsc= response.data;
+                                        }, function (error) {
+                                            $scope.token = error.data;
+                                        }
+                                    )
+                                }, function(errorPayload) {
+                                    $scope.token = errorPayload.data;
+                                });
         $scope.callAtreply = function () {
             //$scope.$apply();
             if($cookieStore.get('reply') == 'comment' && state == 'signin'){
@@ -131,7 +144,10 @@ angular.module('slackchatApp')
                     animation: ctrl.animationsEnabled,
                     arialabelledBy: 'modal-title2',
                     ariaDescribedBy: 'modal-body2',
-                    templateUrl: 'signin2.html'
+                    templateUrl: 'signin2.html',
+                    controller:'CommentCtrl',
+                    controllerAs: 'ctrl',
+                    size: size
                 });
             }else {
 
@@ -173,8 +189,8 @@ angular.module('slackchatApp')
         $scope.onSuccess = function(e) {
             Notification({message: 'Link copied to clipboard'}, 'success');
         };
-
-        $scope.fname = $sessionStorage.real_name;
-        $scope.avator = $sessionStorage.avator;
+        
+                $scope.fname = $sessionStorage.real_name;
+                $scope.avator = $sessionStorage.avator;
 
     }]);
