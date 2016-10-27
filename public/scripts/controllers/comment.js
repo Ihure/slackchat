@@ -48,7 +48,9 @@ angular.module('slackchatApp')
                 var rslabv = $cookieStore.get('rslabv');
                 var rfslg = $cookieStore.get('rfslg');
                 var rslg = $cookieStore.get('rslg')
-                var promises = authenticationservice.postcomments(rid,rtext, $sessionStorage.real_name, $sessionStorage.avator,rpid,rlvl,rslabv,rfslg,rslg);
+                var real_name = $cookieStore.get('real_name');
+                var avator = $cookieStore.get('avator');
+                var promises = authenticationservice.postcomments(rid,rtext,real_name,avator,rpid,rlvl,rslabv,rfslg,rslg);
                 promises.then(function (response) {
                     var promise = authenticationservice.gettopic(tname,ctopic);
                     promise.then(function (response) {
