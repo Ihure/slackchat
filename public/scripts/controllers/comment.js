@@ -107,7 +107,7 @@ angular.module('slackchatApp')
 
         };
 
-        $timeout( function(){ $scope.callAtreply(); }, 800);
+        $timeout( function(){ $scope.callAtreply(); }, 2000);
 
 
         ctrl.rep = function (id,parentid,level,slugabove,fullslug,slug) {
