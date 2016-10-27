@@ -39,34 +39,47 @@ angular.module('slackchatApp')
                        var prof = authenticationservice.getProfile($sessionStorage.token,$sessionStorage.user_id);
                        prof.then(function (prof_succ) {
                            $sessionStorage.real_name = prof_succ.data.user.name;
-                           $sessionStorage.user_id = prof_succ.data.user.id;
+                                $cookieStore.put('real_name',$sessionStorage.real_name);
+                           $sessionStorage.userid = prof_succ.data.user.id;
+                                $cookieStore.put('userid',$sessionStorage.userid);
                            $scope.fname = $sessionStorage.real_name;
                            $scope.error = prof_succ.data.error;
                            $scope.authdata = prof_succ;
                            $sessionStorage.avator = prof_succ.data.user.image_24;
+                                $cookieStore.put('avator',$sessionStorage.avator);
                            $scope.avator = $sessionStorage.avator;
                            $sessionStorage.team_id = prof_succ.data.team.id;
+                                $cookieStore.put('team_id',$sessionStorage.team_id);
                            $sessionStorage.team = prof_succ.data.team.name;
+                                $cookieStore.put('team',$sessionStorage.team);
                            $sessionStorage.islogged = 1;
-                           console.log('fetched profile at'+ Date.now());
+
+                           $cookieStore.put('flowtalklog','logged');
+                           console.log('fetched direct profile at'+ Date.now());
 
                        },function (prof_err) {
                            Notification({message: 'there was a problem fetching user profile'}, 'error');
                        });
                    }else{
                        $sessionStorage.token = auth_succ.data.access_token;
-                       //$scope.authdata = auth_succ;
+                       $scope.authdata = auth_succ;
                        $sessionStorage.real_name = auth_succ.data.user.name;
+                            $cookieStore.put('real_name',$sessionStorage.real_name);
                        $sessionStorage.userid = auth_succ.data.user.id;
+                            $cookieStore.put('userid',$sessionStorage.userid);
                        $scope.fname = $sessionStorage.real_name;
                        $scope.error = auth_succ.data.error;
                        $sessionStorage.avator = auth_succ.data.user.image_24;
+                            $cookieStore.put('avator',$sessionStorage.avator);
                        $scope.avator = $sessionStorage.avator;
                        $sessionStorage.team_id = auth_succ.data.team.id;
+                            $cookieStore.put('team_id',$sessionStorage.team_id);
                        $sessionStorage.team = auth_succ.data.team.name;
+                            $cookieStore.put('team',$sessionStorage.team);
                        $sessionStorage.islogged = 1;
-                       $scope.$apply();
-                       console.log('fetched profile at'+ Date.now());
+                       //$scope.$apply();
+                       $cookieStore.put('flowtalklog','logged');
+                       console.log('fetched get_profile at'+ Date.now());
                    }
 
                 },function (auth_err) {
@@ -136,13 +149,13 @@ angular.module('slackchatApp')
             console.log("$scope.callAtTimeout - Timeout occurred");
         }*/
         $scope.callAtTimeout = function () {
-            if($sessionStorage.real_name == null){
-                //$scope.test = 'n';
-                $scope.fname = 'Guest';
-                $scope.avator = 'images/guest.png';
-                console.log('set avator at'+ Date.now());
-            }
-            else{
+
+            if($cookieStore.get('flowtalklog') == 'logged' ){
+                $sessionStorage.real_name= $cookieStore.get('real_name');
+                $sessionStorage.userid = $cookieStore.get('userid');
+                $sessionStorage.avator = $cookieStore.get('avator');
+                $sessionStorage.team_id = $cookieStore.get('team_id');
+                $sessionStorage.team = $cookieStore.get('team');
                 var topics = authenticationservice.listtopic($sessionStorage.userid);
                 topics.then( function (tresponse) {
                     //$scope.error = 'this';
@@ -156,10 +169,18 @@ angular.module('slackchatApp')
                 $scope.fname = $sessionStorage.real_name;
                 $scope.avator = $sessionStorage.avator;
                 console.log('set avator at'+ Date.now());
+
+
+            }
+            else{
+                //$scope.test = 'n';
+                $scope.fname = 'Guest';
+                $scope.avator = 'images/guest.png';
+                console.log('set Guest avator at'+ Date.now());
             }
 
-            //$scope.$apply();
-            if($cookieStore.get('reply') == 'comment'){
+            $scope.$apply();
+            /*if($cookieStore.get('reply') == 'comment'){
                 var rtext = $cookieStore.get('rtext');
                 var rid = $cookieStore.get('rid');
                 var rpid = $cookieStore.get('rpid');
@@ -189,11 +210,11 @@ angular.module('slackchatApp')
 
                 //$sessionStorage.reply = 'reply';
                 $cookieStore.put('reply','reply');
-            }
+            }*/
 
         };
 
-        $timeout( function(){ $scope.callAtTimeout(); }, 1000);
+        $timeout( function(){ $scope.callAtTimeout(); }, 800);
 
         /*$scope.callreply = function () {
             if($cookieStore.get('reply') == 'comment'){

@@ -7,8 +7,8 @@
     <update-meta property="twitter:data1" content="{{topic.name}}" ></update-meta>
     <update-meta property="twitter:label2" content="Posted" ></update-meta>
     <update-meta property="twitter:data2" content="{{topic.created | date:'hh:mm:a - EEE/dd/MMM'}}"></update-meta>
-
-    <header class="main-header" ng-controller="DiscussCtrl as ctrl">
+<div ng-controller="DiscussCtrl as ctrl">
+    <header class="main-header" >
         <!-- Logo -->
         <a href="#/topics" class="logo">
             <!-- mini logo for sidebar mini 50x50 pixels -->
@@ -40,7 +40,7 @@
         </nav>
     </header>
     <!-- Left side column. contains the logo and sidebar -->
-    <aside class="main-sidebar" ng-controller="DiscussCtrl as ctrl" >
+    <aside class="main-sidebar" >
         <!-- sidebar: style can be found in sidebar.less -->
         <section class="sidebar">
             <!-- Sidebar user panel -->
@@ -75,7 +75,7 @@
         <!-- /.sidebar -->
     </aside>
     <!-- Content Wrapper. Contains page content -->
-
+</div>
     <div class="content-wrapper" >
         <!-- Content Header (Page header) -->
         <section class="content-header">
