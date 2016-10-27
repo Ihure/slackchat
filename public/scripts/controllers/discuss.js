@@ -180,7 +180,7 @@ angular.module('slackchatApp')
             }
 
             $scope.$apply();
-            if($cookieStore.get('reply') == 'comment'){
+            /*if($cookieStore.get('reply') == 'comment'){
                 var rtext = $cookieStore.get('rtext');
                 var rid = $cookieStore.get('rid');
                 var rpid = $cookieStore.get('rpid');
@@ -210,7 +210,7 @@ angular.module('slackchatApp')
 
                 //$sessionStorage.reply = 'reply';
                 $cookieStore.put('reply','reply');
-            }
+            }*/
 
         };
 
