@@ -146,8 +146,7 @@ angular.module('slackchatApp')
                     ariaDescribedBy: 'modal-body2',
                     templateUrl: 'signin2.html',
                     controller:'CommentCtrl',
-                    controllerAs: 'ctrl',
-                    size: size
+                    controllerAs: 'ctrl'
                 });
             }else {
 
