@@ -131,9 +131,7 @@ angular.module('slackchatApp')
                     animation: ctrl.animationsEnabled,
                     arialabelledBy: 'modal-title2',
                     ariaDescribedBy: 'modal-body2',
-                    templateUrl: 'signin2.html',
-                    controller:'CommentCtrl',
-                    size: 'sm',
+                    templateUrl: 'signin2.html'
                 });
             }else {
 
