@@ -89,12 +89,12 @@ angular.module('slackchatApp')
                 }, function(errorPayload) {
                     $scope.token = errorPayload.data;
                 });
-                console.log('fetched topics at'+ Date.now());
+                console.log('fetched topic and comments at'+ Date.now());
             }
 
         };
 
-        $timeout( function(){ $scope.callAtreply(); }, 2000);
+        $timeout( function(){ $scope.callAtreply(); }, 800);
 
 
         ctrl.rep = function (id,parentid,level,slugabove,fullslug,slug) {

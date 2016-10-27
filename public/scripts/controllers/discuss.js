@@ -214,7 +214,7 @@ angular.module('slackchatApp')
 
         };
 
-        $timeout( function(){ $scope.callAtTimeout(); }, 1000);
+        $timeout( function(){ $scope.callAtTimeout(); }, 500);
 
         /*$scope.callreply = function () {
             if($cookieStore.get('reply') == 'comment'){
