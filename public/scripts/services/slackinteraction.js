@@ -79,7 +79,7 @@ angular.module('slackchatApp')
                     method: "POST",
                     url:"https://slack.com/api/chat.postMessage",
                     data:JSON.stringify(datas),
-                    headers: {'Content-type': 'application/json'}
+                    headers: {'Content-type': 'application/x-www-form-urlencoded'}
                 });
 
             },
