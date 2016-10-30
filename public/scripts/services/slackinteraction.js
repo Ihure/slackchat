@@ -68,7 +68,7 @@ angular.module('slackchatApp')
                             ts:Date.now()
                         }
                     ]
-                }
+                };
                 //Notification({message: 'slack error '+JSON.stringify(data)}, 'error');
                 return $http({
                     method: "POST",
