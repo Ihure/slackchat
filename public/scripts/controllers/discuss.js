@@ -135,8 +135,8 @@ angular.module('slackchatApp')
                 },function (auth_err) {
                     Notification({message: 'problem authenticating flowtalk with slack'}, 'error');
                 });
-            //$location.search('code', null);
-            //$location.search('state', null);
+            $location.search('code', null);
+            $location.search('state', null);
 
             $scope.fname = $sessionStorage.real_name;
             $scope.avator = $sessionStorage.avator;
