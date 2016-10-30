@@ -52,7 +52,7 @@ angular.module('slackchatApp')
 
             },
             notify_owner: function (token,owner,topic, comment,topic_url,commenter_avator,commenter) {
-                var data ={
+                var datas ={
                     token: token,
                     channel: owner,
                     text:"",
@@ -71,10 +71,12 @@ angular.module('slackchatApp')
                     ]
                 };
                 //Notification({message: 'slack error '+JSON.stringify(data)}, 'error');
+                Notification({message: 'slack send '+JSON.stringify(datas)}, 'error');
+                console.log(datas);
                 return $http({
                     method: "POST",
                     url:"https://slack.com/api/chat.postMessage",
-                    data:JSON.stringify(data),
+                    data:JSON.stringify(datas),
                     headers: {'Content-type': 'application/x-www-form-urlencoded'}
                 });
 
@@ -96,8 +98,7 @@ angular.module('slackchatApp')
                         }
                     ]
                 }
-                Notification({message: 'slack send '+JSON.stringify(data)}, 'error');
-                console.log(data);
+
                 return $http({
                     method: "POST",
                     url:wh_url,
