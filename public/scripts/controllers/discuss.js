@@ -100,7 +100,7 @@ angular.module('slackchatApp')
                 auth.then(function (auth_succ) {
                     $sessionStorage.authtoken = auth_succ.data.access_token;
                     var tname = auth_succ.data.team_name;
-                    console.log(auth_succ.data);
+                    //console.log(auth_succ.data);
                     $sessionStorage.team = tname;
                     var tid = auth_succ.data.team_id;
                     $sessionStorage.team_id = tid;

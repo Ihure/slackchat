@@ -51,7 +51,35 @@ angular.module('slackchatApp')
                 });
 
             },
-            notify_owner: function (wh_url,owner,topic, comment,topic_url,commenter_avator,commenter) {
+            notify_owner: function (token,owner,topic, comment,topic_url,commenter_avator,commenter) {
+                var data ={
+                    token: token,
+                    channel: owner,
+                    text: commenter+" added a comment on your topic",
+                    attachments: [
+                        {
+                            fallback: commenter+" added a comment on your topic",
+                            color: "#36a64f",
+                            pretext: commenter+" added a comment on your topic",
+                            title: topic,
+                            title_link: topic_url,
+                            text: comment,
+                            footer: commenter,
+                            footer_icon: commenter_avator,
+                            ts:Date.now()
+                        }
+                    ]
+                }
+                //Notification({message: 'slack error '+JSON.stringify(data)}, 'error');
+                return $http({
+                    method: "POST",
+                    url:"https://slack.com/api/chat.postMessage",
+                    data:JSON.stringify(data),
+                    headers: {'Content-type': 'application/x-www-form-urlencoded'}
+                });
+
+            },
+            notify_channel: function (wh_url,owner,topic, comment,topic_url,commenter_avator,commenter) {
                 var data ={
                     channel: owner,
                     attachments: [
