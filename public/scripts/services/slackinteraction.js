@@ -55,7 +55,6 @@ angular.module('slackchatApp')
                 var data ={
                     token: token,
                     channel: owner,
-                    text: commenter+" added a comment on your topic",
                     attachments: [
                         {
                             fallback: commenter+" added a comment on your topic",
