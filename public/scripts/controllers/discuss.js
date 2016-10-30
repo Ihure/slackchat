@@ -96,7 +96,7 @@ angular.module('slackchatApp')
             //$sessionStorage.code =code;
             //$scope.code = $sessionStorage.code;
 
-            var auth = authenticationservice.authorize(code);
+            var auth = authenticationservice.authorize(code,url);
                 auth.then(function (auth_succ) {
                     $sessionStorage.authtoken = auth_succ.data.access_token;
                     var tname = auth_succ.data.team_name;
