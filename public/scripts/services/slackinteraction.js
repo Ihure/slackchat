@@ -73,17 +73,20 @@ angular.module('slackchatApp')
                 };
                 //Notification({message: 'slack error '+JSON.stringify(data)}, 'error');
                 //Notification({message: 'slack send '+JSON.stringify(datas)}, 'error');
-                console.log('param '+JSON.stringify(datas))
+                console.log('param '+JSON.stringify(datas));
+                console.log('param2 '+$httpParamSerializer(datas));
+                console.log('param3 '+$httpParamSerializerJQLike(datas));
                 console.log(datas);
                 return $http({
                     method: "POST",
                     url:"https://slack.com/api/chat.postMessage",
-                    data:JSON.stringify(datas),
+                    //data:JSON.stringify(datas),
+                    data:$httpParamSerializer(datas),
                     headers: {'Content-type': 'application/x-www-form-urlencoded'}
                 });
 
             },
-            notify_channel: function (wh_url,owner,topic, comment,topic_url,commenter_avator,commenter) {
+           /* notify_channel: function (wh_url,owner,topic, comment,topic_url,commenter_avator,commenter) {
                 var data ={
                     channel: owner,
                     attachments: [
@@ -108,7 +111,7 @@ angular.module('slackchatApp')
                     headers: {'Content-type': 'application/x-www-form-urlencoded'}
                 });
 
-            },
+            },*/
         };
     }]);
 
