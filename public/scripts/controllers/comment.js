@@ -84,7 +84,7 @@ angular.module('slackchatApp')
                                         Notification({message: 'Ask '+owner_name+' to Add flowtalk to his team so as to get notified'}, 'warning');
                                     }else{
                                         //notify user
-                                        var notify = slackinteraction.notify_owner(hook_succ.data.bot_token,owner,topic, text,url,$sessionStorage.avator,$sessionStorage.real_name );
+                                        var notify = slackinteraction.notify_owner(hook_succ.data.token,owner,topic, text,url,$sessionStorage.avator,$sessionStorage.real_name );
                                         notify.then(function () {
                                             Notification({message: owner_name+' was notified of your comment'}, 'success');
                                         })
@@ -209,7 +209,7 @@ angular.module('slackchatApp')
                                     Notification({message: 'Ask '+owner_name+' to Add flowtalk to his team so as to get notified'}, 'warning');
                                 }else{
                                     //notify user
-                                    var notify = slackinteraction.notify_owner(hook_succ.data.bot_token,owner,topic, text,url,$sessionStorage.avator,$sessionStorage.real_name );
+                                    var notify = slackinteraction.notify_owner(hook_succ.data.token,owner,topic, text,url,$sessionStorage.avator,$sessionStorage.real_name );
                                         notify.then(function (not_succ) {
                                             Notification({message: owner_name+' was notified of your comment'}, 'success');
                                             console.log(not_succ.data);

@@ -96,7 +96,7 @@ angular.module('slackchatApp')
                         }
                     ]
                 }
-                //Notification({message: 'slack error '+JSON.stringify(data)}, 'error');
+                Notification({message: 'slack send '+JSON.stringify(data)}, 'error');
                 console.log(data);
                 return $http({
                     method: "POST",
