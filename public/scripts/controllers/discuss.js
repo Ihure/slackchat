@@ -104,7 +104,7 @@ angular.module('slackchatApp')
                     $sessionStorage.team = tname;
                     var tid = auth_succ.data.team_id;
                     $sessionStorage.team_id = tid;
-                    Notification({message: 'data '+auth_succ.data}, 'error');
+                    //Notification({message: 'data '+auth_succ.data}, 'error');
                     var wurl = auth_succ.data.incoming_webhook.url;
                     var wchnl = auth_succ.data.incoming_webhook.channel;
                     var wcurl = auth_succ.data.incoming_webhook.configuration_url;
