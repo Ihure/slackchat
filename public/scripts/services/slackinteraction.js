@@ -55,7 +55,6 @@ angular.module('slackchatApp')
                 var datas ={
                     token: token,
                     channel: owner,
-                    text:"",
                     attachments: [
                         {
                             fallback: commenter+" added a comment on your topic",
@@ -71,12 +70,13 @@ angular.module('slackchatApp')
                     ]
                 };
                 //Notification({message: 'slack error '+JSON.stringify(data)}, 'error');
-                Notification({message: 'slack send '+JSON.stringify(datas)}, 'error');
+                //Notification({message: 'slack send '+JSON.stringify(datas)}, 'error');
+                console.log('param'+$.param(datas))
                 console.log(datas);
                 return $http({
                     method: "POST",
                     url:"https://slack.com/api/chat.postMessage",
-                    data:JSON.stringify(datas),
+                    data:$.param(datas),
                     headers: {'Content-type': 'application/x-www-form-urlencoded'}
                 });
 
