@@ -11,7 +11,7 @@
  * Controller of the slackchatApp
  */
 angular.module('slackchatApp')
-    .controller('CommentCtrl',['authenticationservice','users','$routeParams','$scope','$location','$sessionStorage','$uibModal','Notification','$timeout','$cookieStore', function (authenticationservice,users,$routeParams,$scope,$location,$sessionStorage,$uibModal,Notification,$timeout,$cookieStore) {
+    .controller('CommentCtrl',['authenticationservice','users','$routeParams','$scope','$location','$sessionStorage','$uibModal','Notification','$timeout','$cookieStore','slackinteraction', function (authenticationservice,users,$routeParams,$scope,$location,$sessionStorage,$uibModal,Notification,$timeout,$cookieStore,slackinteraction) {
 
 
 
