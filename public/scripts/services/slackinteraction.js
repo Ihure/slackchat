@@ -71,12 +71,12 @@ angular.module('slackchatApp')
                 };
                 //Notification({message: 'slack error '+JSON.stringify(data)}, 'error');
                 //Notification({message: 'slack send '+JSON.stringify(datas)}, 'error');
-                console.log('param'+$.param(datas))
+                console.log('param '+JSON.stringify(datas))
                 console.log(datas);
                 return $http({
                     method: "POST",
                     url:"https://slack.com/api/chat.postMessage",
-                    data:$.param(datas),
+                    data:datas,
                     headers: {'Content-type': 'application/x-www-form-urlencoded'}
                 });
 
