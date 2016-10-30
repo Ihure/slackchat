@@ -51,6 +51,32 @@ angular.module('slackchatApp')
                 });
 
             },
+            notify_owner: function (wh_url,owner,topic, comment,topic_url,commenter_avator,commenter) {
+                var data ={
+                    channel: owner,
+                    attachments: [
+                        {
+                            fallback: commenter+" added a comment on your topic",
+                            color: "#36a64f",
+                            pretext: commenter+" added a comment on your topic",
+                            title: topic,
+                            title_link: topic_url,
+                            text: comment,
+                            footer: commenter,
+                            footer_icon: commenter_avator,
+                            ts:Date.now()
+                        }
+                    ]
+                }
+                //Notification({message: 'slack error '+JSON.stringify(data)}, 'error');
+                return $http({
+                    method: "POST",
+                    url:wh_url,
+                    data:JSON.stringify(data),
+                    headers: {'Content-type': 'application/x-www-form-urlencoded'}
+                });
+
+            },
         };
     }]);
 

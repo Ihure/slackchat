@@ -26,7 +26,7 @@ angular.module('slackchatApp')
           ngClipboard.toClipboard(url);
           Notification({message: 'Link copied to clipboard'}, 'success');
           var encoded = encodeURI(url);
-          var create = authenticationservice.createtopic(ctrl.topic, $sessionStorage.userid, $sessionStorage.avator, $sessionStorage.real_name,ctrl.desc,emb,teamname,condtopic,url,encoded);
+          var create = authenticationservice.createtopic(ctrl.topic, $sessionStorage.userid, $sessionStorage.avator, $sessionStorage.real_name,ctrl.desc,emb,teamname,condtopic,url,encoded,$sessionStorage.team_id);
           create.then(function(response) {
               $uibModalInstance.dismiss('cancel');
               $location.path('/'+teamname+'/'+condtopic);

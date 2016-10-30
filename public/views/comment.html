@@ -127,11 +127,11 @@
                     <span class='pull-right text-muted'>
 
 
-                          <form method="post" ng-submit="ctrl.rep(topic._id,topic._id,0,'','','')" name="form" role="form" >
+                          <form method="post" ng-submit="ctrl.rep(topic._id,topic._id,0,'','','',topic.topic,topic.url,topic.createdby,topic.name,topic.team_id)" name="form" role="form" >
                                 <div class="input-group pull-left" ng-hide="!repsec0" style="width: 100%">
                                     <input type="text" name="message" placeholder="Type Reply" class="form-control" name="reply0" id="reply0" ng-model="ctrl.reply0" required autofocus>
                                     <span class="input-group-btn">
-                                        <button type="button" class="btn btn-danger btn-flat" ng-disabled="form.$invalid" ng-click="ctrl.rep(topic._id,topic._id,0,'','','')">Send</button>
+                                        <button type="button" class="btn btn-danger btn-flat" ng-disabled="form.$invalid" ng-click="ctrl.rep(topic._id,topic._id,0,'','','',topic.topic,topic.url,topic.createdby,topic.name,topic.team_id)">Send</button>
                                     </span>
                                 </div>
                           </form>
@@ -149,11 +149,11 @@
                                 <header><a href="javascript:void(0);" class="userlink">{{comment.user}}</a> - <span class="pubdate" ng-bind="comment.date | date:'h:mm:ss - dd/MMM'"></span></header>
                                 <p>{{comment.body}}</p>
                                 <p><a href ng-click="repsec1 = !repsec1">Reply</a> <!--<a href ng-click="replies = !replies">Replies</a>--></p>
-                                <form ng-submit="ctrl.rep(topic._id,comment._id,1,comment.full_slug,comment.full_slug,comment.slug)" name="form" role="form" >
+                                <form ng-submit="ctrl.rep(topic._id,comment._id,1,comment.full_slug,comment.full_slug,comment.slug,topic.topic,topic.url,topic.createdby,topic.name,topic.team_id)" name="form" role="form" >
                                     <div class="input-group input-group-sm" ng-show="repsec1">
                                         <input type="text" class="form-control"  placeholder="Reply" name="reply1" id="reply1" ng-model="ctrl.reply1" required show-focus="repsec1">
                                         <span class="input-group-btn">
-                                          <button class="btn btn-info btn-flat" type="button" ng-disabled="form.$invalid" ng-click="ctrl.rep(topic._id,comment._id,1,comment.full_slug,comment.full_slug,comment.slug)">Reply</button>
+                                          <button class="btn btn-info btn-flat" type="button" ng-disabled="form.$invalid" ng-click="ctrl.rep(topic._id,comment._id,1,comment.full_slug,comment.full_slug,comment.slug,topic.topic,topic.url,topic.createdby,topic.name,topic.team_id)">Reply</button>
                                         </span>
                                     </div>
                                     <!--<div  >
@@ -170,11 +170,11 @@
                                         <header><a href="javascript:void(0);" class="userlink">{{reply.user}}</a> - <span class="pubdate" ng-bind="reply.date | date:'h:mm:ss - dd/MMM'"></span></header>
                                         <p>{{reply.body}}</a></p>
                                         <p><a href ng-click="repsec2 = !repsec2">Reply</a><!-- <a href ng-click="replies = !replies">Replies</a>--></p>
-                                        <form ng-submit="ctrl.rep(topic._id,comment._id,2,reply.full_slug,reply.full_slug,reply.slug)" name="form" role="form">
+                                        <form ng-submit="ctrl.rep(topic._id,comment._id,2,reply.full_slug,reply.full_slug,reply.slug,topic.topic,topic.url,topic.createdby,topic.name,topic.team_id)" name="form" role="form">
                                             <div class="input-group input-group-sm" ng-show="repsec2">
                                                 <input type="text" class="form-control"  placeholder="Reply" name="reply2" id="reply2" ng-model="ctrl.reply2" required show-focus="repsec2">
                                                 <span class="input-group-btn">
-                                                  <button class="btn btn-info btn-flat" type="button" ng-disabled="form.$invalid" ng-click="ctrl.rep(topic._id,comment._id,2,reply.full_slug,reply.full_slug,reply.slug)">Reply</button>
+                                                  <button class="btn btn-info btn-flat" type="button" ng-disabled="form.$invalid" ng-click="ctrl.rep(topic._id,comment._id,2,reply.full_slug,reply.full_slug,reply.slug,topic.topic,topic.url,topic.createdby,topic.name,topic.team_id)">Reply</button>
                                                 </span>
                                             </div>
                                         </form>
@@ -187,11 +187,11 @@
                                                 <header><a href="javascript:void(0);" class="userlink">{{rep.user}}</a> - <span class="pubdate" ng-bind="rep.date | date:'h:mm:ss - dd/MMM'"></span></header>
                                                 <p>{{rep.body}}</p>
                                                 <p><a href ng-click="repsec3 = !repsec3">Reply</a><!-- <a href ng-click="replies = !replies">Replies</a>--></p>
-                                                <form ng-submit="ctrl.rep(topic._id,comment._id,3,rep.full_slug,rep.full_slug,rep.slug)" name="form" role="form">
+                                                <form ng-submit="ctrl.rep(topic._id,comment._id,3,rep.full_slug,rep.full_slug,rep.slug,topic.topic,topic.url,topic.createdby,topic.name,topic.team_id)" name="form" role="form">
                                                     <div class="input-group input-group-sm" ng-show="repsec3">
                                                         <input type="text" class="form-control"  placeholder="Reply" name="reply3" id="reply3" ng-model="ctrl.reply3" required show-focus="repsec3">
                                                         <span class="input-group-btn">
-                                                  <button class="btn btn-info btn-flat" type="button" ng-disabled="form.$invalid" ng-click="ctrl.rep(topic._id,comment._id,3,rep.full_slug,rep.full_slug,rep.slug)">Reply</button>
+                                                  <button class="btn btn-info btn-flat" type="button" ng-disabled="form.$invalid" ng-click="ctrl.rep(topic._id,comment._id,3,rep.full_slug,rep.full_slug,rep.slug,topic.topic,topic.url,topic.createdby,topic.name,topic.team_id)">Reply</button>
                                                 </span>
                                                     </div>
                                                 </form>
@@ -203,11 +203,11 @@
                                                         <header><a href="javascript:void(0);" class="userlink">{{frep.user}}</a> - <span class="pubdate" ng-bind="frep.date | date:'h:mm:ss - dd/MMM'"></span></header>
                                                         <p>{{frep.body}}</p>
                                                         <p><a href ng-click="repsec4 = !repsec4">Reply</a><!-- <a href ng-click="replies = !replies">Replies</a>--></p>
-                                                        <form ng-submit="ctrl.rep(topic._id,comment._id,4,frep.full_slug,frep.full_slug,frep.slug)" name="form" role="form">
+                                                        <form ng-submit="ctrl.rep(topic._id,comment._id,4,frep.full_slug,frep.full_slug,frep.slug,topic.topic,topic.url,topic.createdby,topic.name,topic.team_id)" name="form" role="form">
                                                             <div class="input-group input-group-sm" ng-show="repsec4">
                                                                 <input type="text" class="form-control"  placeholder="Reply" name="reply4" id="reply4" ng-model="ctrl.reply4" required show-focus="repsec4">
                                                                 <span class="input-group-btn">
-                                                                  <button class="btn btn-info btn-flat" type="button" ng-disabled="form.$invalid" ng-click="ctrl.rep(topic._id,comment._id,4,frep.full_slug,frep.full_slug,frep.slug)">Reply</button>
+                                                                  <button class="btn btn-info btn-flat" type="button" ng-disabled="form.$invalid" ng-click="ctrl.rep(topic._id,comment._id,4,frep.full_slug,frep.full_slug,frep.slug,topic.topic,topic.url,topic.createdby,topic.name,topic.team_id)">Reply</button>
                                                                 </span>
                                                             </div>
                                                         </form>

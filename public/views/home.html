@@ -143,7 +143,7 @@
                 <form action="#/comment?id" name="form" role="form" style="margin-top: 10px">
                 <input type="hidden" placeholder="Comment" name="id" id="id" ng-model="ctrl.id" value="{{topic._id}}" style="width: 100%"/>
                 <!-- Social sharing buttons -->
-                <a ng-href="#/comments/{{topic.cond_tname}}/{{topic.cond_topic}}"><button class='btn btn-default btn-xs'  ><i class='fa fa-comment-o'></i> Join conversation</button></a>
+                <a ng-href="/{{topic.cond_tname}}/{{topic.cond_topic}}"><button class='btn btn-default btn-xs'  ><i class='fa fa-comment-o'></i> View conversation</button></a>
                 </form>
                     <!--<span class='pull-right text-muted'><button class="btn " ngclipboard data-clipboard-target="#foo"><i class="fa fa-clipboard"></i></button>
                     </span>-->

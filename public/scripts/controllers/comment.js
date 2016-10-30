@@ -63,6 +63,11 @@ angular.module('slackchatApp')
                 var rslg = $cookieStore.get('rslg')
                 var real_name = $cookieStore.get('real_name');
                 var avator = $cookieStore.get('avator');
+                var topic =$cookieStore.get('rtpc');
+                var url =$cookieStore.get('rurl');
+                var owner = $cookieStore.get('rowner');
+                var owner_name = $cookieStore.get('rownnm');
+                var owner_team =$cookieStore.put('rowntm');
                 var promises = authenticationservice.postcomments(rid,rtext,real_name,avator,rpid,rlvl,rslabv,rfslg,rslg);
                 promises.then(function (response) {
                     var promise = authenticationservice.gettopic(tname,ctopic);
@@ -72,12 +77,30 @@ angular.module('slackchatApp')
                         comments.then(function (responsec) {
                                 $scope.comments = responsec.data;
                                 $scope.repsec0 = false;
+                                //get hook
+                                var hook = authenticationservice.getahook(owner_team);
+                                hook.then(function (hook_succ) {
+                                    if(hook_succ.data.webhk_url == undefined){
+                                        Notification({message: 'Ask '+owner_name+' to Add flowtalk to his team so as to get notified'}, 'warning');
+                                    }else{
+                                        //notify user
+                                        var notify = slackinteraction.notify_owner(hook_succ.data.webhk_url,owner,topic, text,url,$sessionStorage.avator,$sessionStorage.real_name );
+                                        notify.then(function () {
+                                            Notification({message: owner_name+' was notified of your comment'}, 'success');
+                                        })
+                                    }
+                                },function (hook_err) {
+                                    Notification({message: 'problem querying database '+hook_err.data.error}, 'error');
+                                })
+
                             }, function (errorc) {
-                                $scope.token = errorc.data;
+                                Notification({message: 'problem querying database '+errorc.data.error}, 'error');
+                                //$scope.token = errorc.data;
                             }
                         )
                     }, function (errorPayload) {
-                        $scope.token = errorPayload.data;
+                        Notification({message: 'problem querying database '+errorPayload.data.error}, 'error');
+                        //$scope.token = errorPayload.data;
                     });
                 }, function (errorPayload) {
                     $location.path('/newtopic');
@@ -110,7 +133,7 @@ angular.module('slackchatApp')
         $timeout( function(){ $scope.callAtreply(); }, 2000);
 
 
-        ctrl.rep = function (id,parentid,level,slugabove,fullslug,slug) {
+        ctrl.rep = function (id,parentid,level,slugabove,fullslug,slug,topic,url,owner,owner_name,owner_team) {
             if($sessionStorage.userid == null || $sessionStorage== undefined){
                 $cookieStore.put('reply','comment');
                 //$sessionStorage.reply = 'comment';
@@ -140,6 +163,11 @@ angular.module('slackchatApp')
                 $cookieStore.put('rfslg',fullslug);
                 //$sessionStorage.rslg = slug;
                 $cookieStore.put('rslg',slug);
+                $cookieStore.put('rtpc',topic);
+                $cookieStore.put('rurl',url);
+                $cookieStore.put('rowner',owner);
+                $cookieStore.put('rownnm',owner_name);
+                $cookieStore.put('rowntm',owner_team);
                 var modalInstance = $uibModal.open({
                     animation: ctrl.animationsEnabled,
                     arialabelledBy: 'modal-title2',
@@ -172,7 +200,22 @@ angular.module('slackchatApp')
                         comments.then(function (responsec) {
                                 $scope.comments = responsec.data;
                                 $scope.repsec0 = false;
-                            }, function (errorc) {
+                            //get hook
+                            var hook = authenticationservice.getahook(owner_team);
+                            hook.then(function (hook_succ) {
+                                if(hook_succ.data.webhk_url == undefined){
+                                    Notification({message: 'Ask '+owner_name+' to Add flowtalk to his team so as to get notified'}, 'warning');
+                                }else{
+                                    //notify user
+                                    var notify = slackinteraction.notify_owner(hook_succ.data.webhk_url,owner,topic, text,url,$sessionStorage.avator,$sessionStorage.real_name );
+                                        notify.then(function () {
+                                            Notification({message: owner_name+' was notified of your comment'}, 'success');
+                                        })
+                                }
+                            },function (hook_err) {
+
+                            })
+                        }, function (errorc) {
                                 $scope.token = errorc.data;
                             }
                         )

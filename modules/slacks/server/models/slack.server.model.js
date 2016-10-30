@@ -51,6 +51,10 @@ var SlackSchema = new Schema({
       type: String,
       default:''
   },
+  team_id:{
+      type: String,
+      default:''
+  },
   cond_tname:{
       type: String,
       default:''
