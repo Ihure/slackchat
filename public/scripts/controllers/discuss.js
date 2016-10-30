@@ -132,7 +132,21 @@ angular.module('slackchatApp')
                                 Notification({message: 'Flowtalk has already been added to your team'}, 'warning');
                             }
                         }, function (hook_err) {
-                            Notification({message: 'problem querying database '+hook_err.data.error}, 'error');
+                            var createHook = authenticationservice.createhook($sessionStorage.authtoken,tname,tid,wurl,wchnl,wcurl,bid,btkn);
+                            createHook.then(function (ch_succ) {
+                                var post = slackinteraction.welcome(wurl);
+                                post.then(function (succ) {
+                                    //Notification({message: 'slack response '}, 'success');
+                                },function (err) {
+                                    Notification({message: 'slack error '+err.data}, 'error');
+                                });
+
+                                Notification({message: 'flowtalk was successfully added, you can now add topics here or through slack'}, 'success');
+
+                            },function (ch_err) {
+                                Notification({message: 'there was a problem creating a hook '+ch_err.data}, 'error');
+                            });
+                            //Notification({message: 'problem querying database '+hook_err.data.error}, 'error');
                         });
                 },function (auth_err) {
                     Notification({message: 'problem authenticating flowtalk with slack'}, 'error');

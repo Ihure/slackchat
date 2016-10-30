@@ -90,7 +90,9 @@ angular.module('slackchatApp')
                                         })
                                     }
                                 },function (hook_err) {
-                                    Notification({message: 'problem querying database '+hook_err.data.error}, 'error');
+                                    Notification({message: 'Ask '+owner_name+' to Add flowtalk to his team so as to get notified'}, 'warning');
+
+                                    //Notification({message: 'problem querying database '+hook_err.data.error}, 'error');
                                 })
 
                             }, function (errorc) {
@@ -213,7 +215,7 @@ angular.module('slackchatApp')
                                         })
                                 }
                             },function (hook_err) {
-
+                                Notification({message: 'Ask '+owner_name+' to Add flowtalk to his team so as to get notified'}, 'warning');
                             })
                         }, function (errorc) {
                                 $scope.token = errorc.data;
