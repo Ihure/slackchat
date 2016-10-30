@@ -63,6 +63,8 @@ angular.module('slackchatApp')
                             title: topic,
                             title_link: topic_url,
                             text: comment,
+                            image_url: "http://my-website.com/path/to/image.jpg",
+                            thumb_url: "http://example.com/path/to/thumb.png",
                             footer: commenter,
                             footer_icon: commenter_avator,
                             ts:Date.now()
@@ -76,8 +78,8 @@ angular.module('slackchatApp')
                 return $http({
                     method: "POST",
                     url:"https://slack.com/api/chat.postMessage",
-                    data:datas,
-                    headers: {'Content-type': 'application/x-www-form-urlencoded'}
+                    data:JSON.stringify(datas),
+                    headers: {'Content-type': 'application/json'}
                 });
 
             },
