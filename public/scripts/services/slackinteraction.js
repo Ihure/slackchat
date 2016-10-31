@@ -11,7 +11,7 @@
  * Service in the slackchatApp.
  */
 angular.module('slackchatApp')
-    .service('slackinteraction',['$http','Notification','$httpParamSerializerJQLike' , function ($http,Notification,$httpParamSerializerJQLike) {
+    .service('slackinteraction',['$http','Notification','$httpParamSerializerJQLike' ,'$httpParamSerializer', function ($http,Notification,$httpParamSerializerJQLike,$httpParamSerializer) {
         // AngularJS will instantiate a singleton by calling "new" on this function
         return{
             welcome: function (url) {
