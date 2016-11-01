@@ -19,7 +19,7 @@ angular.module('slackchatApp')
                     attachments: [
                         {
                             fallback: "Welcome to Flowtalk",
-                            color: "#36a64f",
+                            color: "#800080",
                             pretext: "Welcome to Flowtalk",
                             author_name: "Flowtalk",
                             author_link: "http://www.flowtalk.io",
@@ -58,7 +58,7 @@ angular.module('slackchatApp')
                 };
                 var att = {
                     fallback: commenter+" added a comment on your topic",
-                    color: "#36a64f",
+                    color: "#800080",
                     pretext: commenter+" added a comment on your topic",
                     title: topic,
                     title_link: topic_url,
