@@ -38,6 +38,7 @@ angular.module('slackchatApp')
                        $sessionStorage.user_id = auth_succ.data.user_id;
                        var prof = authenticationservice.getProfile($sessionStorage.token,$sessionStorage.user_id);
                        prof.then(function (prof_succ) {
+                           console.log('fetched get_profile data '+ prof_succ);
                            $sessionStorage.real_name = prof_succ.data.user.name;
                                 $cookieStore.put('real_name',$sessionStorage.real_name);
                            $sessionStorage.userid = prof_succ.data.user.id;
@@ -45,7 +46,7 @@ angular.module('slackchatApp')
                            $scope.fname = $sessionStorage.real_name;
                            $scope.error = prof_succ.data.error;
                            $scope.authdata = prof_succ;
-                           $sessionStorage.avator = prof_succ.data.user.image_24;
+                           $sessionStorage.avator = prof_succ.data.user.image_48;
                                 $cookieStore.put('avator',$sessionStorage.avator);
                            $scope.avator = $sessionStorage.avator;
                            $sessionStorage.team_id = prof_succ.data.team.id;
@@ -55,21 +56,24 @@ angular.module('slackchatApp')
                            $sessionStorage.islogged = 1;
 
                            $cookieStore.put('flowtalklog','logged');
-                           console.log('fetched direct profile at'+ Date.now());
+                           console.log('fetched get_direct profile at'+ Date.now());
+                           //console.log('fetched data '+ );
 
                        },function (prof_err) {
                            Notification({message: 'there was a problem fetching user profile'}, 'error');
                        });
                    }else{
+
                        $sessionStorage.token = auth_succ.data.access_token;
-                       $scope.authdata = auth_succ;
+                       $scope.authdata = auth_succ.data;
+                       $cookieStore.put('auth',auth_succ);
                        $sessionStorage.real_name = auth_succ.data.user.name;
                             $cookieStore.put('real_name',$sessionStorage.real_name);
                        $sessionStorage.userid = auth_succ.data.user.id;
                             $cookieStore.put('userid',$sessionStorage.userid);
                        $scope.fname = $sessionStorage.real_name;
                        $scope.error = auth_succ.data.error;
-                       $sessionStorage.avator = auth_succ.data.user.image_24;
+                       $sessionStorage.avator = auth_succ.data.user.image_48;
                             $cookieStore.put('avator',$sessionStorage.avator);
                        $scope.avator = $sessionStorage.avator;
                        $sessionStorage.team_id = auth_succ.data.team.id;
@@ -79,7 +83,8 @@ angular.module('slackchatApp')
                        $sessionStorage.islogged = 1;
                        //$scope.$apply();
                        $cookieStore.put('flowtalklog','logged');
-                       console.log('fetched get_profile at'+ Date.now());
+                       //console.log('fetched direct profile data '+ auth_succ.data);
+                       console.log('fetched direct profile at'+ Date.now());
                    }
 
                 },function (auth_err) {
@@ -102,12 +107,16 @@ angular.module('slackchatApp')
                     var tname = auth_succ.data.team_name;
                     //console.log(auth_succ.data);
                     $sessionStorage.team = tname;
+                    $cookieStore.put('auths',auth_succ);
                     var tid = auth_succ.data.team_id;
                     $sessionStorage.team_id = tid;
                     //Notification({message: 'data '+auth_succ.data}, 'error');
-                    var wurl = auth_succ.data.incoming_webhook.url;
-                    var wchnl = auth_succ.data.incoming_webhook.channel;
-                    var wcurl = auth_succ.data.incoming_webhook.configuration_url;
+                    //var wurl = auth_succ.data.incoming_webhook.url;
+                    var wurl = '';
+                   //var wchnl = auth_succ.data.incoming_webhook.channel;
+                    var wchnl = '';
+                    //var wcurl = auth_succ.data.incoming_webhook.configuration_url;
+                    var wcurl = '';
                     var bid = auth_succ.data.bot.bot_user_id;
                     var btkn = auth_succ.data.bot.bot_access_token;
                     
@@ -172,6 +181,8 @@ angular.module('slackchatApp')
                 $sessionStorage.avator = $cookieStore.get('avator');
                 $sessionStorage.team_id = $cookieStore.get('team_id');
                 $sessionStorage.team = $cookieStore.get('team');
+                $scope.authdata = $cookieStore.get('auths');
+
                 var topics = authenticationservice.listtopic($sessionStorage.userid);
                 topics.then( function (tresponse) {
                     //$scope.error = 'this';
@@ -181,6 +192,13 @@ angular.module('slackchatApp')
                     //$location.path('/');
                     $scope.error = error.data;
                 });
+                var hook = authenticationservice.getahook($sessionStorage.team_id);
+                    hook.then(function (hook_succ) {
+                        $scope.hook = false;
+                    },function (hook_err) {
+                        $scope.hook = true;
+                    });
+
 
                 $scope.fname = $sessionStorage.real_name;
                 $scope.avator = $sessionStorage.avator;

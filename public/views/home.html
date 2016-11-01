@@ -32,8 +32,8 @@
 
                 <div class="navbar-custom-menu">
                 <ul class="nav navbar-nav">
-                    <li class="dropdown ">
-                        <a href="https://slack.com/oauth/authorize?scope=incoming-webhook,commands,bot&client_id=87012615811.87769233137&state=add&redirect_uri={{url}}"><img alt="Add to Slack" height="25"  src="https://platform.slack-edge.com/img/add_to_slack.png" srcset="https://platform.slack-edge.com/img/add_to_slack.png 1x, https://platform.slack-edge.com/img/add_to_slack@2x.png 2x" /></a>
+                    <li class="dropdown " ng-show="hook">
+                        <a href="https://slack.com/oauth/authorize?scope=commands,bot&client_id=87012615811.87769233137&state=add&redirect_uri={{url}}"><img alt="Add to Slack" height="25"  src="https://platform.slack-edge.com/img/add_to_slack.png" srcset="https://platform.slack-edge.com/img/add_to_slack.png 1x, https://platform.slack-edge.com/img/add_to_slack@2x.png 2x" /></a>
                     </li>
                     <li class="dropdown notifications-menu">
                         <a ng-click="ctrl.open('sm')" class="dropdown-toggle" data-toggle="dropdown">
@@ -93,7 +93,7 @@
     <section class="content-header">
         <h1>
             My topics
-            {{authdata}}
+            <!--{{authdatass}}-->
             <small>it all starts here</small>
             <!--<a class="btn btn-app" ng-click="ctrl.open('sm')">
                 <i  class="fa fa-plus"></i>Add
