@@ -54,36 +54,67 @@ angular.module('slackchatApp')
             notify_owner: function (token,owner,topic, comment,topic_url,commenter_avator,commenter) {
                 var datas ={
                     token: token,
-                    channel: owner,
-                    attachments: [
-                        {
-                            fallback: commenter+" added a comment on your topic",
-                            color: "#36a64f",
-                            pretext: commenter+" added a comment on your topic",
-                            title: topic,
-                            title_link: topic_url,
-                            text: comment,
-                            image_url: "http://my-website.com/path/to/image.jpg",
-                            thumb_url: "http://example.com/path/to/thumb.png",
-                            footer: commenter,
-                            footer_icon: commenter_avator,
-                            ts:Date.now()
-                        }
-                    ]
+                    channel: owner
+                };
+                var att = {
+                    fallback: commenter+" added a comment on your topic",
+                    color: "#36a64f",
+                    pretext: commenter+" added a comment on your topic",
+                    title: topic,
+                    title_link: topic_url,
+                    text: comment,
+                    footer: commenter,
+                    footer_icon: commenter_avator,
+                    ts:Date.now()
                 };
                 //Notification({message: 'slack error '+JSON.stringify(data)}, 'error');
                 //Notification({message: 'slack send '+JSON.stringify(datas)}, 'error');
-                console.log('param '+JSON.stringify(datas));
-                console.log('param2 '+$httpParamSerializer(datas));
-                console.log('param3 '+$httpParamSerializerJQLike(datas));
-                console.log(datas);
+                //console.log('param1 '+JSON.stringify(datas));
+                //console.log('param2 '+serializeData(datas)+'&attachments=['+JSON.stringify(att)+']');
+                //console.log('param3 '+serializeData(datas)+'&attachments='+encodeURI('[{')+serializeData(att)+encodeURI('}]'));
+                //console.log(datas);
                 return $http({
                     method: "POST",
                     url:"https://slack.com/api/chat.postMessage",
                     //data:JSON.stringify(datas),
-                    data:$httpParamSerializer(datas),
-                    headers: {'Content-type': 'application/x-www-form-urlencoded'}
+                    headers: {'Content-type': 'application/x-www-form-urlencoded'},
+                    //transformRequest: transformRequestAsFormPost,
+                    //data: {username: $scope.userName, password: $scope.password}
+                   /* transformRequest: function(data) {
+                        /*var str = [];
+                        for(var p in obj)
+                            str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+                        return str.join("&");*
+                        return( serializeData( data ) );
+                    },*/
+                    data: serializeData(datas)+'&attachments=['+JSON.stringify(att)+']'
                 });
+
+                function serializeData( data ) {
+                    // If this is not an object, defer to native stringification.
+                    if ( ! angular.isObject( data ) ) {
+                        return( ( data == null ) ? "" : data.toString() );
+                    }
+                    var buffer = [];
+                    // Serialize each key in the object.
+                    for ( var name in data ) {
+                        if ( ! data.hasOwnProperty( name ) ) {
+                            continue;
+                        }
+                        var value = data[ name ];
+                        buffer.push(
+                            encodeURIComponent( name ) +
+                            "=" +
+                            encodeURIComponent( ( value == null ) ? "" : value )
+                        );
+                    }
+                    // Serialize the buffer and clean it up for transportation.
+                    var source = buffer
+                            .join( "&" )
+                            .replace( /%20/g, "+" )
+                        ;
+                    return( source );
+                }
 
             },
            /* notify_channel: function (wh_url,owner,topic, comment,topic_url,commenter_avator,commenter) {
@@ -139,4 +170,46 @@ angular.module('slackchatApp')
         footer_icon: "https://blog.agilebits.com/wp-content/uploads/2014/10/FlowBrowser-Icon.png",
         ts:Date()
     }
+
+ var param = function(obj)
+ {
+ var query = '';
+ var name, value, fullSubName, subName, subValue, innerObj, i;
+
+ for(name in obj)
+ {
+ value = obj[name];
+
+ if(value instanceof Array)
+ {
+ for(i=0; i<value.length; ++i)
+ {
+ subValue = value[i];
+ fullSubName = name + '[' + i + ']';
+ innerObj = {};
+ innerObj[fullSubName] = subValue;
+ query += param(innerObj) + '&';
+ }
+ }
+ else if(value instanceof Object)
+ {
+ for(subName in value)
+ {
+ subValue = value[subName];
+ fullSubName = name + '[' + subName + ']';
+ innerObj = {};
+ innerObj[fullSubName] = subValue;
+ query += param(innerObj) + '&';
+ }
+ }
+ else if(value !== undefined && value !== null)
+ {
+ query += encodeURIComponent(name) + '=' + encodeURIComponent(value) + '&';
+ }
+ }
+
+ return query.length ? query.substr(0, query.length - 1) : query;
+ };
+
+ return angular.isObject(data) && String(data) !== '[object File]' ? param(data) : data;
 ]*/
