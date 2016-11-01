@@ -132,7 +132,7 @@ angular.module('slackchatApp')
 
         };
 
-        $timeout( function(){ $scope.callAtreply(); }, 2000);
+        $timeout( function(){ $scope.callAtreply(); }, 3500);
 
 
         ctrl.rep = function (id,parentid,level,slugabove,fullslug,slug,topic,url,owner,owner_name,owner_team) {
