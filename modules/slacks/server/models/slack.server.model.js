@@ -70,6 +70,14 @@ var SlackSchema = new Schema({
   cond_topic:{
       type: String,
       default:''
+  },
+  bot_id: {
+     type: String,
+     default: ''
+  },
+  bot_token: {
+     type: String,
+     default: ''
   }
 });
 

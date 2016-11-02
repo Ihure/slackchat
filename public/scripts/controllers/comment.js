@@ -77,23 +77,11 @@ angular.module('slackchatApp')
                         comments.then(function (responsec) {
                                 $scope.comments = responsec.data;
                                 $scope.repsec0 = false;
-                                //get hook
-                                var hook = authenticationservice.getahook(owner_team);
-                                hook.then(function (hook_succ) {
-                                    if(hook_succ.data.webhk_url == undefined){
-                                        Notification({message: 'Ask '+owner_name+' to Add flowtalk to his team so as to get notified'}, 'warning');
-                                    }else{
-                                        //notify user
-                                        var notify = slackinteraction.notify_owner(hook_succ.data.bot_token,owner,topic, text,url,$sessionStorage.avator,$sessionStorage.real_name );
-                                        notify.then(function () {
-                                            Notification({message: owner_name+' was notified of your comment'}, 'success');
-                                        })
-                                    }
-                                },function (hook_err) {
-                                    Notification({message: 'Ask '+owner_name+' to Add flowtalk to his team so as to get notified'}, 'warning');
-
-                                    //Notification({message: 'problem querying database '+hook_err.data.error}, 'error');
-                                })
+                            //notify user
+                            var notify = slackinteraction.notify_owner(response.data.bot_token,owner,topic, text,url,$sessionStorage.avator,$sessionStorage.real_name );
+                            notify.then(function () {
+                                Notification({message: owner_name+' was notified of your comment'}, 'success');
+                            })
 
                             }, function (errorc) {
                                 Notification({message: 'problem querying database '+errorc.data.error}, 'error');
@@ -132,7 +120,7 @@ angular.module('slackchatApp')
 
         };
 
-        $timeout( function(){ $scope.callAtreply(); }, 3500);
+        $timeout( function(){ $scope.callAtreply(); }, 2500);
 
 
         ctrl.rep = function (id,parentid,level,slugabove,fullslug,slug,topic,url,owner,owner_name,owner_team) {
@@ -202,22 +190,12 @@ angular.module('slackchatApp')
                         comments.then(function (responsec) {
                                 $scope.comments = responsec.data;
                                 $scope.repsec0 = false;
-                            //get hook
-                            var hook = authenticationservice.getahook(owner_team);
-                            hook.then(function (hook_succ) {
-                                if(hook_succ.data.webhk_url == undefined){
-                                    Notification({message: 'Ask '+owner_name+' to Add flowtalk to his team so as to get notified'}, 'warning');
-                                }else{
-                                    //notify user
-                                    var notify = slackinteraction.notify_owner(hook_succ.data.bot_token,owner,topic, text,url,$sessionStorage.avator,$sessionStorage.real_name );
-                                        notify.then(function (not_succ) {
-                                            Notification({message: owner_name+' was notified of your comment'}, 'success');
-                                            console.log(not_succ.data);
-                                        })
-                                }
-                            },function (hook_err) {
-                                Notification({message: 'Ask '+owner_name+' to Add flowtalk to his team so as to get notified'}, 'warning');
-                            })
+                            //notify user
+                            var notify = slackinteraction.notify_owner(response.data.bot_token,owner,topic, text,url,$sessionStorage.avator,$sessionStorage.real_name );
+                                notify.then(function (not_succ) {
+                                    Notification({message: owner_name+' was notified of your comment'}, 'success');
+                                    console.log(not_succ.data);
+                                })
                         }, function (errorc) {
                                 $scope.token = errorc.data;
                             }

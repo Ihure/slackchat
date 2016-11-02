@@ -36,7 +36,7 @@ angular.module('slackchatApp')
 
                    if(auth_succ.data.user.name == undefined){
                        $sessionStorage.user_id = auth_succ.data.user_id;
-                       var prof = authenticationservice.getProfile($sessionStorage.token,$sessionStorage.user_id);
+                       var prof = authenticationservice.getProfileid($sessionStorage.token,$sessionStorage.user_id);
                        prof.then(function (prof_succ) {
                            console.log('fetched get_profile data '+ prof_succ);
                            $sessionStorage.real_name = prof_succ.data.user.name;
@@ -104,7 +104,7 @@ angular.module('slackchatApp')
             var auth = authenticationservice.authorize(code,url);
                 auth.then(function (auth_succ) {
                     $sessionStorage.authtoken = auth_succ.data.access_token;
-                    var tname = auth_succ.data.team_name;
+                    /*var tname = auth_succ.data.team_name;
                     //console.log(auth_succ.data);
                     $sessionStorage.team = tname;
                     $cookieStore.put('auths',auth_succ);
@@ -116,29 +116,50 @@ angular.module('slackchatApp')
                    //var wchnl = auth_succ.data.incoming_webhook.channel;
                     var wchnl = '';
                     //var wcurl = auth_succ.data.incoming_webhook.configuration_url;
-                    var wcurl = '';
+                    var wcurl = '';*/
                     var bid = auth_succ.data.bot.bot_user_id;
+                        $cookieStore.put('bid',bid);
                     var btkn = auth_succ.data.bot.bot_access_token;
+                        $cookieStore.put('btkn',btkn);
+                    var prof = authenticationservice.getProfile($sessionStorage.authtoken);
+                    prof.then(function (prof_succ) {
+                        //$cookieStore.put('auth',prof_succ);
+                        //console.log('fetched auth_profile data '+ prof_succ);
+                        $sessionStorage.real_name = prof_succ.data.user.name;
+                        $cookieStore.put('real_name',$sessionStorage.real_name);
+                        $sessionStorage.userid = prof_succ.data.user.id;
+                        $cookieStore.put('userid',$sessionStorage.userid);
+                        $scope.fname = $sessionStorage.real_name;
+                        $scope.error = prof_succ.data.error;
+                        $scope.authdata = prof_succ;
+                        $sessionStorage.avator = prof_succ.data.user.image_48;
+                        $cookieStore.put('avator',$sessionStorage.avator);
+                        $scope.avator = $sessionStorage.avator;
+                        $sessionStorage.team_id = prof_succ.data.team.id;
+                        $cookieStore.put('team_id',$sessionStorage.team_id);
+                        $sessionStorage.team = prof_succ.data.team.name;
+                        $cookieStore.put('team',$sessionStorage.team);
+                        $sessionStorage.islogged = 1;
+
+                        $cookieStore.put('flowtalklog','logged');
+                        console.log('fetched auth_direct profile at'+ Date.now());
+                        //console.log('fetched data '+ );
+
+                    },function (prof_err) {
+                        Notification({message: 'there was a problem fetching user profile'}, 'error');
+                    });
                     
-                    var hook = authenticationservice.getahook(tid);
+                   /* var hook = authenticationservice.getahook(tid);
                         hook.then(function (hook_succ) {
                             if(hook_succ.data.webhk_url == undefined){
                                 var createHook = authenticationservice.createhook($sessionStorage.authtoken,tname,tid,wurl,wchnl,wcurl,bid,btkn);
                                     createHook.then(function (ch_succ) {
-                                       /* var post = slackinteraction.welcome(wurl);
-                                            post.then(function (succ) {
-                                                //Notification({message: 'slack response '}, 'success');
-                                            },function (err) {
-                                                Notification({message: 'slack error '+err.data}, 'error');
-                                            });*/
-
                                         Notification({message: 'flowtalk was successfully added, you can now add topics here or through slack'}, 'success');
-
                                     },function (ch_err) {
                                         Notification({message: 'there was a problem creating a hook '+ch_err.data}, 'error');
                                     });
                             }else{
-                                Notification({message: 'Flowtalk has already been added to your team'}, 'warning');
+                                //Notification({message: 'Flowtalk has already been added to your team'}, 'warning');
                             }
                         }, function (hook_err) {
                             var createHook = authenticationservice.createhook($sessionStorage.authtoken,tname,tid,wurl,wchnl,wcurl,bid,btkn);
@@ -156,7 +177,7 @@ angular.module('slackchatApp')
                                 Notification({message: 'there was a problem creating a hook '+ch_err.data}, 'error');
                             });
                             //Notification({message: 'problem querying database '+hook_err.data.error}, 'error');
-                        });
+                        });*/
                 },function (auth_err) {
                     Notification({message: 'problem authenticating flowtalk with slack'}, 'error');
                 });
@@ -181,6 +202,8 @@ angular.module('slackchatApp')
                 $sessionStorage.avator = $cookieStore.get('avator');
                 $sessionStorage.team_id = $cookieStore.get('team_id');
                 $sessionStorage.team = $cookieStore.get('team');
+                $sessionStorage.bid = $cookieStore.get('bid');
+                $sessionStorage.btkn = $cookieStore.get('btkn');
                 $scope.authdata = $cookieStore.get('auths');
 
                 var topics = authenticationservice.listtopic($sessionStorage.userid);
@@ -192,12 +215,12 @@ angular.module('slackchatApp')
                     //$location.path('/');
                     $scope.error = error.data;
                 });
-                var hook = authenticationservice.getahook($sessionStorage.team_id);
+               /* var hook = authenticationservice.getahook($sessionStorage.team_id);
                     hook.then(function (hook_succ) {
                         $scope.hook = false;
                     },function (hook_err) {
                         $scope.hook = true;
-                    });
+                    });*/
 
 
                 $scope.fname = $sessionStorage.real_name;
@@ -207,6 +230,8 @@ angular.module('slackchatApp')
 
             }
             else{
+                $scope.authdata = $cookieStore.get('auths');
+                $scope.authdatas = $cookieStore.get('auth');
                 //$scope.test = 'n';
                 $scope.fname = 'Guest';
                 $scope.avator = 'images/guest.png';
@@ -248,7 +273,7 @@ angular.module('slackchatApp')
 
         };
 
-        $timeout( function(){ $scope.callAtTimeout(); }, 2500);
+        $timeout( function(){ $scope.callAtTimeout(); }, 2000);
 
         /*$scope.callreply = function () {
             if($cookieStore.get('reply') == 'comment'){

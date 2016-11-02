@@ -58,7 +58,7 @@
             <ul class="sidebar-menu" >
                 <!--<li><a href="#/logout"><i class="fa fa-power-off text-danger"></i> logout</a></li>-->
                 <li class="header">Topics posted</li>
-                <li class="header">{{authdata}}</li>
+                <!--<li class="header">{{authdata}}</li>-->
                 <li ng-repeat="limtopic in limtopics">
                     <a href="#/comment?id={{limtopic._id}}">
                         <i class="fa fa-th"></i> <span>{{limtopic.topic}}</span>
@@ -280,8 +280,8 @@
             <h3 class="modal-title" id="modal-title2" align="center">Sign In</h3>
             <div class="modal-body" id="modal-body2">
                 <p>Before you can proceed to sign in</p>
-                <a href="https://slack.com/oauth/authorize?scope=identity.basic,identity.email,identity.team,identity.avatar&client_id=87012615811.87769233137&state=signin&redirect_uri={{topicc.encoded}}"><img alt="Sign in with Slack" height="40" width="172" src="https://platform.slack-edge.com/img/sign_in_with_slack.png" srcset="https://platform.slack-edge.com/img/sign_in_with_slack.png 1x, https://platform.slack-edge.com/img/sign_in_with_slack@2x.png 2x" /></a>
-            </div>
+                <a href="https://slack.com/oauth/authorize?scope=commands,bot,users.profile:read&client_id=87012615811.87769233137&state=add&redirect_uri={{topicc.encoded}}"><img alt="Add to Slack" height="40" width="139"  src="https://platform.slack-edge.com/img/add_to_slack.png" srcset="https://platform.slack-edge.com/img/add_to_slack.png 1x, https://platform.slack-edge.com/img/add_to_slack@2x.png 2x" /></a>
+                </div>
         </div>
     </script>
     <div class="control-sidebar-bg"></div>

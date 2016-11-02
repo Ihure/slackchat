@@ -30,7 +30,7 @@ angular.module('slackchatApp')
         });
           //return $http.post('https://slack.com/api/oauth.access', {client_id:'87012615811.87769233137',client_secret:'e90b3fd0d83f266e7d3f25e7370f73d8',code:code});
       },
-      getProfile: function (token,user) {
+      getProfileid: function (token,user) {
         var data ={
           token:token,
           user:user
@@ -42,10 +42,22 @@ angular.module('slackchatApp')
           headers: {'Content-Type': 'application/x-www-form-urlencoded'}
         });
       },
+      getProfile: function (token) {
+        var data ={
+          token:token,
+          //user:user
+        }
+        return $http({
+          method: "post",
+          url: "https://slack.com/api/users.identity",
+          data: $.param(data),
+          headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+        });
+      },
       testapi: function (token,user) {
         return $http.get('/api/slacks');
       },
-      createtopic: function (topic,user,avator,name,desc,link,tname,ctopic,url,encoded,tid) {
+      createtopic: function (topic,user,avator,name,desc,link,tname,ctopic,url,encoded,tid,bid,btkn) {
           var n = link.search("<iframe");
           var t = link.search("http");
           if(n >= 0){
@@ -75,7 +87,9 @@ angular.module('slackchatApp')
                   cond_topic:ctopic,
                   url:url,
                   encoded:encoded,
-                  team_id:tid
+                  team_id:tid,
+                  bot_id: bid,
+                  bot_token: btkn
               }
           });
       },
