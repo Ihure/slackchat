@@ -49,7 +49,7 @@ angular.module('slackchatApp')
         }
         return $http({
           method: "post",
-          url: "https://slack.com/api/users.identity",
+          url: "https://slack.com/api/users.profile.get",
           data: $.param(data),
           headers: {'Content-Type': 'application/x-www-form-urlencoded'}
         });
