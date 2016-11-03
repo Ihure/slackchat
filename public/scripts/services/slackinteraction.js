@@ -93,7 +93,6 @@ angular.module('slackchatApp')
                 var datas ={
                     token: token,
                     channel: owner,
-                    username:'@flowtalk'
                 };
                 var att = {
                     fallback: commenter+" added a comment on your topic",
