@@ -53,7 +53,7 @@ angular.module('slackchatApp')
                                 });
         $scope.callAtreply = function () {
             //$scope.$apply();
-            if($cookieStore.get('reply') == 'comment' && state == 'signin'){
+            if($cookieStore.get('reply') == 'comment' && state == 'add'){
                 var rtext = $cookieStore.get('rtext');
                 var rid = $cookieStore.get('rid');
                 var rpid = $cookieStore.get('rpid');
@@ -78,7 +78,7 @@ angular.module('slackchatApp')
                                 $scope.comments = responsec.data;
                                 $scope.repsec0 = false;
                             //notify user
-                            var notify = slackinteraction.notify_owner(response.data.bot_token,owner,topic, text,url,$sessionStorage.avator,$sessionStorage.real_name );
+                            var notify = slackinteraction.notify_owner(response.data.bot_token,owner,topic, rtext,url,$sessionStorage.avator,$sessionStorage.real_name );
                             notify.then(function () {
                                 Notification({message: owner_name+' was notified of your comment'}, 'success');
                             })

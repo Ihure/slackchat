@@ -51,10 +51,49 @@ angular.module('slackchatApp')
                 });
 
             },
+            get_id: function (token,user) {
+                var data ={
+                    token: token,
+                    user: user
+                };
+                //Notification({message: 'slack error '+JSON.stringify(data)}, 'error');
+                return $http({
+                    method: "POST",
+                    url:"https://slack.com/api/im.open",
+                    data:serializeData(data),
+                    headers: {'Content-type': 'application/x-www-form-urlencoded'}
+                });
+                function serializeData( data ) {
+                    // If this is not an object, defer to native stringification.
+                    if ( ! angular.isObject( data ) ) {
+                        return( ( data == null ) ? "" : data.toString() );
+                    }
+                    var buffer = [];
+                    // Serialize each key in the object.
+                    for ( var name in data ) {
+                        if ( ! data.hasOwnProperty( name ) ) {
+                            continue;
+                        }
+                        var value = data[ name ];
+                        buffer.push(
+                            encodeURIComponent( name ) +
+                            "=" +
+                            encodeURIComponent( ( value == null ) ? "" : value )
+                        );
+                    }
+                    // Serialize the buffer and clean it up for transportation.
+                    var source = buffer
+                            .join( "&" )
+                            .replace( /%20/g, "+" )
+                        ;
+                    return( source );
+                }
+            },
             notify_owner: function (token,owner,topic, comment,topic_url,commenter_avator,commenter) {
                 var datas ={
                     token: token,
-                    channel: owner
+                    channel: owner,
+                    username:'@flowtalk'
                 };
                 var att = {
                     fallback: commenter+" added a comment on your topic",

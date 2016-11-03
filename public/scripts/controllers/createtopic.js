@@ -8,7 +8,7 @@
  * Controller of the slackchatApp
  */
 angular.module('slackchatApp')
-  .controller('createtopicCtrl',['authenticationservice','users','$scope','$location','$sessionStorage','$uibModalInstance','ngClipboard','Notification', function (authenticationservice,users,$scope,$location,$sessionStorage,$uibModalInstance,ngClipboard,Notification) {
+  .controller('createtopicCtrl',['authenticationservice','users','$scope','$location','$sessionStorage','$uibModalInstance','ngClipboard','Notification','slackinteraction', function (authenticationservice,users,$scope,$location,$sessionStorage,$uibModalInstance,ngClipboard,Notification,slackinteraction) {
       var ctrl = this;
 
       ctrl.add = function () {
@@ -26,16 +26,22 @@ angular.module('slackchatApp')
           ngClipboard.toClipboard(url);
           Notification({message: 'Link copied to clipboard'}, 'success');
           var encoded = encodeURI(url);
-          var create = authenticationservice.createtopic(ctrl.topic, $sessionStorage.userid, $sessionStorage.avator, $sessionStorage.real_name,ctrl.desc,emb,teamname,condtopic,url,encoded,$sessionStorage.team_id,$sessionStorage.bid,$sessionStorage.btkn);
-          create.then(function(response) {
-              $uibModalInstance.dismiss('cancel');
-              $location.path('/'+teamname+'/'+condtopic);
-              //$route.reload();
-          }, function(errorPayload) {
+            var getid = slackinteraction.get_id($sessionStorage.btkn,$sessionStorage.userid);
+                getid.then(function (getid) {
+                   var cid = getid.data.channel.id;
+                    console.log('user id '+getid.data.channel.id);
+                    //console.log('error '+getid.data.error);
+                    var create = authenticationservice.createtopic(ctrl.topic, cid, $sessionStorage.avator, $sessionStorage.real_name,ctrl.desc,emb,teamname,condtopic,url,encoded,$sessionStorage.team_id,$sessionStorage.bid,$sessionStorage.btkn);
+                    create.then(function(response) {
+                        $uibModalInstance.dismiss('cancel');
+                        $location.path('/'+teamname+'/'+condtopic);
+                        //$route.reload();
+                    }, function(errorPayload) {
+                        $location.path('/newtopics');
+                        $scope.error = errorPayload.data;
+                    });
+                });
 
-              $location.path('/newtopics');
-              $scope.error = errorPayload.data;
-          });
 
       };
 

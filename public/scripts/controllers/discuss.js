@@ -104,19 +104,7 @@ angular.module('slackchatApp')
             var auth = authenticationservice.authorize(code,url);
                 auth.then(function (auth_succ) {
                     $sessionStorage.authtoken = auth_succ.data.access_token;
-                    /*var tname = auth_succ.data.team_name;
-                    //console.log(auth_succ.data);
-                    $sessionStorage.team = tname;
-                    $cookieStore.put('auths',auth_succ);
-                    var tid = auth_succ.data.team_id;
-                    $sessionStorage.team_id = tid;
-                    //Notification({message: 'data '+auth_succ.data}, 'error');
-                    //var wurl = auth_succ.data.incoming_webhook.url;
-                    var wurl = '';
-                   //var wchnl = auth_succ.data.incoming_webhook.channel;
-                    var wchnl = '';
-                    //var wcurl = auth_succ.data.incoming_webhook.configuration_url;
-                    var wcurl = '';*/
+                        $cookieStore.put('authtoken',$sessionStorage.authtoken);
                     var bid = auth_succ.data.bot.bot_user_id;
                         $cookieStore.put('bid',bid);
                     var btkn = auth_succ.data.bot.bot_access_token;
@@ -204,6 +192,7 @@ angular.module('slackchatApp')
                 $sessionStorage.team = $cookieStore.get('team');
                 $sessionStorage.bid = $cookieStore.get('bid');
                 $sessionStorage.btkn = $cookieStore.get('btkn');
+                $sessionStorage.authtoken = $cookieStore.get('authtoken');
                 $scope.authdata = $cookieStore.get('auths');
 
                 var topics = authenticationservice.listtopic($sessionStorage.userid);
