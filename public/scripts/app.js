@@ -84,12 +84,12 @@ angular
     //ngMeta.init();
     $rootScope.$on('$routeChangeSuccess', function() {
         document.title = $route.current.title;
-    })
+    });
     $rootScope.$on('$locationChangeStart', function (event, next, current) {
       // redirect to home page if user is loged in and tryin to access authorize page
-      var restrictedPage = $.inArray($location.path(), ['/', '/register']) === -1;
+      var authPage = $.inArray($location.path(), ['/', '/register']) === -1;
       var loggedIn = $cookieStore.get('flowtalklog');
-      if (restrictedPage && loggedIn == 'logged') {
+      if (!authPage && loggedIn == 'logged') {
         $location.path('/home');
       }
     });
