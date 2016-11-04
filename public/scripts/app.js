@@ -80,11 +80,19 @@ angular
       //ngMetaProvider.setDefaultTag('author', 'John Smith');
       //$locationProvider.hashPrefix('!');
   })
-.run(['$rootScope', '$route',  function ($rootScope,$route) {
+.run(['$rootScope', '$route','$cookieStore', '$location', function ($rootScope,$route,$cookieStore,$location) {
     //ngMeta.init();
     $rootScope.$on('$routeChangeSuccess', function() {
         document.title = $route.current.title;
     })
+    $rootScope.$on('$locationChangeStart', function (event, next, current) {
+      // redirect to home page if user is loged in and tryin to access authorize page
+      var restrictedPage = $.inArray($location.path(), ['/', '/register']) === -1;
+      var loggedIn = $cookieStore.get('flowtalklog');
+      if (restrictedPage && loggedIn == 'logged') {
+        $location.path('/home');
+      }
+    });
 }])
 .filter('trusturls',['$sce', function ($sce) {
     return function (val) {
