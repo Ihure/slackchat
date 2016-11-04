@@ -92,7 +92,7 @@ angular.module('slackchatApp')
             notify_owner: function (token,owner,topic, comment,topic_url,commenter_avator,commenter) {
                 var datas ={
                     token: token,
-                    channel: owner,
+                    channel: owner
                 };
                 var att = {
                     fallback: commenter+" added a comment on your topic",
@@ -102,7 +102,7 @@ angular.module('slackchatApp')
                     title_link: topic_url,
                     text: comment,
                     footer: commenter,
-                    footer_icon: commenter_avator,
+                    //footer_icon: commenter_avator,
                     ts:Date.now()
                 };
                 //Notification({message: 'slack error '+JSON.stringify(data)}, 'error');
@@ -114,18 +114,10 @@ angular.module('slackchatApp')
                 return $http({
                     method: "POST",
                     url:"https://slack.com/api/chat.postMessage",
-                    //data:JSON.stringify(datas),
                     headers: {'Content-type': 'application/x-www-form-urlencoded'},
-                    //transformRequest: transformRequestAsFormPost,
-                    //data: {username: $scope.userName, password: $scope.password}
-                   /* transformRequest: function(data) {
-                        /*var str = [];
-                        for(var p in obj)
-                            str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
-                        return str.join("&");*
-                        return( serializeData( data ) );
-                    },*/
+                    //data: serializeData(datas)+'&attachments=['+JSON.stringify(att)+']'
                     data: serializeData(datas)+'&attachments=['+JSON.stringify(att)+']'
+                   //data: serializeData(datas)
                 });
 
                 function serializeData( data ) {

@@ -131,7 +131,7 @@ angular.module('slackchatApp')
                         $cookieStore.put('avator',$sessionStorage.avator);
                         //$scope.avator = $sessionStorage.avator;
 
-                        $sessionStorage.islogged = 1;
+
 
                         $cookieStore.put('flowtalklog','logged');
                         console.log('fetched auth_direct profile at'+ Date.now());
@@ -146,8 +146,8 @@ angular.module('slackchatApp')
             $location.search('code', null);
             $location.search('state', null);
 
-            //$scope.fname = $sessionStorage.real_name;
-            //$scope.avator = $sessionStorage.avator;
+            $scope.fname = $sessionStorage.real_name;
+            $scope.avator = $sessionStorage.avator;
         }
 
         /**
