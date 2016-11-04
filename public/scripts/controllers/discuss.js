@@ -146,21 +146,24 @@ angular.module('slackchatApp')
                 $scope.authdata = $cookieStore.get('auth');
                 $scope.authdata2 = $cookieStore.get('auth2');
 
-                var topics = authenticationservice.listtopic($sessionStorage.userid);
-                topics.then( function (tresponse) {
-                    //$scope.error = 'this';
-                    $scope.topics = tresponse.data;
-                    //$scope.link =$sce.trustAsHtml(tresponse.data.link);
-                }, function (error) {
-                    //$location.path('/');
-                    $scope.error = error.data;
-                });
+                
 
                         $cookieStore.put('flowtalklog','logged');
                         console.log('fetched auth_direct profile at'+ Date.now());
                             $scope.fname = $sessionStorage.real_name;
                             $scope.avator = $sessionStorage.avator;
                         console.log('set avator at'+ Date.now()+' name is '+$sessionStorage.real_name);
+                var topics = authenticationservice.listtopic($sessionStorage.userid);
+                topics.then( function (tresponse) {
+                    //$scope.error = 'this';
+                    $scope.topics = tresponse.data;
+                    console.log('set topics at '+ Date.now()+' id  is '+$sessionStorage.userid);
+                    //$scope.link =$sce.trustAsHtml(tresponse.data.link);
+                }, function (error) {
+                    //$location.path('/');
+                    $scope.error = error.data;
+                    console.log('error getting topics '+ Date.now()+' error is '+error.data.error);
+                });
                         //console.log('fetched data '+ );
 
                     },function (prof_err) {
@@ -190,10 +193,12 @@ angular.module('slackchatApp')
                 topics.then( function (tresponse) {
                     //$scope.error = 'this';
                     $scope.topics = tresponse.data;
+                    console.log('set no_state topics at '+ Date.now()+' id  is '+$sessionStorage.userid);
                     //$scope.link =$sce.trustAsHtml(tresponse.data.link);
                 }, function (error) {
                     //$location.path('/');
                     $scope.error = error.data;
+                    console.log('error getting topics '+ Date.now()+' error is '+error.data.error);
                 });
                /* var hook = authenticationservice.getahook($sessionStorage.team_id);
                     hook.then(function (hook_succ) {
@@ -205,7 +210,7 @@ angular.module('slackchatApp')
 
                 $scope.fname = $sessionStorage.real_name;
                 $scope.avator = $sessionStorage.avator;
-                console.log('set avator at'+ Date.now());
+                console.log('set no_state avator at'+ Date.now());
 
 
             }

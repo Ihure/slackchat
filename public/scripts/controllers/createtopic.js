@@ -31,7 +31,7 @@ angular.module('slackchatApp')
                    var cid = getid.data.channel.id;
                     //console.log('user id '+getid.data.channel.id);
                     //console.log('error '+getid.data.error);
-                    var create = authenticationservice.createtopic(ctrl.topic, cid, $sessionStorage.avator, $sessionStorage.real_name,ctrl.desc,emb,teamname,condtopic,url,encoded,$sessionStorage.team_id,$sessionStorage.bid,$sessionStorage.btkn);
+                    var create = authenticationservice.createtopic(ctrl.topic, cid, $sessionStorage.avator, $sessionStorage.real_name,ctrl.desc,emb,teamname,condtopic,url,encoded,$sessionStorage.team_id,$sessionStorage.bid,$sessionStorage.btkn,$sessionStorage.userid);
                     create.then(function(response) {
                         $uibModalInstance.dismiss('cancel');
                         $location.path('/'+teamname+'/'+condtopic);

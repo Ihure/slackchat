@@ -78,6 +78,10 @@ var SlackSchema = new Schema({
   bot_token: {
      type: String,
      default: ''
+  },
+  userid: {
+     type: String,
+     default: ''
   }
 });
 

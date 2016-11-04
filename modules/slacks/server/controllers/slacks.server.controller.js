@@ -265,7 +265,7 @@ exports.slacksByID = function(req, res, next, id) {
 exports.topicByID = function(req, res, next, id) {
 
 
-  Slack.find({createdby:req.params.creatorId}).exec(function (err, slack) {
+  Slack.find({userid:req.params.creatorId}).exec(function (err, slack) {
     if (err) {
       return next(err);
     } else if (!slack) {
