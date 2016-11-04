@@ -103,7 +103,7 @@ angular.module('slackchatApp')
                     text: comment,
                     footer: commenter,
                     //footer_icon: commenter_avator,
-                    ts:Date.now()
+                    //ts:Date.now()
                 };
                 //Notification({message: 'slack error '+JSON.stringify(data)}, 'error');
                 //Notification({message: 'slack send '+JSON.stringify(datas)}, 'error');

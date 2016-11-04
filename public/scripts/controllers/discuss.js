@@ -21,11 +21,13 @@ angular.module('slackchatApp')
         var ctopic = $routeParams.topic;
 
         $scope.state = state;
+        var logged = 0;
 
         var url = $location.protocol()+'://'+location.host+$location.path();
         url = encodeURI(url);
 
         if(state == 'signin'){
+            logged = 1;
             //$scope.test = 't';
             var code = $routeParams.code;
             //$sessionStorage.code =code;
@@ -90,13 +92,14 @@ angular.module('slackchatApp')
                 },function (auth_err) {
                     Notification({message: 'there was a problem authorizing slack'}, 'error');
                 });
-            $location.search('code', null);
-            $location.search('state', null);
+            //$location.search('code', null);
+            //$location.search('state', null);
 
             //$scope.fname = $sessionStorage.real_name;
             //$scope.avator = $sessionStorage.avator;
 
         }else if (state == 'add'){
+            logged = 1;
             var code = $routeParams.code;
             //$sessionStorage.code =code;
             //$scope.code = $sessionStorage.code;
@@ -109,8 +112,10 @@ angular.module('slackchatApp')
                     //$cookieStore.put('flowtalklog','logged');
                     var bid = auth_succ.data.bot.bot_user_id;
                         $cookieStore.put('bid',bid);
+                        $sessionStorage.bid = bid;
                     var btkn = auth_succ.data.bot.bot_access_token;
                         $cookieStore.put('btkn',btkn);
+                        $sessionStorage.btkn = btkn;
                     $sessionStorage.userid = auth_succ.data.user_id;
                     $cookieStore.put('userid',$sessionStorage.userid);
                     $sessionStorage.team_id = auth_succ.data.team_id;
@@ -130,11 +135,32 @@ angular.module('slackchatApp')
                         $sessionStorage.avator = prof_succ.data.profile.image_48;
                         $cookieStore.put('avator',$sessionStorage.avator);
                         //$scope.avator = $sessionStorage.avator;
+                //$sessionStorage.real_name= $cookieStore.get('real_name');
+                //$sessionStorage.userid = $cookieStore.get('userid');
+                //$sessionStorage.avator = $cookieStore.get('avator');
+                //$sessionStorage.team_id = $cookieStore.get('team_id');
+                //$sessionStorage.team = $cookieStore.get('team');
+                //$sessionStorage.bid = $cookieStore.get('bid');
+                //$sessionStorage.btkn = $cookieStore.get('btkn');
+                //$sessionStorage.authtoken = $cookieStore.get('authtoken');
+                $scope.authdata = $cookieStore.get('auth');
+                $scope.authdata2 = $cookieStore.get('auth2');
 
-
+                var topics = authenticationservice.listtopic($sessionStorage.userid);
+                topics.then( function (tresponse) {
+                    //$scope.error = 'this';
+                    $scope.topics = tresponse.data;
+                    //$scope.link =$sce.trustAsHtml(tresponse.data.link);
+                }, function (error) {
+                    //$location.path('/');
+                    $scope.error = error.data;
+                });
 
                         $cookieStore.put('flowtalklog','logged');
                         console.log('fetched auth_direct profile at'+ Date.now());
+                            $scope.fname = $sessionStorage.real_name;
+                            $scope.avator = $sessionStorage.avator;
+                        console.log('set avator at'+ Date.now()+' name is '+$sessionStorage.real_name);
                         //console.log('fetched data '+ );
 
                     },function (prof_err) {
@@ -143,22 +169,12 @@ angular.module('slackchatApp')
                 },function (auth_err) {
                     Notification({message: 'problem authenticating flowtalk with slack'}, 'error');
                 });
-            $location.search('code', null);
-            $location.search('state', null);
+            //$location.search('code', null);
+            //$location.search('state', null);
 
-            $scope.fname = $sessionStorage.real_name;
-            $scope.avator = $sessionStorage.avator;
-        }
-
-        /**
-         * timeout test
-         *
-        $scope.callAtTimeout = function() {
-            console.log("$scope.callAtTimeout - Timeout occurred");
-        }*/
-        $scope.callAtTimeout = function () {
-
-            if($cookieStore.get('flowtalklog') == 'logged' ){
+            
+        }else if(state == undefined && logged == 0){
+                if($cookieStore.get('flowtalklog') == 'logged' ){
                 $sessionStorage.real_name= $cookieStore.get('real_name');
                 $sessionStorage.userid = $cookieStore.get('userid');
                 $sessionStorage.avator = $cookieStore.get('avator');
@@ -201,13 +217,67 @@ angular.module('slackchatApp')
                 $scope.avator = 'images/guest.png';
                 console.log('set Guest avator at'+ Date.now());
             }
+ 
+        }
 
-            $scope.$apply();
+        /**
+         * timeout test
+         *
+        $scope.callAtTimeout = function() {
+            console.log("$scope.callAtTimeout - Timeout occurred");
+        }*/
+       /* $scope.callAtTimeout = function () {
+
+            if($cookieStore.get('flowtalklog') == 'logged' ){
+                $sessionStorage.real_name= $cookieStore.get('real_name');
+                $sessionStorage.userid = $cookieStore.get('userid');
+                $sessionStorage.avator = $cookieStore.get('avator');
+                $sessionStorage.team_id = $cookieStore.get('team_id');
+                $sessionStorage.team = $cookieStore.get('team');
+                $sessionStorage.bid = $cookieStore.get('bid');
+                $sessionStorage.btkn = $cookieStore.get('btkn');
+                $sessionStorage.authtoken = $cookieStore.get('authtoken');
+                $scope.authdata = $cookieStore.get('auth');
+                $scope.authdata2 = $cookieStore.get('auth2');
+
+                var topics = authenticationservice.listtopic($sessionStorage.userid);
+                topics.then( function (tresponse) {
+                    //$scope.error = 'this';
+                    $scope.topics = tresponse.data;
+                    //$scope.link =$sce.trustAsHtml(tresponse.data.link);
+                }, function (error) {
+                    //$location.path('/');
+                    $scope.error = error.data;
+                });
+               /* var hook = authenticationservice.getahook($sessionStorage.team_id);
+                    hook.then(function (hook_succ) {
+                        $scope.hook = false;
+                    },function (hook_err) {
+                        $scope.hook = true;
+                    });
+
+
+                $scope.fname = $sessionStorage.real_name;
+                $scope.avator = $sessionStorage.avator;
+                console.log('set avator at'+ Date.now());
+
+
+            }
+            else{
+                //$scope.authdata = $cookieStore.get('auth');
+                //$scope.authdata2 = $cookieStore.get('auth2');
+                //$scope.test = 'n';
+                $scope.fname = 'Guest';
+                $scope.avator = 'images/guest.png';
+                console.log('set Guest avator at'+ Date.now());
+            }
+
+            //$scope.$apply();
 
 
         };
 
-        $timeout( function(){ $scope.callAtTimeout(); }, 3000);
+        $timeout( function(){ $scope.callAtTimeout(); }, 3000);*/
 
 
        /**
@@ -369,8 +439,12 @@ angular.module('slackchatApp')
         var url = $location.protocol()+'://'+location.host+'/home';
         $scope.url = encodeURI(url);
 
-        //$location.search('code', null);
-        //$location.search('state', null);
+        $scope.callAtTimeout = function () {
+            $location.search('code', null);
+            $location.search('state', null);
+            console.log('cleared get parameters at'+ Date.now());
+        };
+        $timeout( function(){ $scope.callAtTimeout(); }, 3000);
 
     }]);
 function updatescope () {
