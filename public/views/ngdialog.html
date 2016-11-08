@@ -1,0 +1,159 @@
+<style>
+    html, body {
+        background-color: #fff;
+        height: 100%;
+    }
+</style>
+<div >
+<!-- include summernote css/js-->
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">Flowtalk</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right navbar-form">
+                <button type="submit" class="btn btn-default">create</button>
+            </ul>
+        </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+</nav>
+
+<!--<div id="summernotes"><p>Hello Summernote</p></div>-->
+    <div class="row">
+        <div class="col-md-2 ">
+
+        </div>
+        <div class="col-md-5 col-xs-5">
+            <div class="col-md-2 col-xs-5">
+                <img src="images/2.jpg" class="img-rounded" alt="Cinque Terre" width="61" height="61">
+            </div>
+            <div class="col-md-8 col-xs-5">
+                <div class="row owner-detail">
+                    <span> user</span>
+                </div>
+                <div class="row" >
+                    <h1 class="file-title-header">
+                        <textarea  placeholder="Untitled" rows="1" autocomplete="off" data-autosize-on="true" style="overflow: hidden; word-wrap: break-word; height: 43px;" ></textarea>
+                    </h1>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-5 ">
+
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-2 ">
+
+        </div>
+        <div class="col-md-5 col-xs-5">
+            <div class="col-md-2 col-xs-5">
+            </div>
+            <div class="col-md-8 col-xs-5">
+                <div class="divider"></div>
+            </div>
+        </div>
+        <div class="col-md-5 ">
+
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-2">
+        </div>
+        <div class="col-md-6">
+            <!--<div> <p>this is a test</p></div>-->
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-2 ">
+            <!--<div> <p>this is a test</p></div>-->
+        </div>
+        <div class="col-md-5 file-content col-xs-5">
+            <div class="col-md-1 col-xs-1">
+                <a><i class="fa fa-paragraph"></i></a>
+            </div>
+            <div class="col-md-11 col-xs-5 editable">
+
+               <textarea id="summernote" class="editable" placeholder="test" rows="5" autocomplete="off" data-autosize-on="true" style="overflow: hidden; word-wrap: break-word; width: 100%" autofocus>
+               </textarea>
+            </div>
+
+        </div>
+        <div class="col-md-5 ">
+
+        </div>
+    </div>
+
+
+</div>
+<script>
+    $(document).ready(function() {
+
+        $('#summernote').summernote({
+            airMode: true,
+            focus: true,
+            popover: {
+                link: [
+                    ['link', ['linkDialogShow', 'unlink']]
+                ],
+                air: [
+                    ['color', ['color']],
+                    ['font', ['bold', 'underline', 'clear','superscript','subscript']],
+                    ['para', ['ul', 'paragraph','ol']],
+                    ['insert', ['link']]
+                ]
+            }
+
+        });
+    });
+   /* $(document).ready(function () {
+        $('#summernote').summernote({
+            toolbar: [
+                // [groupName, [list of button]]
+                ['style', ['bold', 'italic', 'underline', 'clear']],
+                ['font', ['strikethrough', 'superscript', 'subscript']],
+                ['fontsize', ['fontsize']],
+                ['color', ['color']],
+                ['para', ['ul', 'ol', 'paragraph']],
+                ['height', ['height']]
+            ]
+        });
+    })*/
+    $("a").click(function(){
+    var editor = new MediumEditor('.editable',{
+    toolbar: {
+        /* These are the default options for the toolbar,
+           if nothing is passed this is what is used */
+        allowMultiParagraphSelection: true,
+        buttons: ['bold', 'italic', 'underline', 'anchor', 'h2', 'h3', 'quote'],
+        diffLeft: 0,
+        diffTop: -10,
+        firstButtonClass: 'medium-editor-button-first',
+        lastButtonClass: 'medium-editor-button-last',
+        relativeContainer: null,
+        standardizeSelectionStart: false,
+        static: true,
+        /* options which only apply when static is true */
+        align: 'left',
+        sticky: false,
+        updateOnEmptySelection: false
+    }
+    });
+editor.subscribe('editableInput', this._handleEditableInput.bind(this));
+editor.addElements('.editable');
+});
+</script>
+<!--
+Copyright 2016 Google Inc. All Rights Reserved.
+Use of this source code is governed by an MIT-style license that can be foundin the LICENSE file at http://material.angularjs.org/HEAD/license.
+-->

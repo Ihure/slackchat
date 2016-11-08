@@ -23,7 +23,8 @@ angular
     'updateMeta',
     'ui-notification',
     'ngclipboard',
-      'ngClipboard'
+    'ngClipboard',
+    'ngMaterial'
       //'ngMeta'
   ])
   .config(function ($routeProvider,NotificationProvider,$locationProvider) {
@@ -57,6 +58,10 @@ angular
         templateUrl: 'views/comment.html',
         controller: 'CommentCtrl',
         controllerAs: 'ctrl'
+      })
+      .when('/trial', {
+        title:'test',
+        templateUrl: 'views/ngdialog.html'
       })
       .otherwise({
         redirectTo: '/'
