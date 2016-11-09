@@ -381,7 +381,8 @@ angular.module('slackchatApp')
                     size: size,
                 });
             }else{
-                var modalInstance = $uibModal.open({
+                $location.path('/createtopic');
+                /*var modalInstance = $uibModal.open({
                     animation: ctrl.animationsEnabled,
                     arialabelledBy: 'modal-title',
                     ariaDescribedBy: 'modal-body',
@@ -389,7 +390,7 @@ angular.module('slackchatApp')
                     controller:'createtopicCtrl',
                     controllerAs: 'ctrl',
                     size: size,
-                });
+                });*/
             }
 
         };
@@ -405,15 +406,7 @@ angular.module('slackchatApp')
                     size: size,
                 });
             }else{
-                var modalInstance = $uibModal.open({
-                    animation: ctrl.animationsEnabled,
-                    arialabelledBy: 'modal-title',
-                    ariaDescribedBy: 'modal-body',
-                    templateUrl: 'addtopic.html',
-                    controller:'createtopicCtrl',
-                    controllerAs: 'ctrl',
-                    size: size,
-                });
+                $location.path('/createtopic');
             }
         };
         

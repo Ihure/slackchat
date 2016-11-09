@@ -24,7 +24,8 @@ angular
     'ui-notification',
     'ngclipboard',
     'ngClipboard',
-    'ngMaterial'
+    'ngMaterial',
+    'summernote'
       //'ngMeta'
   ])
   .config(function ($routeProvider,NotificationProvider,$locationProvider) {
@@ -59,9 +60,11 @@ angular
         controller: 'CommentCtrl',
         controllerAs: 'ctrl'
       })
-      .when('/trial', {
-        title:'test',
-        templateUrl: 'views/ngdialog.html'
+      .when('/createtopic', {
+        title:'Create Topic',
+        templateUrl: 'views/ngdialog.html',
+        controller:'createtopicCtrl',
+        controllerAs:'ctrl'
       })
       .otherwise({
         redirectTo: '/'

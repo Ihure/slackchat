@@ -8,7 +8,7 @@
  * Controller of the slackchatApp
  */
 angular.module('slackchatApp')
-  .controller('createtopicCtrl',['authenticationservice','users','$scope','$location','$sessionStorage','$uibModalInstance','ngClipboard','Notification','slackinteraction', function (authenticationservice,users,$scope,$location,$sessionStorage,$uibModalInstance,ngClipboard,Notification,slackinteraction) {
+  .controller('createtopicCtrl',['authenticationservice','users','$scope','$location','$sessionStorage','ngClipboard','Notification','slackinteraction', function (authenticationservice,users,$scope,$location,$sessionStorage,ngClipboard,Notification,slackinteraction) {
       var ctrl = this;
 
       ctrl.add = function () {
@@ -26,6 +26,7 @@ angular.module('slackchatApp')
           ngClipboard.toClipboard(url);
           Notification({message: 'Link copied to clipboard'}, 'success');
           var encoded = encodeURI(url);
+          console.log('user desc '+ctrl.desc);
             var getid = slackinteraction.get_id($sessionStorage.btkn,$sessionStorage.userid);
                 getid.then(function (getid) {
                    var cid = getid.data.channel.id;
@@ -33,7 +34,7 @@ angular.module('slackchatApp')
                     //console.log('error '+getid.data.error);
                     var create = authenticationservice.createtopic(ctrl.topic, cid, $sessionStorage.avator, $sessionStorage.real_name,ctrl.desc,emb,teamname,condtopic,url,encoded,$sessionStorage.team_id,$sessionStorage.bid,$sessionStorage.btkn,$sessionStorage.userid);
                     create.then(function(response) {
-                        $uibModalInstance.dismiss('cancel');
+                        //$uibModalInstance.dismiss('cancel');
                         $location.path('/'+teamname+'/'+condtopic);
                         //$route.reload();
                     }, function(errorPayload) {
@@ -45,8 +46,28 @@ angular.module('slackchatApp')
 
       };
 
-      ctrl.cancel = function () {
+    $scope.options = {
+    height: 300,
+    focus: true,
+    airMode: true,
+    toolbar: [
+            ['edit',['undo','redo']],
+            ['headline', ['style']],
+            ['style', ['bold', 'italic', 'underline', 'superscript', 'subscript', 'strikethrough', 'clear']],
+            ['fontface', ['fontname']],
+            ['textsize', ['fontsize']],
+            ['fontclr', ['color']],
+            ['alignment', ['ul', 'ol', 'paragraph', 'lineheight']],
+            ['height', ['height']],
+            ['table', ['table']],
+            ['insert', ['link','picture','video','hr']],
+            ['view', ['fullscreen', 'codeview']],
+            ['help', ['help']]
+        ]
+  };
+
+      /*ctrl.cancel = function () {
           $uibModalInstance.dismiss('cancel');
-      };
+      };*/
 
   }]);

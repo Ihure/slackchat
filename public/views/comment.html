@@ -1,7 +1,7 @@
 <div class="wrapper" >
     <update-meta name="description" content="Frictionless, asynchronous conversations. For Slack"></update-meta>
     <update-meta property="og:title" content="{{topic.topic}}" ></update-meta>
-    <update-meta property="og:description" content="{{topic.description}} " ></update-meta>
+    <update-meta property="og:description" content="{{topic.description}} "  ></update-meta>
     <update-meta property="og:url" content="{{topic.url}}" ></update-meta>
     <update-meta property="twitter:label1" content="Created by:" ></update-meta>
     <update-meta property="twitter:data1" content="{{topic.name}}" ></update-meta>
@@ -76,7 +76,7 @@
     </aside>
     <!-- Content Wrapper. Contains page content -->
 </div>
-    <div class="content-wrapper" >
+    <div class="content-wrapper" style="background-color: #fff">
         <!-- Content Header (Page header) -->
         <section class="content-header">
             <h1>
@@ -84,9 +84,9 @@
             </h1>
         </section>
         <!-- Main content -->
-        <section class="content" >
+        <section class="content" style="background-color: #fff">
 
-            <div class="box box-widget" >
+            <div class="box box-widget" style="background-color: #fff">
                 <div class='box-header with-border'>
                     <div class='user-block'>
                         <img class='img-circle' ng-src='{{topic.avator}}' alt='user image'>
@@ -122,7 +122,7 @@
                         </div><!-- /.attachment-pushed -->
                     </div><!-- /.attachment-block -->
                     <p><br/></p>
-                    <p>{{topic.description}}</p>
+                    <blockquote ng-bind-html="topic.description"></blockquote>
                     <p><a href ng-click="repsec0 = !repsec0">Reply</a></p>
                     <span class='pull-right text-muted'>
 

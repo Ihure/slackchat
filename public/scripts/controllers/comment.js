@@ -27,15 +27,20 @@ angular.module('slackchatApp')
         ctrl.animationsEnabled = true;
 
         ctrl.openm = function (size) {
-            var modalInstance = $uibModal.open({
-                animation: ctrl.animationsEnabled,
-                arialabelledBy: 'modal-title',
-                ariaDescribedBy: 'modal-body',
-                templateUrl: 'addtopictemplate.html',
-                controller:'createtopicCtrl',
-                controllerAs: 'ctrl',
-                size: size,
-            });
+            if($sessionStorage.userid == null || $sessionStorage.userid == undefined){
+                var modalInstance = $uibModal.open({
+                    animation: ctrl.animationsEnabled,
+                    arialabelledBy: 'modal-title2',
+                    ariaDescribedBy: 'modal-body2',
+                    templateUrl: 'signin.html',
+                    controller:'MainCtrl',
+                    controllerAs: 'ctrl',
+                    size: size,
+                });
+            }else{
+                $location.path('/createtopic');
+                
+            }
         };
         var promises = authenticationservice.gettopic(tname,ctopic);
                                 promises.then(function(response) {

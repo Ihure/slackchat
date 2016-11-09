@@ -140,7 +140,7 @@
                     </div><!-- /.attachment-pushed -->
                 </div><!-- /.attachment-block -->
                 <p><br/></p>
-                <p>{{topic.description}}</p>
+                <span ng-bind-html="topic.description"></span>
                 <form action="#/comment?id" name="form" role="form" style="margin-top: 10px">
                 <input type="hidden" placeholder="Comment" name="id" id="id" ng-model="ctrl.id" value="{{topic._id}}" style="width: 100%"/>
                 <!-- Social sharing buttons -->

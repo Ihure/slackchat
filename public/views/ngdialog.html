@@ -5,6 +5,7 @@
     }
 </style>
 <div >
+<form ng-submit="ctrl.add()" name="form" role="form">
 <!-- include summernote css/js-->
 <nav class="navbar navbar-default">
     <div class="container-fluid">
@@ -22,7 +23,7 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-right navbar-form">
-                <button type="submit" class="btn btn-default">create</button>
+                 <button class="btn btn-primary" type="button" ng-disabled="form.$invalid" ng-click="ctrl.add()">Create</button>
             </ul>
         </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->
@@ -33,17 +34,17 @@
         <div class="col-md-2 ">
 
         </div>
-        <div class="col-md-5 col-xs-5">
-            <div class="col-md-2 col-xs-5">
-                <img src="images/2.jpg" class="img-rounded" alt="Cinque Terre" width="61" height="61">
+        <div class="col-md-5 col-xs-5" >
+            <div class="col-md-2 col-xs-5" ng-controller="DiscussCtrl as ctrl">
+                <img ng-src="{{avator}}" class="img-rounded" alt="Cinque Terre" width="61" height="61">
             </div>
-            <div class="col-md-8 col-xs-5">
-                <div class="row owner-detail">
-                    <span> user</span>
+            <div class="col-md-8 col-xs-5" >
+                <div class="row owner-detail" ng-controller="DiscussCtrl as ctrl">
+                    <span>{{fname}}</span>
                 </div>
                 <div class="row" >
                     <h1 class="file-title-header">
-                        <textarea  placeholder="Untitled" rows="1" autocomplete="off" data-autosize-on="true" style="overflow: hidden; word-wrap: break-word; height: 43px;" ></textarea>
+                        <textarea ng-model="ctrl.topic" required name="topic" id="topic" placeholder="Untitled" rows="1" autocomplete="off" data-autosize-on="true" style="overflow: hidden; word-wrap: break-word; height: 43px;" ></textarea>
                     </h1>
                 </div>
             </div>
@@ -81,25 +82,28 @@
         <div class="col-md-5 file-content col-xs-5">
             <div class="col-md-1 col-xs-1">
                 <a><i class="fa fa-paragraph"></i></a>
+                <!--<p id="p">off</p>-->
             </div>
             <div class="col-md-11 col-xs-5 editable">
 
-               <textarea id="summernote" class="editable" placeholder="test" rows="5" autocomplete="off" data-autosize-on="true" style="overflow: hidden; word-wrap: break-word; width: 100%" autofocus>
-               </textarea>
+               <!--<textarea name="desc" id="desc" ng-model="ctrl.desc" placeholder="test" rows="5" autocomplete="off" data-autosize-on="true" style="overflow: hidden; word-wrap: break-word; width: 100%" autofocus>
+               </textarea>-->
+               <summernote airMode ng-model="ctrl.desc" required id='summernote' config="options"> <p>test</p></summernote>
             </div>
 
         </div>
         <div class="col-md-5 ">
 
         </div>
+        
     </div>
 
-
+</form>
 </div>
 <script>
     $(document).ready(function() {
 
-        $('#summernote').summernote({
+        /*$('#desc').summernote({
             airMode: true,
             focus: true,
             popover: {
@@ -116,7 +120,7 @@
 
         });
     });
-   /* $(document).ready(function () {
+    $(document).ready(function () {
         $('#summernote').summernote({
             toolbar: [
                 // [groupName, [list of button]]
@@ -129,11 +133,14 @@
             ]
         });
     })*/
-    $("a").click(function(){
+   /**
+    * [editor description]
+    * @type {MediumEditor}
+    
     var editor = new MediumEditor('.editable',{
     toolbar: {
         /* These are the default options for the toolbar,
-           if nothing is passed this is what is used */
+           if nothing is passed this is what is used *
         allowMultiParagraphSelection: true,
         buttons: ['bold', 'italic', 'underline', 'anchor', 'h2', 'h3', 'quote'],
         diffLeft: 0,
@@ -143,15 +150,17 @@
         relativeContainer: null,
         standardizeSelectionStart: false,
         static: true,
-        /* options which only apply when static is true */
+        /* options which only apply when static is true *
         align: 'left',
         sticky: false,
         updateOnEmptySelection: false
     }
-    });
-editor.subscribe('editableInput', this._handleEditableInput.bind(this));
-editor.addElements('.editable');
+    });*/
+   $("a").click(function(){
+       $('summernote').focus();
+   });
 });
+
 </script>
 <!--
 Copyright 2016 Google Inc. All Rights Reserved.
