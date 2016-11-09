@@ -25,7 +25,8 @@ angular
     'ngclipboard',
     'ngClipboard',
     'ngMaterial',
-    'summernote'
+    'summernote',
+    'ui.tinymce'
       //'ngMeta'
   ])
   .config(function ($routeProvider,NotificationProvider,$locationProvider) {

@@ -28,8 +28,8 @@
     "ngMeta": "^1.0.0",
     "angular-material": "^1.1.1",
     "summernote": "^0.8.2",
-    "medium-editor": "^5.22.1",
-    "angular-summernote": "^0.8.1"
+    "angular-summernote": "^0.8.1",
+    "angular-ui-tinymce": "latest"
   },
   "devDependencies": {
     "angular-mocks": "^1.4.0"

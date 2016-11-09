@@ -3,6 +3,10 @@
         background-color: #fff;
         height: 100%;
     }
+    .desc{
+        color: #232323;
+        padding-left: 0px;
+    }
 </style>
 <div >
 <form ng-submit="ctrl.add()" name="form" role="form">
@@ -70,9 +74,14 @@
     </div>
     <div class="row">
         <div class="col-md-2">
+
         </div>
         <div class="col-md-6">
             <!--<div> <p>this is a test</p></div>-->
+
+            <!--<form method="post">
+                <div class="externalToolbarWrapper" id="externalToolbarWrapper" ui-tinymce="tinymceOptions" ng-model="tinymceModel"> p</div>
+            </form>-->
         </div>
     </div>
     <div class="row">
@@ -82,13 +91,14 @@
         <div class="col-md-5 file-content col-xs-5">
             <div class="col-md-1 col-xs-1">
                 <a><i class="fa fa-paragraph"></i></a>
+                <div class="externalToolbar" id="externalToolbar"> </div>
                 <!--<p id="p">off</p>-->
             </div>
-            <div class="col-md-11 col-xs-5 editable">
+            <div class="col-md-11 col-xs-5 desc">
 
                <!--<textarea name="desc" id="desc" ng-model="ctrl.desc" placeholder="test" rows="5" autocomplete="off" data-autosize-on="true" style="overflow: hidden; word-wrap: break-word; width: 100%" autofocus>
                </textarea>-->
-               <summernote airMode ng-model="ctrl.desc" required id='summernote' config="options"> <p>test</p></summernote>
+               <div summernote config="options" airMode ng-model="ctrl.desc" required id='summernote' ></div>
             </div>
 
         </div>
@@ -103,7 +113,7 @@
 <script>
     $(document).ready(function() {
 
-        /*$('#desc').summernote({
+       /* $('summernote').summernote({
             airMode: true,
             focus: true,
             popover: {
@@ -118,7 +128,8 @@
                 ]
             }
 
-        });
+        });*/
+        /*
     });
     $(document).ready(function () {
         $('#summernote').summernote({

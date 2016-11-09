@@ -24,7 +24,7 @@ angular.module('slackchatApp')
           //var url = $location.protocol()+'://'+location.host+'/#/comments/'+teamname+'/'+condtopic;
           var url = $location.protocol()+'://'+location.host+'/'+teamname+'/'+condtopic;
           ngClipboard.toClipboard(url);
-          Notification({message: 'Link copied to clipboard'}, 'success');
+
           var encoded = encodeURI(url);
           console.log('user desc '+ctrl.desc);
             var getid = slackinteraction.get_id($sessionStorage.btkn,$sessionStorage.userid);
@@ -36,6 +36,7 @@ angular.module('slackchatApp')
                     create.then(function(response) {
                         //$uibModalInstance.dismiss('cancel');
                         $location.path('/'+teamname+'/'+condtopic);
+                        Notification({message: 'Link copied to clipboard'}, 'success');
                         //$route.reload();
                     }, function(errorPayload) {
                         $location.path('/newtopics');
@@ -47,24 +48,61 @@ angular.module('slackchatApp')
       };
 
     $scope.options = {
-    height: 300,
     focus: true,
     airMode: true,
-    toolbar: [
-            ['edit',['undo','redo']],
-            ['headline', ['style']],
-            ['style', ['bold', 'italic', 'underline', 'superscript', 'subscript', 'strikethrough', 'clear']],
-            ['fontface', ['fontname']],
-            ['textsize', ['fontsize']],
-            ['fontclr', ['color']],
-            ['alignment', ['ul', 'ol', 'paragraph', 'lineheight']],
-            ['height', ['height']],
-            ['table', ['table']],
-            ['insert', ['link','picture','video','hr']],
-            ['view', ['fullscreen', 'codeview']],
-            ['help', ['help']]
-        ]
-  };
+        popover: {
+            image: [
+                ['imagesize', ['imageSize100', 'imageSize50', 'imageSize25']],
+                ['float', ['floatLeft', 'floatRight', 'floatNone']],
+                ['remove', ['removeMedia']]
+            ],
+            link: [
+                ['link', ['linkDialogShow', 'unlink']]
+            ],
+            air: [
+                ['color', ['color']],
+                ['font', ['bold', 'underline', 'clear','superscript','fontsize']],
+                ['para', ['ul', 'paragraph','ol','style']],
+                ['insert', ['link']]
+            ]
+        }
+
+    };
+      $scope.tinymceOptions = {
+         /* showExternalToolbar: function(){
+
+              if (this.editor.getParam('theme_advanced_toolbar_location') != 'external') return;
+
+              if (!document.getElementById('externalToolbarWrapper')) $(document.body).prepend('<div id="externalToolbarWrapper"></div>');
+
+              var $toolbar = $('#'+this.editor.id + '_external');
+
+              // inserts the external toolbar in the external wrapper
+              $('#externalToolbarWrapper').append('<div id="replacementDiv"></div>');
+
+              $('#replacementDiv').replaceWith($toolbar.show());
+              $toolbar.css('top','0px');
+              $toolbar.css('display','block');
+
+              $('#' + this.editor.id + '_external_close').remove();
+              $('#' + this.editor.id +'_toolbargroup').css('width', innerWidth || 800); // innerwidth is an integer value
+          },*/
+          selector: '#externalToolbarWrapper',  // change this value according to your HTML
+          inline: true,
+          fixed_toolbar_container: '#externalToolbar'
+          /*setup: function(editor) {
+              //Focus the editor on load
+              //$timeout(function(){ editor.focus(); });
+              editor.on("init", function() {
+
+              });
+              editor.on("click", function() {
+                  console.log('Editor was clicked');
+              });
+          },*/
+
+
+      };
 
       /*ctrl.cancel = function () {
           $uibModalInstance.dismiss('cancel');
