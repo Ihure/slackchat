@@ -15,8 +15,11 @@ app/tests/coverage/
 .idea/
 coverage/
 modules/articles
-app
-
+app/config
+app/models
+app/policies
+app/routes
+bower_components
 # MEAN.js app and assets
 # ======================
 public/dist/

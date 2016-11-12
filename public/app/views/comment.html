@@ -1,0 +1,186 @@
+<style>
+    .div2 {
+        overflow-y: scroll;
+        height:580px;
+    }
+    html, body {
+
+        overflow-y: hidden;
+    }
+    md-content{
+        overflow-y: hidden;
+    }
+</style>
+<div layout="row" >
+    <div flex  resizable r-directions="['right']" r-centered-x="true" r-centered-y="true" r-flex="true" >
+
+        <!-- Box Comment -->
+        <div class="box box-widget "  >
+            <div class='box-header with-border'>
+                <div class='user-block'>
+                    <img class='img-circle' ng-src='{{topic.avator}}' alt='user image'>
+                    <span class='username'><a >{{topic.name}}</a></span>
+                    <span class='description' ng-bind="topic.created | date:'h:mm:ss - dd/MMM'"></span>
+                </div><!-- /.user-block -->
+                <div class='box-tools'>
+                    <div class="input-group input-group-sm pull-right" style="width: 30%" >
+                        <input type="text" class="form-control"  placeholder="Reply" id="foo" value="{{topic.url}}">
+                        <span class="input-group-btn">
+                                          <button class="btn btn-info btn-flat" ngclipboard ngclipboard-success="onSuccess(e);" data-clipboard-target="#foo"><i class="fa fa-clipboard"></i></button>
+                                        </span>
+                    </div>
+                </div><!-- /.box-tools -->
+            </div><!-- /.box-header -->
+            <div class='box-body'>
+                <!-- post text -->
+                <p align="center">{{topic.topic}}</p>
+                <div ng-show="topic.status == 1" class="video-container">
+                    <div ng-bind-html="topic.link | totrusted"></div>
+
+                </div>
+                <div ng-show="topic.status == 0" class="video-container">
+                    <iframe  ng-src="{{topic.link | trusturls}}" frameborder="0" allowfullscreen></iframe>
+                </div>
+                <div class="attachment-block clearfix" ng-show="topic.status == 0">
+                    <img class="attachment-img" src="images/apology.jpg" alt="sorry image">
+                    <div class="attachment-pushed">
+                        <h4 class="attachment-heading"></h4>
+                        <div class="attachment-text">
+                            We apologise if the media isn't showing click here to visit page<a href="{{topic.link}}" target="_blank">Go</a>
+                        </div><!-- /.attachment-text -->
+                    </div><!-- /.attachment-pushed -->
+                </div><!-- /.attachment-block -->
+                <p><br/></p>
+                <blockquote ng-bind-html="topic.description"></blockquote>
+                <p><a href ng-click="repsec0 = !repsec0">Reply</a> <a href ng-click="repse = !repse">comments</a></p>
+                <span class='pull-right text-muted'>
+
+
+                          <form method="post" ng-submit="ctrl.rep(topic._id,topic._id,0,'','','',topic.topic,topic.url,topic.createdby,topic.name,topic.team_id)" name="form" role="form" >
+                                <div class="input-group pull-left" ng-hide="!repsec0" style="width: 100%">
+                                    <input type="text" name="message" placeholder="Type Reply" class="form-control" name="reply0" id="reply0" ng-model="ctrl.reply0" required autofocus>
+                                    <span class="input-group-btn">
+                                        <button type="button" class="btn btn-danger btn-flat" ng-disabled="form.$invalid" ng-click="ctrl.rep(topic._id,topic._id,0,'','','',topic.topic,topic.url,topic.createdby,topic.name,topic.team_id)">Send</button>
+                                    </span>
+                                </div>
+                          </form>
+                    </span>
+
+            </div><!-- /.box-body -->
+        </div>
+
+    </div>
+
+    <div flex style="padding-left:15px" ng-show="repse">
+        <div layout="column">
+            <div class="box box-widget  " style="background-color: #fff; height: 100%">
+                <div class='box-footer box-comments div2'>
+                    <ul id="comments">
+                        <li class="cmmnt" ng-repeat="comment in comments |filter:{level:1}">
+                            <div class="avatar"><a href="javascript:void(0);"><img ng-src="{{comment.avator}}" width="55" height="55" alt="default avatar"></a></div>
+                            <div class="cmmnt-content">
+                                <input type="hidden" ng-model="ctrl.parentid" value="{{comment._id}}"/>
+                                <!--<input type="hidden" ng-model="ctrl.level" value="{{comment.level}}"/>
+                                <input type="hidden" ng-model="ctrl.slug" value="{{comment.slug}}"/>-->
+                                <header><a href="javascript:void(0);" class="userlink">{{comment.user}}</a> - <span class="pubdate" ng-bind="comment.date | date:'h:mm:ss - dd/MMM'"></span></header>
+                                <p>{{comment.body}}</p>
+                                <p><a href ng-click="repsec1 = !repsec1">Reply</a> <!--<a href ng-click="replies = !replies">Replies</a>--></p>
+                                <form ng-submit="ctrl.rep(topic._id,comment._id,1,comment.full_slug,comment.full_slug,comment.slug,topic.topic,topic.url,topic.createdby,topic.name,topic.team_id)" name="form" role="form" >
+                                    <div class="input-group input-group-sm" ng-show="repsec1">
+                                        <input type="text" class="form-control"  placeholder="Reply" name="reply1" id="reply1" ng-model="ctrl.reply1" required show-focus="repsec1">
+                                        <span class="input-group-btn">
+                                          <button class="btn btn-info btn-flat" type="button" ng-disabled="form.$invalid" ng-click="ctrl.rep(topic._id,comment._id,1,comment.full_slug,comment.full_slug,comment.slug,topic.topic,topic.url,topic.createdby,topic.name,topic.team_id)">Reply</button>
+                                        </span>
+                                    </div>
+                                    <!--<div  >
+                                        <input type="text"  placeholder="Reply" name="reply1" id="reply1" ng-model="ctrl.reply1" required/>
+                                        <button class="btn btn-primary" type="button" ng-disabled="form.$invalid" ng-click="ctrl.rep(comment._id,1,comment.full_slug,comment.full_slug,comment.slug)">Comment</button>
+                                    </div>-->
+                                </form>
+                            </div>
+                            <!--<ul class="replies" ng-repeat="reply in comments | custom:comment._id:2:comment.slug">-->
+                            <ul class="replies" ng-repeat="reply in comments | filter:{parentid:comment._id}| filter:{level:2}| filter:{slugabove:comment.slug}">
+                                <li class="cmmnt">
+                                    <div class="avatar"><a href="javascript:void(0);"><img ng-src="{{reply.avator}}" width="55" height="55" alt="Professor photo avatar"></a></div>
+                                    <div class="cmmnt-content">
+                                        <header><a href="javascript:void(0);" class="userlink">{{reply.user}}</a> - <span class="pubdate" ng-bind="reply.date | date:'h:mm:ss - dd/MMM'"></span></header>
+                                        <p>{{reply.body}}</a></p>
+                                        <p><a href ng-click="repsec2 = !repsec2">Reply</a><!-- <a href ng-click="replies = !replies">Replies</a>--></p>
+                                        <form ng-submit="ctrl.rep(topic._id,comment._id,2,reply.full_slug,reply.full_slug,reply.slug,topic.topic,topic.url,topic.createdby,topic.name,topic.team_id)" name="form" role="form">
+                                            <div class="input-group input-group-sm" ng-show="repsec2">
+                                                <input type="text" class="form-control"  placeholder="Reply" name="reply2" id="reply2" ng-model="ctrl.reply2" required show-focus="repsec2">
+                                                <span class="input-group-btn">
+                                                  <button class="btn btn-info btn-flat" type="button" ng-disabled="form.$invalid" ng-click="ctrl.rep(topic._id,comment._id,2,reply.full_slug,reply.full_slug,reply.slug,topic.topic,topic.url,topic.createdby,topic.name,topic.team_id)">Reply</button>
+                                                </span>
+                                            </div>
+                                        </form>
+                                    </div>
+
+                                    <ul class="replies" ng-repeat="rep in comments | filter:{parentid:comment._id}| filter:{level:3}|filter:{slugabove:reply.slug}">
+                                        <li class="cmmnt">
+                                            <div class="avatar"><a href="javascript:void(0);"><img ng-src="{{rep.avator}}" width="55" height="55" alt="default avatar"></a></div>
+                                            <div class="cmmnt-content">
+                                                <header><a href="javascript:void(0);" class="userlink">{{rep.user}}</a> - <span class="pubdate" ng-bind="rep.date | date:'h:mm:ss - dd/MMM'"></span></header>
+                                                <p>{{rep.body}}</p>
+                                                <p><a href ng-click="repsec3 = !repsec3">Reply</a><!-- <a href ng-click="replies = !replies">Replies</a>--></p>
+                                                <form ng-submit="ctrl.rep(topic._id,comment._id,3,rep.full_slug,rep.full_slug,rep.slug,topic.topic,topic.url,topic.createdby,topic.name,topic.team_id)" name="form" role="form">
+                                                    <div class="input-group input-group-sm" ng-show="repsec3">
+                                                        <input type="text" class="form-control"  placeholder="Reply" name="reply3" id="reply3" ng-model="ctrl.reply3" required show-focus="repsec3">
+                                                        <span class="input-group-btn">
+                                                  <button class="btn btn-info btn-flat" type="button" ng-disabled="form.$invalid" ng-click="ctrl.rep(topic._id,comment._id,3,rep.full_slug,rep.full_slug,rep.slug,topic.topic,topic.url,topic.createdby,topic.name,topic.team_id)">Reply</button>
+                                                </span>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                            <ul class="replies" ng-repeat="frep in comments | filter:{parentid:comment._id}| filter:{level:4}|filter:{slugabove:rep.slug}">
+                                                <li class="cmmnt">
+                                                    <div class="avatar"><a href="javascript:void(0);"><img ng-src="{{frep.avator}}" width="55" height="55" alt="default avatar"></a></div>
+                                                    <div class="cmmnt-content">
+                                                        <header><a href="javascript:void(0);" class="userlink">{{frep.user}}</a> - <span class="pubdate" ng-bind="frep.date | date:'h:mm:ss - dd/MMM'"></span></header>
+                                                        <p>{{frep.body}}</p>
+                                                        <p><a href ng-click="repsec4 = !repsec4">Reply</a><!-- <a href ng-click="replies = !replies">Replies</a>--></p>
+                                                        <form ng-submit="ctrl.rep(topic._id,comment._id,4,frep.full_slug,frep.full_slug,frep.slug,topic.topic,topic.url,topic.createdby,topic.name,topic.team_id)" name="form" role="form">
+                                                            <div class="input-group input-group-sm" ng-show="repsec4">
+                                                                <input type="text" class="form-control"  placeholder="Reply" name="reply4" id="reply4" ng-model="ctrl.reply4" required show-focus="repsec4">
+                                                                <span class="input-group-btn">
+                                                                  <button class="btn btn-info btn-flat" type="button" ng-disabled="form.$invalid" ng-click="ctrl.rep(topic._id,comment._id,4,frep.full_slug,frep.full_slug,frep.slug,topic.topic,topic.url,topic.createdby,topic.name,topic.team_id)">Reply</button>
+                                                                </span>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                    <ul class="replies" ng-repeat="lrep in comments | filter:{parentid:comment._id}| filter:{level:5}|filter:{slugabove:frep.slug}">
+                                                        <li class="cmmnt">
+                                                            <div class="avatar"><a href="javascript:void(0);"><img ng-src="{{lrep.avator}}" width="55" height="55" alt="default avatar"></a></div>
+                                                            <div class="cmmnt-content">
+                                                                <header><a href="javascript:void(0);" class="userlink">{{lrep.user}}</a> - <span class="pubdate" ng-bind="lrep.date | date:'h:mm:ss - dd/MMM'"></span></header>
+                                                                <p>{{lrep.body}}</p>
+                                                            </div>
+                                                        </li>
+                                                    </ul>
+                                                </li>
+
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div><!-- /.box-footer --
+                <div class="box-footer">
+
+
+                </div><!-- /.box-footer -->
+            </div><!-- /.box -->
+        </div>
+    </div>
+</div>
+<script type="text/ng-template" id="signin.html">
+    <div class="md-content">
+        <h3 class="modal-title" id="modal-title2" align="center">Sign In</h3>
+        <div class="modal-body" id="modal-body2">
+            <p>Before you can create a topic you have to sign in</p>
+            <a href="https://slack.com/oauth/authorize?scope=commands,bot,users.profile:read,im:write&client_id=87012615811.87769233137&state=add&redirect_uri={{url}}"><img alt="Add to Slack" height="40" width="139"  src="https://platform.slack-edge.com/img/add_to_slack.png" srcset="https://platform.slack-edge.com/img/add_to_slack.png 1x, https://platform.slack-edge.com/img/add_to_slack@2x.png 2x" /></a>
+        </div>
+    </div>
+</script>
