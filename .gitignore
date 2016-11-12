@@ -11,7 +11,7 @@ Thumbs.db
 .sass-cache/
 node_modules/
 app/tests/coverage/
-.bower-*/
+
 .idea/
 coverage/
 modules/articles
@@ -19,7 +19,8 @@ app/config
 app/models
 app/policies
 app/routes
-bower_components
+
+
 # MEAN.js app and assets
 # ======================
 public/dist/
