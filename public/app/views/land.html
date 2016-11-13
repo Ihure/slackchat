@@ -29,7 +29,10 @@
       <span class="channel-menu_name">
         <span class="channel-menu_prefix">#</span>
           <a href ng-click="creates = !creates">Topics </a>
-       <a ng-click="vm.open('sm')" class="dropdown-toggle" data-toggle="dropdown">
+       <a ng-click="vm.open('sm')" class="dropdown-toggle" data-toggle="dropdown" ng-show="toggle">
+                <i class="fa fa-plus"></i>
+        </a>
+        <a ng-click="vm.openm('sm')" class="dropdown-toggle" data-toggle="dropdown" ng-show="link">
                 <i class="fa fa-plus"></i>
         </a>
       </span>

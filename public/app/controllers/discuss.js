@@ -105,6 +105,8 @@ angular.module('angularMaterialAdmin')
         var url = $location.protocol()+'://'+location.host+$location.path();
         url = encodeURI(url);
 
+
+
         if(state == 'signin'){
             console.log('state is signin at '+ Date.now());
             logged = 1;
@@ -309,6 +311,12 @@ angular.module('angularMaterialAdmin')
                 console.log('set Guest avator at'+ Date.now());
             }
  
+        }
+
+        if($location.path()=='/home'){
+            $scope.link= true;
+        }else{
+            $scope.toggle = true;
         }
 
         /**
