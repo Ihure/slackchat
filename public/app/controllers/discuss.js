@@ -318,7 +318,7 @@ angular.module('angularMaterialAdmin')
         }else{
             $scope.toggle = true;
         }
-
+        $scope.creates = false;
         /**
          * timeout test
          *
