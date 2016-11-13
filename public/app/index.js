@@ -43,7 +43,7 @@ angular.module('angularMaterialAdmin', [
       })
       .state('home', {
         url: '',
-        templateUrl: 'app/views/main.html',
+        templateUrl: 'app/views/land.html',
         controller: 'DiscussCtrl',
         controllerAs: 'vm',
         abstract: true
@@ -70,9 +70,9 @@ angular.module('angularMaterialAdmin', [
       })
       .state('home.comment', {
         title: 'Comment',
-        url: '/:teamname/:topic',
+        url: '/:teamname/:topic?code&state',
         layout: 'row',
-        templateUrl: 'app/views/comment.html',
+        templateUrl: 'app/views/createreply.html',
         controller: 'CommentCtrl',
         controllerAs: 'ctrl',
         data: {

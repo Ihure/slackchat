@@ -149,9 +149,11 @@ a:hover { text-decoration: underline; }
     box-shadow: none;
 }
 .file-content ol{
+    padding-left: 30px;
     list-style-type: decimal;
 }
 .file-content ul{
+    padding-left: 30px;
     list-style-type: disc;
 }
 .divider {
@@ -170,6 +172,23 @@ a:hover { text-decoration: underline; }
     top: 0;
     position: fixed;
 }
+.div2::-webkit-scrollbar-track
+{
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    background-color: #F5F5F5;
+}
+
+.div2::-webkit-scrollbar
+{
+    width: 6px;
+    background-color: #F5F5F5;
+}
+
+.div2::-webkit-scrollbar-thumb
+{
+    background-color: #000000;
+}
+
 /*
 Copyright 2016 Google Inc. All Rights Reserved.
 Use of this source code is governed by an MIT-style license that can be foundin the LICENSE file at http://material.angularjs.org/HEAD/license.

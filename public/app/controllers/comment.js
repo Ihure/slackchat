@@ -30,7 +30,7 @@ angular.module('angularMaterialAdmin')
             $scope.preview = true;
             ctrl.animationsEnabled = true;
 
-            ctrl.openm = function (size) {
+           /* ctrl.openm = function (size) {
                 if($sessionStorage.userid == null || $sessionStorage.userid == undefined){
                     var modalInstance = $uibModal.open({
                         animation: ctrl.animationsEnabled,
@@ -45,7 +45,7 @@ angular.module('angularMaterialAdmin')
                     $location.path('/createtopic');
 
                 }
-            };
+            };*/
             var promises = authenticationservice.gettopic(tname,ctopic);
             promises.then(function(response) {
                 $scope.topicc = response.data;

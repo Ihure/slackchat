@@ -32,9 +32,10 @@
 
     <!-- build:css({.tmp/serve,src}) styles/app.css -->
     <!-- inject:css -->
-    <link rel="stylesheet" href="app/stylesheets/index.css">
+    <!--<link rel="stylesheet" href="app/stylesheets/index.css">-->
     <link rel="stylesheet" href="app/stylesheets/bootstrap.min.css">
     <link rel="stylesheet" href="app/stylesheets/style.css">
+    <link rel="stylesheet" href="app/stylesheets/global.css">
     <link rel="stylesheet" href="app/stylesheets/AdminLTE.min.css">
     <link rel="stylesheet" href="app/js/angular-resizable/angular-resizable.min.css">
     <!-- endinject -->
@@ -48,7 +49,7 @@
         to improve your experience.</p>
     <![endif]-->
 
-    <div ui-view layout="{{$state.current.layout}}" layout-fill>
+    <div ui-view class="hold-transition  skin-blue sidebar-mini">
 
     </div>
     <!-- build:js(src) scripts/vendor.js -->
@@ -70,7 +71,9 @@
     <script src="bower_components/angular-mocks/angular-mocks.js"></script>
     <script src="bower_components/angular-update-meta/dist/update-meta.min.js"></script>
     <script src="bower_components/angular-ui-notification/dist/angular-ui-notification.min.js"></script>
-    <script src="bower_components/ngclipboard/dist/ngclipboard.min.js"></script>
+    <!--<script src="bower_components/ngclipboard/dist/ngclipboard.min.js"></script>-->
+    <script src="https://cdn.rawgit.com/zenorocha/clipboard.js/master/dist/clipboard.min.js"></script>
+    <script src="bower_components/ngclipboard2/dist/ngclipboard.min.js"></script>
     <script src="bower_components/ngClip/ngClipboard.js"></script>
     <script src="bower_components/summernote/dist/summernote.min.js"></script>
     <script src="bower_components/angular-summernote/dist/angular-summernote.min.js"></script>
@@ -79,7 +82,7 @@
     <!-- endbower -->
     <!-- endbuild -->
     <script  src="app/js/bootstrap.min.js"></script>
-    <script src="https://cdn.rawgit.com/zenorocha/clipboard.js/master/dist/clipboard.min.js"></script>
+
     <script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
     <script src="app/js/angular-resizable/angular-resizable.min.js"></script>
     <!-- build:js({.tmp/serve,.tmp/partials,src}) scripts/app.js -->

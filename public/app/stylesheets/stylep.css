@@ -1097,7 +1097,7 @@ p.about-text, p.about-text1 {
 .about-grids, .service-grids, .caption, .count-grids, .gallery-grids, .journal-grids {
     margin-top: 3em;
 }
-.about-grid p, .ser-grid p, .testimonials-grid p, .cap p, .journal-grid p..news-gr p {
+.about-grid p, .ser-grid p, .testimonials-grid p, .cap p, .journal-grid p.news-gr p {
     font-size: 0.95em;
 }
 .info-content p {
@@ -1317,106 +1317,131 @@ h3.tittle, h3.tittle1 {
     min-height: 90px;
 }
 }
-@media(max-width:414px){
-.banner {
-    background: url(../images/banner22.jpg) no-repeat -150px 0px;
-    background-size: cover;
-    min-height: 400px;
-}
-.logo a {
-    font-size: 1.8em;
-}
-.banner-info {
-    margin: 4em 0 0;
-}
-.gal-left {
-    width: 100%;	
-}
-.testimonials-grid1 img {
-    margin: 0 auto;
-    width: 50%;
-}
-.footer input[type="submit"] {
-    font-size: 0.95em;
+@media(max-width:414px) {
+    .banner {
+        background: url(../images/banner22.jpg) no-repeat -150px 0px;
+        background-size: cover;
+        min-height: 400px;
+    }
+
+    .logo a {
+        font-size: 1.8em;
+    }
+
+    .banner-info {
+        margin: 4em 0 0;
+    }
+
+    .gal-left {
+        width: 100%;
+    }
+
+    .testimonials-grid1 img {
+        margin: 0 auto;
+        width: 50%;
+    }
+
+    .footer input[type="submit"] {
+        font-size: 0.95em;
+    }
+
+    @media (max-width: 384px) {
+        .banner-info h1 {
+            font-size: 2.8em;
+        }
+
+        h2.tittle {
+            font-size: 2.3em;
+        }
+
+        h3.tittle, h3.tittle1 {
+            font-size: 2.3em;
+        }
+
+        .ser-left {
+            float: left;
+            width: 25%;
+        }
+
+        .ser-right {
+            float: left;
+            width: 73%;
+        }
+
+        .banner {
+            background: url(../images/banner22.jpg) no-repeat -150px 0px;
+            background-size: cover;
+            min-height: 380px;
+        }
+
+        .ft-lt {
+            width: 100%;
+        }
+
+        .footer input[type="text"], .footer textarea {
+            width: 100%;
+        }
+
+        .ft-rgt {
+            width: 100%;
+        }
+    }
+    @media (max-width: 375px) {
+        p.about-text, p.about-text1 {
+            width: 100%;
+            margin: 1em auto 0;
+        }
+
+        .testimonials-grids {
+            margin-top: 2em;
+            padding: 1em;
+        }
+
+        .footer-middle {
+            margin: 1em 1em 1em 0em;
+        }
+
+        .footer-top {
+            padding: 1em 0;
+        }
+    }
+    @media (max-width: 320px) {
+        .about-grid, .test1, .testimonials-grid, .journal-grid {
+            padding: 0;
+        }
+
+        .ser-left {
+            width: 100%;
+            margin-bottom: 1em;
+        }
+
+        .ser-right {
+            width: 100%;
+        }
+
+        .ser-grid {
+            text-align: center;
+            padding: 0;
+        }
+
+        .testimonials-grid1 img {
+            margin: 0 auto;
+            width: 65%;
+        }
+
+        .cap-left {
+            width: 100%;
+            padding: 0;
+        }
+
+        .cap-left:nth-child(2) {
+            margin-top: 2em;
+        }
+
+        .jou-left {
+            float: left;
+            width: 25%;
+        }
+    }
 }
 
-@media(max-width:384px){
-.banner-info h1 {
-    font-size: 2.8em;
-}
-h2.tittle {
-    font-size: 2.3em;
-}
-h3.tittle, h3.tittle1 {
-    font-size: 2.3em;
-}
-.ser-left {
-    float: left;
-    width: 25%;
-}
-.ser-right {
-    float: left;
-    width: 73%;
-}
-.banner {
-    background: url(../images/banner22.jpg) no-repeat -150px 0px;
-    background-size: cover;
-    min-height: 380px;
-}
-.ft-lt {
-    width: 100%;
-}
-.footer input[type="text"], .footer textarea {
-    width: 100%;
-}
-.ft-rgt {
-    width: 100%;
-}
-}
-@media(max-width:375px){
-p.about-text, p.about-text1 {
-    width: 100%;
-	margin: 1em auto 0;
-}
-.testimonials-grids {
-    margin-top: 2em;
-	    padding: 1em;
-}
-.footer-middle {
-    margin: 1em 1em 1em 0em;
-}
-.footer-top {
-    padding: 1em 0;
-}
-}
-@media(max-width:320px){
-.about-grid,.test1,.testimonials-grid,.journal-grid {
-    padding: 0;
-}
-.ser-left {
-    width: 100%;
-	margin-bottom: 1em;
-}
-.ser-right {
-    width: 100%;
-}
-.ser-grid {
-    text-align: center;
-	padding: 0;
-}
-.testimonials-grid1 img {
-    margin: 0 auto;
-    width: 65%;
-}
-.cap-left {
-    width: 100%;
-    padding: 0;
-}
-.cap-left:nth-child(2){
-    margin-top: 2em;
-}
-.jou-left {
-    float: left;
-    width: 25%;
-}
-}

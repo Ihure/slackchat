@@ -1,0 +1,123 @@
+<head>
+    <meta property="og:title" content="Flowtalks topics" />
+    <meta property="og:description" content="Frictionless, asynchronous conversations. For Slack" />
+    <meta property="twitter:label1" content="Flow talks available topics" />
+    <style>
+        .main-sidebar{
+            top:25px;
+            padding-top:0;
+            width: 100px;
+        }
+        .content-wrapper{
+            margin-left: 110px;
+        }
+    </style>
+</head>
+<div class="wrapper" >
+    <update-meta name="description" content="Frictionless, asynchronous conversations. For Slack"></update-meta>
+    <update-meta property="og:title" content="Flowtalk" ></update-meta>
+    <update-meta property="og:description" content="post your topics here " ></update-meta>
+    <update-meta property="og:url" content="http://www.flowtalk.io/" ></update-meta>
+    <update-meta property="twitter:label1" content="App for:" ></update-meta>
+    <update-meta property="twitter:data2" content="Groups" ></update-meta>
+    <update-meta property="twitter:label2" content="Enjoy" ></update-meta>
+    <update-meta property="twitter:data2" content="Awesome Discussion" ></update-meta>
+    <!-- Left side column. contains the logo and sidebar -->
+    <div class="header">
+        <div class="team-menu">Flowtalk</div>
+        <div class="channel-menu">
+      <span class="channel-menu_name">
+        <span class="channel-menu_prefix">#</span>
+          <a href ng-click="creates = !creates">Topics </a>
+       <a ng-click="vm.open('sm')" class="dropdown-toggle" data-toggle="dropdown">
+                <i class="fa fa-plus"></i>
+        </a>
+      </span>
+        </div>
+    </div>
+    <aside class="main-sidebar" >
+        <div class="listings main-sidebar">
+            <div class="listings_channels">
+                <div class="user-panel">
+                    <div class=" image">
+                        <img ng-src="{{avator}}" class="img-circle" alt="User Image">
+                    </div>
+                </div>
+                <h2 class="listings_header">{{fname}}</h2>
+                <!--<ul class="channel_list">
+                    <li class="channel active">
+                        <a class="channel_name">
+      <span class="unread">
+        0
+      </span>
+                            <span>
+        <span class="prefix">#</span>
+        slack
+      </span>
+                        </a>
+                    </li>
+                </ul>-->
+
+            </div>
+            <div class="listings_direct-messages"></div>
+            <!--<p class="disclaimer">This demo is not created by, affiliated with, or supported by Slack Technologies, Inc.</p>-->
+        </div>
+    </aside>
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper" style="background-color: #fcfcfc;">
+        <section class="content" >
+            <div ui-view style="background-color: #Fff;">
+
+            </div>
+
+        </section><!-- /.content -->
+    </div><!-- /.content-wrapper -->
+
+    <script type="text/ng-template" id="addtopictemplate.html">
+        <div class="md-content">
+            <h3 class="modal-title" id="modal-title" align="center">Add topic</h3>
+            <form ng-submit="ctrl.add()" name="form" role="form">
+                <div class="modal-body" id="modal-body" ng-class="{ 'has-error': form.desc.$dirty && form.desc.$error.required }">
+                    <label>Topic</label>
+                    <input type="text" name="topic" class="form-control" id="topic" placeholder="topic" ng-model="ctrl.topic" required>
+                    <label>Brief Description</label>
+                    <textarea class="textarea" placeholder="Give a small description" name="desc" id="desc" ng-model="ctrl.desc" required style="font-size: 14px;border: 1px solid #dddddd; padding: 10px;"></textarea>
+                    <!--<label>Embed Object (video/or link)</label>
+                    <textarea class="textarea" placeholder="Paste embed link here" name="emb" id="emb" ng-model="ctrl.emb"  style="font-size: 14px; border: 1px solid #dddddd; padding: 10px;"></textarea>-->
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary" type="button" ng-disabled="form.$invalid" ng-click="ctrl.add()">Add</button>
+                    <button class="btn btn-warning" type="button" ng-click="ctrl.cancel()">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </script>
+    <script type="text/ng-template" id="signin.html">
+        <div class="md-content">
+            <h3 class="modal-title" id="modal-title2" align="center">Sign In</h3>
+            <div class="modal-body" id="modal-body2">
+                <p>Before you can create a topic you have to sign in</p>
+                <a href="https://slack.com/oauth/authorize?scope=commands,bot,users.profile:read,im:write&client_id=87012615811.87769233137&state=add&redirect_uri={{url}}"><img alt="Add to Slack" height="40" width="139"  src="https://platform.slack-edge.com/img/add_to_slack.png" srcset="https://platform.slack-edge.com/img/add_to_slack.png 1x, https://platform.slack-edge.com/img/add_to_slack@2x.png 2x" /></a>
+            </div>
+        </div>
+    </script>
+    <script type="application/javascript" >
+        /* if($(".video-container").find("iframe").contents().find("body").contents().length > 0){
+         $(".video-container").show();
+         }else{
+         $(".video-container").hide();
+         }*/
+        jQuery(document).ready(function () {
+            $("iframe").each(function () {
+                //var src = this.src.toLowerCase();
+                if ($(this).contents().find("body").length >0) {
+                    $(this).show();
+                } else {
+                    $(this).hide();
+                }
+            });
+        });
+    </script>
+    <div class="control-sidebar-bg"></div>
+</div>
+

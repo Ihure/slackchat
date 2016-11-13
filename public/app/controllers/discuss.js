@@ -87,8 +87,8 @@ angular.module('angularMaterialAdmin')
         }
 
         //var state = $routeParams.state;
-        var state = $stateParams.state;
-        var code = $stateParams.code;
+        var state = $state.params.state;
+        var code = $state.params.code;
         console.log('state is  '+ state+' '+code);
         var tname = $stateParams.teamname;
         var ctopic = $stateParams.topic;
@@ -109,7 +109,7 @@ angular.module('angularMaterialAdmin')
             console.log('state is signin at '+ Date.now());
             logged = 1;
             //$scope.test = 't';
-            var code = $stateParams.code;
+            var code = $state.params.code;
             //$sessionStorage.code =code;
             $scope.authcode = 'test';
 
@@ -177,11 +177,12 @@ angular.module('angularMaterialAdmin')
 
             //$scope.fname = $sessionStorage.real_name;
             //$scope.avator = $sessionStorage.avator;
+            $scope.creates = false;
 
         }else if (state == 'add'){
             console.log('state is add at '+ Date.now());
             logged = 1;
-            var code = $stateParams.code;
+            var code = $state.params.code;
             //$sessionStorage.code =code;
             //$scope.code = $sessionStorage.code;
             //$cookieStore.put('flowtalklog','logged');
@@ -226,6 +227,7 @@ angular.module('angularMaterialAdmin')
                 //$sessionStorage.authtoken = $cookieStore.get('authtoken');
                 $scope.authdata = $cookieStore.get('auth');
                 $scope.authdata2 = $cookieStore.get('auth2');
+                        $scope.creates = false;
 
                 
 
@@ -289,7 +291,7 @@ angular.module('angularMaterialAdmin')
                         $scope.hook = true;
                     });*/
 
-
+                $scope.creates = false;
                 $scope.fname = $sessionStorage.real_name;
                 $scope.avator = $sessionStorage.avator;
                 console.log('set no_state avator at'+ Date.now());
@@ -300,8 +302,10 @@ angular.module('angularMaterialAdmin')
                 //$scope.authdata = $cookieStore.get('auth');
                 //$scope.authdata2 = $cookieStore.get('auth2');
                 //$scope.test = 'n';
+                $scope.creates = false;
                 $scope.fname = 'Guest';
                 $scope.avator = 'images/guest.png';
+                $scope.notlogged = true;
                 console.log('set Guest avator at'+ Date.now());
             }
  
@@ -450,6 +454,7 @@ angular.module('angularMaterialAdmin')
         };
 
         vm.animationsEnabled = true;
+        $scope.creates = false;
 
         vm.open = function (size) {
             if($sessionStorage.userid == null || $sessionStorage.userid == undefined){
@@ -463,16 +468,7 @@ angular.module('angularMaterialAdmin')
                     size: size,
                 });
             }else{
-                $location.path('/createtopic');
-                /*var modalInstance = $uibModal.open({
-                    animation: vm.animationsEnabled,
-                    arialabelledBy: 'modal-title',
-                    ariaDescribedBy: 'modal-body',
-                    templateUrl: 'addtopictemplate.html',
-                    controller:'createtopicvm',
-                    controllerAs: 'vm',
-                    size: size,
-                });*/
+                $scope.creates = true;
             }
 
         };
@@ -525,6 +521,9 @@ angular.module('angularMaterialAdmin')
             console.log('cleared get parameters at'+ Date.now());
         };
         $timeout( function(){ $scope.callAtTimeout(); }, 3000);
+
+
+                        //$scope.topi= 'chris';
 
     }]);
 function updatescope () {

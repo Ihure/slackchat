@@ -17,6 +17,7 @@ angular.module('angularMaterialAdmin')
           }else{
               emb = ctrl.emb;
           }*/
+          //$scope.creates = false;
           var emb = '';
           var teamnames = $sessionStorage.team;
           var teamname = teamnames.replace(/([~!@#$%^&*()_+=`{}\[\]\|\\:;'<>,.\/? ])+/g, '_').replace(/^(_)+|(_)+$/g,'');
@@ -35,6 +36,7 @@ angular.module('angularMaterialAdmin')
                     var create = authenticationservice.createtopic(ctrl.topic, cid, $sessionStorage.avator, $sessionStorage.real_name,ctrl.desc,emb,teamname,condtopic,url,encoded,$sessionStorage.team_id,$sessionStorage.bid,$sessionStorage.btkn,$sessionStorage.userid);
                     create.then(function(response) {
                         //$uibModalInstance.dismiss('cancel');
+                        $scope.creates = false;
                         $location.path('/'+teamname+'/'+condtopic);
                         Notification({message: 'Link copied to clipboard'}, 'success');
                         //$route.reload();
@@ -46,7 +48,7 @@ angular.module('angularMaterialAdmin')
 
 
       };
-
+      //$scope.creates = false;
     $scope.options = {
     focus: true,
     airMode: true,
