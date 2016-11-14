@@ -6,12 +6,13 @@
         .main-sidebar{
             top:25px;
             padding-top:0;
-            width: 100px;
+            width: 0px;
         }
         .content-wrapper{
-            margin-left: 110px;
+            margin-left: 10px;
         }
     </style>
+    <script src="../index.js"></script>
 </head>
 <div class="wrapper" >
     <update-meta name="description" content="Frictionless, asynchronous conversations. For Slack"></update-meta>
@@ -24,21 +25,30 @@
     <update-meta property="twitter:data2" content="Awesome Discussion" ></update-meta>
     <!-- Left side column. contains the logo and sidebar -->
     <div class="header">
-        <div class="team-menu">Flowtalk</div>
+        <div class="team-menu">
+            <div class="user-panel" style="padding-top:0;">
+                <div class=" image" style="padding-top:0;">
+                    <img ng-src="{{avator}}" class="img-circle" alt="User Image">
+                </div>
+            </div>
+        </div>
         <div class="channel-menu">
       <span class="channel-menu_name">
         <span class="channel-menu_prefix">#</span>
-          <a href ng-click="creates = !creates">Topics </a>
-       <a ng-click="vm.open('sm')" class="dropdown-toggle" data-toggle="dropdown" ng-show="toggle">
-                <i class="fa fa-plus"></i>
-        </a>
-        <a ng-click="vm.openm('sm')" class="dropdown-toggle" data-toggle="dropdown" ng-show="link">
-                <i class="fa fa-plus"></i>
-        </a>
+          <a ng-href="/home">Topics </a>
+
       </span>
+            <div class="channel-menu_name">
+                <a ng-click="vm.openm('sm')" class="dropdown-toggle" data-toggle="dropdown" >
+                    <i class="fa fa-plus"></i>
+                </a>
+                <!--<a ng-click="vm.open('sm')" class="dropdown-toggle" data-toggle="dropdown" ng-show="toggle">
+                    <i class="fa fa-plus"></i>
+                </a>-->
+            </div>
         </div>
     </div>
-    <aside class="main-sidebar" >
+    <!--<aside class="main-sidebar" >
         <div class="listings main-sidebar">
             <div class="listings_channels">
                 <div class="user-panel">
@@ -59,13 +69,13 @@
       </span>
                         </a>
                     </li>
-                </ul>-->
+                </ul>--
 
             </div>
             <div class="listings_direct-messages"></div>
-            <!--<p class="disclaimer">This demo is not created by, affiliated with, or supported by Slack Technologies, Inc.</p>-->
+            <!--<p class="disclaimer">This demo is not created by, affiliated with, or supported by Slack Technologies, Inc.</p>--
         </div>
-    </aside>
+    </aside>-->
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper" style="background-color: #fcfcfc;">
         <section class="content" >

@@ -487,8 +487,8 @@ angular.module('angularMaterialAdmin')
                     animation: vm.animationsEnabled,
                     arialabelledBy: 'modal-title2',
                     ariaDescribedBy: 'modal-body2',
-                    templateUrl: 'signin2.html',
-                    controller:'CommentCtrl',
+                    templateUrl: 'signin.html',
+                    controller:'MainCtrl',
                     size: size,
                 });
             }else{

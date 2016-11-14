@@ -72,7 +72,7 @@ angular.module('angularMaterialAdmin', [
         title: 'Comment',
         url: '/:teamname/:topic?code&state',
         layout: 'row',
-        templateUrl: 'app/views/createreply.html',
+        templateUrl: 'app/views/comment.html',
         controller: 'CommentCtrl',
         controllerAs: 'ctrl',
         data: {
