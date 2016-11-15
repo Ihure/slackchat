@@ -182,7 +182,7 @@ exports.delete = function(req, res) {
  * List of Slacks
  */
 exports.list = function(req, res) {
-  Slack.find().sort('-created').populate('user', 'displayName').exec(function(err, slacks) {
+  Slack.find().sort({created: 1}).populate('user', 'displayName').exec(function(err, slacks) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -232,7 +232,7 @@ exports.slackByID = function(req, res, next, id) {
     });
   }
 
-  Slack.findById(id).populate('user', 'displayName').exec(function (err, slack) {
+  Slack.findById(id).sort({created: -1}).populate('user', 'displayName').exec(function (err, slack) {
     if (err) {
       return next(err);
     } else if (!slack) {
@@ -266,7 +266,7 @@ exports.slacksByID = function(req, res, next, id) {
 exports.topicByID = function(req, res, next, id) {
 
 
-  Slack.find({userid:req.params.creatorId}).exec(function (err, slack) {
+  Slack.find({userid:req.params.creatorId}).sort({created: -1}).exec(function (err, slack) {
     if (err) {
       return next(err);
     } else if (!slack) {
@@ -287,7 +287,7 @@ exports.commentByID = function(req, res, next, id) {
     });
   }*/
 
-    Comment.find({_topic:id}).populate('_topic').exec(function (err, slack) {
+    Comment.find({_topic:id}).sort({date: -1}).populate('_topic').exec(function (err, slack) {
         if (err) {
             return next(err);
         } else if (!slack) {

@@ -7,7 +7,6 @@ angular.module('angularMaterialAdmin', [
   'ngSanitize',
   'ui.router',
   'ngMaterial',
-  'nvd3',
   'ngRoute',
   'updateMeta',
   'ui-notification',
@@ -15,8 +14,8 @@ angular.module('angularMaterialAdmin', [
   'ngClipboard',
   'summernote',
   'ngStorage',
-  'angularResizable',
   'ui.bootstrap',
+  'angularMoment',
   'app'
   ])
 

@@ -35,9 +35,9 @@
     <!--<link rel="stylesheet" href="app/stylesheets/index.css">-->
     <link rel="stylesheet" href="app/stylesheets/bootstrap.min.css">
     <link rel="stylesheet" href="app/stylesheets/style.css">
-    <link rel="stylesheet" href="app/stylesheets/global.css">
-    <link rel="stylesheet" href="app/stylesheets/AdminLTE.min.css">
-    <link rel="stylesheet" href="app/js/angular-resizable/angular-resizable.min.css">
+    <!--<link rel="stylesheet" href="app/stylesheets/global.css">-->
+    <link rel="stylesheet" href="app/stylesheets/AdminLTE.css">
+    <!--<link rel="stylesheet" href="app/js/angular-resizable/angular-resizable.min.css">-->
     <!-- endinject -->
     <!-- endbuild -->
     <!--script-->
@@ -49,12 +49,14 @@
         to improve your experience.</p>
     <![endif]-->
 
-    <div ui-view class="hold-transition  skin-blue sidebar-mini">
+    <div ui-view class="hold-transition sidebar-mini">
 
     </div>
     <!-- build:js(src) scripts/vendor.js -->
-    <!-- bower:js -->
     <script src="bower_components/jquery/dist/jquery.js"></script>
+    <script  src="app/js/bootstrap.min.js"></script>
+    <!-- bower:js -->
+
     <script src="bower_components/angular/angular.js"></script>
     <script src="bower_components/angular-animate/angular-animate.js"></script>
     <script src="bower_components/angular-cookies/angular-cookies.js"></script>
@@ -64,7 +66,7 @@
     <script src="bower_components/angular-route/angular-route.js"></script>
     <script src="bower_components/d3/d3.js"></script>
     <script src="bower_components/nvd3/build/nv.d3.js"></script>
-    <script src="bower_components/angular-nvd3/dist/angular-nvd3.js"></script>
+    <!--<script src="bower_components/angular-nvd3/dist/angular-nvd3.js"></script>-->
     <script src="bower_components/angular-aria/angular-aria.js"></script>
     <script src="bower_components/angular-messages/angular-messages.js"></script>
     <script src="bower_components/angular-material/angular-material.js"></script>
@@ -81,10 +83,14 @@
     <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
-    <script  src="app/js/bootstrap.min.js"></script>
 
-    <script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
-    <script src="app/js/angular-resizable/angular-resizable.min.js"></script>
+    <!-- load momentJS (required for angular-moment) -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment.min.js"></script>
+
+    <!-- load angular-moment -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/angular-moment/0.9.0/angular-moment.min.js"></script>
+    <!--<script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>-->
+    <!--<script src="app/js/angular-resizable/angular-resizable.min.js"></script>-->
     <!-- build:js({.tmp/serve,.tmp/partials,src}) scripts/app.js -->
     <!-- inject:js -->
     <script src="app/app.js"></script>

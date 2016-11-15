@@ -23,61 +23,31 @@
     <update-meta property="twitter:data2" content="Groups" ></update-meta>
     <update-meta property="twitter:label2" content="Enjoy" ></update-meta>
     <update-meta property="twitter:data2" content="Awesome Discussion" ></update-meta>
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <!--<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>-->
+                <a class="navbar-brand" ng-href="/home">Flowtalk</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right navbar-form">
+                    <button class="btn btn-primary" type="button" ng-click="go('/createtopic')" ng-show="toggle">Create</button>
+                    <button class="btn btn-primary" type="button" ng-disabled="form.$invalid" ng-click="ctrl.add()" ng-show="link">Create</button>
+                </ul>
+            </div><!-- /.navbar-collapse -->
+        </div><!-- /.container-fluid -->
+    </nav>
     <!-- Left side column. contains the logo and sidebar -->
-    <div class="header">
-        <div class="team-menu">
-            <div class="user-panel" style="padding-top:0;">
-                <div class=" image" style="padding-top:0;">
-                    <img ng-src="{{avator}}" class="img-circle" alt="User Image">
-                </div>
-            </div>
-        </div>
-        <div class="channel-menu">
-      <span class="channel-menu_name">
-        <span class="channel-menu_prefix">#</span>
-          <a ng-href="/home">Topics </a>
-
-      </span>
-            <div class="channel-menu_name">
-                <a ng-click="vm.openm('sm')" class="dropdown-toggle" data-toggle="dropdown" >
-                    <i class="fa fa-plus"></i>
-                </a>
-                <!--<a ng-click="vm.open('sm')" class="dropdown-toggle" data-toggle="dropdown" ng-show="toggle">
-                    <i class="fa fa-plus"></i>
-                </a>-->
-            </div>
-        </div>
-    </div>
-    <!--<aside class="main-sidebar" >
-        <div class="listings main-sidebar">
-            <div class="listings_channels">
-                <div class="user-panel">
-                    <div class=" image">
-                        <img ng-src="{{avator}}" class="img-circle" alt="User Image">
-                    </div>
-                </div>
-                <h2 class="listings_header">{{fname}}</h2>
-                <!--<ul class="channel_list">
-                    <li class="channel active">
-                        <a class="channel_name">
-      <span class="unread">
-        0
-      </span>
-                            <span>
-        <span class="prefix">#</span>
-        slack
-      </span>
-                        </a>
-                    </li>
-                </ul>--
-
-            </div>
-            <div class="listings_direct-messages"></div>
-            <!--<p class="disclaimer">This demo is not created by, affiliated with, or supported by Slack Technologies, Inc.</p>--
-        </div>
-    </aside>-->
     <!-- Content Wrapper. Contains page content -->
-    <div class="content-wrapper" style="background-color: #fcfcfc;">
+    <div class="content-wrapper" style="background-color: #fff;">
         <section class="content" >
             <div ui-view style="background-color: #Fff;">
 

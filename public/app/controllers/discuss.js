@@ -313,11 +313,14 @@ angular.module('angularMaterialAdmin')
  
         }
 
-        if($location.path()=='/home'){
+        if($location.path()=='/createtopic'){
             $scope.link= true;
         }else{
             $scope.toggle = true;
         }
+        $scope.go = function ( path ) {
+            $location.path( path );
+        };
         $scope.creates = false;
         /**
          * timeout test

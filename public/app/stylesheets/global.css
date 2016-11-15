@@ -3,7 +3,7 @@ body {
   height: 100%;
   width: 100%;
   margin: 0;
-  padding-top: 53px;
+  padding-top: 0px;
   padding-bottom: 64px;
 }
 
@@ -31,19 +31,6 @@ body {
 }
 
 /* line 1, ../tests/sass/components/_header.scss */
-.team-menu {
-  position: relative;
-  width: 100px;
-  height: 53px;
-  line-height: 53px;
-  font-weight: 900;
-  padding: 0 1rem;
-  color: #ffffff;
-  background: #fff;
-  border-bottom: 2px solid #fff;
-  float: left;
-  cursor: pointer;
-}
 
 /* line 19, ../tests/sass/components/_header.scss */
 .channel-menu_name {

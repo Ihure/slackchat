@@ -13,28 +13,32 @@
         overflow-y: hidden;
     }
     .desc{
-        color: #232323;
-        padding-left: 0px;
+        padding: 5px;
+        margin: 5px;
     }
 </style>
 <div layout="row"  class="div2">
     <div flex  >
 
         <!-- Box Comment -->
-        <div class="box box-widget rui-resizable-content"  ng-repeat="topic in topics" >
-            <div class='box-header with-border'>
+        <div class="box box-widget desc"  ng-repeat="topic in topics" >
+            <div class='box-header '>
                 <div class='user-block'>
                     <img class='img-circle' ng-src="{{topic.avator}}" alt='user image'>
-                    <span class='username'><a href="#">{{topic.name}}</a></span>
-                    <span class='description' ng-bind="topic.created | date:'h:mm:ss - dd/MMM'"></span>
+                    <span class='username owner-name'>{{topic.name}}</span>
+                    <span class='description' > <time title="{{ topic.created | amDateFormat: 'dddd, MMMM Do YYYY, h:mm a' }}">{{ topic.created | amCalendar }}</time></span>
                 </div><!-- /.user-block -->
                 <div class='box-tools'>
 
                 </div><!-- /.box-tools -->
             </div><!-- /.box-header -->
-            <div class='box-body'>
+            <div class='box-body '>
                 <!-- post text -->
-                <p align="center">{{topic.topic}}</p>
+                <div class="box-head with-border">
+                    <p class="file-title-header">
+                        {{topic.topic}}
+                    </p>
+                </div>
                 <div ng-show="topic.status == 1" class="video-container">
                     <div ng-bind-html="topic.link | totrusted"></div>
 
@@ -52,7 +56,7 @@
                     </div><!-- /.attachment-pushed -->
                 </div><!-- /.attachment-block -->
                 <p><br/></p>
-                <span ng-bind-html="topic.description"></span>
+                <span class="description" ng-bind-html="topic.description"></span>
                 <form action="#/comment?id" name="form" role="form" style="margin-top: 10px">
                     <input type="hidden" placeholder="Comment" name="id" id="id" ng-model="ctrl.id" value="{{topic._id}}" style="width: 100%"/>
                     <!-- Social sharing buttons -->
