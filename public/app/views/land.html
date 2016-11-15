@@ -39,7 +39,7 @@
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right navbar-form">
-                    <button class="btn btn-primary" type="button" ng-click="go('/createtopic')" ng-show="toggle">Create</button>
+                    <button class="btn btn-primary" type="button" ng-click="vm.open('sm')" ng-show="toggle">Create</button>
                     <button class="btn btn-primary" type="button" ng-disabled="form.$invalid" ng-click="ctrl.add()" ng-show="link">Create</button>
                 </ul>
             </div><!-- /.navbar-collapse -->
