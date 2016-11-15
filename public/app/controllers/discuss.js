@@ -480,6 +480,7 @@ angular.module('angularMaterialAdmin')
                 });
             }else{
                 $scope.creates = true;
+                $location.path('/createtopic');
             }
 
         };
