@@ -210,6 +210,15 @@ img { border: 0; max-width: 100%; }
     display: inline-block;
     position: relative;
 }
+.no-x{
+    overflow-x: hidden;
+    margin-left: 5px;
+}
+.div2 {
+    overflow-y: scroll;
+    height:580px;
+    overflow-x: hidden;
+}
 /*
 Copyright 2016 Google Inc. All Rights Reserved.
 Use of this source code is governed by an MIT-style license that can be foundin the LICENSE file at http://material.angularjs.org/HEAD/license.
