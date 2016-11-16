@@ -201,6 +201,15 @@ img { border: 0; max-width: 100%; }
     font-family: Slack-Lato,appleLogo,sans-serif;
     color: #3d3c40;
 }
+.member_image{
+    width: 2.25rem;
+    height: 2.25rem;
+    border-radius: .2rem;
+    background-size: 100%;
+    background-repeat: no-repeat;
+    display: inline-block;
+    position: relative;
+}
 /*
 Copyright 2016 Google Inc. All Rights Reserved.
 Use of this source code is governed by an MIT-style license that can be foundin the LICENSE file at http://material.angularjs.org/HEAD/license.

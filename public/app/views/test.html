@@ -24,7 +24,7 @@
         <div class="box box-widget desc"  ng-repeat="topic in topics" >
             <div class='box-header '>
                 <div class='user-block'>
-                    <img class='img-circle' ng-src="{{topic.avator}}" alt='user image'>
+                    <img class="img-rounded member_image" ng-src="{{topic.avator}}" alt='user image'>
                     <span class='username owner-name'>{{topic.name}}</span>
                     <span class='description' > <time title="{{ topic.created | amDateFormat: 'dddd, MMMM Do YYYY, h:mm a' }}">{{ topic.created | amCalendar }}</time></span>
                 </div><!-- /.user-block -->
