@@ -212,7 +212,7 @@ img { border: 0; max-width: 100%; }
 }
 .no-x{
     overflow-x: hidden;
-    margin-left: 5px;
+    margin-left: 1px;
 }
 .div2 {
     overflow-y: scroll;
