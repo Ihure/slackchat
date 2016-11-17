@@ -1,8 +1,9 @@
 <style>
 
     html, body {
-
         overflow-y: hidden;
+        height:580px;
+        overflow-x:hidden;
     }
     md-content{
         overflow-y: hidden;
@@ -10,11 +11,13 @@
 
     .box-comments{
         background-color: #fff;
+
     }
 
     .box{
         box-shadow: 0 0px 1px rgba(0, 0, 0, 0.1);
     }
+
 </style>
 <update-meta name="description" content="Frictionless, asynchronous conversations. For Slack"></update-meta>
 <update-meta property="og:title" content="{{topic.topic}}" ></update-meta>
@@ -24,7 +27,7 @@
 <update-meta property="twitter:data1" content="{{topic.name}}" ></update-meta>
 <update-meta property="twitter:label2" content="Posted" ></update-meta>
 <update-meta property="twitter:data2" content="{{topic.created | date:'hh:mm:a - EEE/dd/MMM'}}"></update-meta>
-<div layout="row" class="div2">
+<div layout="row" class=" div2">
     <div flex >
         <div class="box box-widget" style="background-color: #fff">
             <div class="">
@@ -33,7 +36,7 @@
                     <img ng-src="{{topic.avator}}" class="img-rounded member_image" alt="user Image">
                     <!--<img class='img-circle' ng-src='{{topic.avator}}' alt='user image'>-->
                     <span class='username owner-name'>{{topic.name}}</span>
-                    <span class='description' > <time title="{{ topic.created | amDateFormat: 'dddd, MMMM Do YYYY, h:mm a' }}">{{ topic.created | amCalendar }}</time></span>
+                    <p class='description topic_date' > <time title="{{ topic.created | amDateFormat: 'dddd, MMMM Do YYYY, h:mm a' }}">{{ topic.created | amCalendar }}</time></p>
                 </div><!-- /.user-block -->
                 <div class='box-tools'>
                     <div class="input-group input-group-sm pull-right" style="width: 30%" >
@@ -47,8 +50,8 @@
             <div class='box-body div3' style="">
                 <!-- post text -->
                 <div class="box-head with-border">
-                    <p class="file-title-header">
-                        {{topic.topic}}
+                    <p class="file-title-header overflow-elipsis">
+                        <h4 class="file_header_title overflow-elipsis" >{{topic.topic}}</h4>
                     </p>
                 </div>
                 <div ng-show="topic.status == 1" class="video-container">
@@ -68,7 +71,7 @@
                     </div><!-- /.attachment-pushed -->
                 </div><!-- /.attachment-block -->
                 <p><br/></p>
-                <span class="description" ng-bind-html="topic.description"></span>
+                <span class="description topic_desc" ng-bind-html="topic.description"></span>
             </div><!-- /.box-body -->
             </div>
             <div class='box-footer box-comments'>
@@ -80,10 +83,12 @@
 
                                   <form method="post" ng-submit="ctrl.rep(topic._id,topic._id,0,'','','',topic.topic,topic.url,topic.createdby,topic.name,topic.team_id)" name="form" role="form" >
                                         <div class="input-group pull-left" ng-hide="!repsec0" style="width: 100%">
-                                            <input type="text" name="message" placeholder="Type Reply" class="form-control" name="reply0" id="reply0" ng-model="ctrl.reply0" required autofocus>
+
+                                            <textarea class="comment_box" name="comment" wrap="virtual" autocorrect="off" autocomplete="off" spellcheck="true" style="overflow: hidden; height: 38px;" ng-model="ctrl.reply0" required autofocus></textarea>
+                                            <!--<input type="text" name="message" placeholder="Type Reply" class="form-control" name="reply0" id="reply0" ng-model="ctrl.reply0" required autofocus>
                                             <span class="input-group-btn">
                                                 <button type="button" class="btn btn-primary btn-flat" ng-disabled="form.$invalid" ng-click="ctrl.rep(topic._id,topic._id,0,'','','',topic.topic,topic.url,topic.createdby,topic.name,topic.team_id)">Send</button>
-                                            </span>
+                                            </span>-->
                                         </div>
                                   </form>
                             </span>
@@ -100,8 +105,8 @@
                                 <input type="hidden" ng-model="ctrl.parentid" value="{{comment._id}}"/>
                                 <!--<input type="hidden" ng-model="ctrl.level" value="{{comment.level}}"/>
                                 <input type="hidden" ng-model="ctrl.slug" value="{{comment.slug}}"/>-->
-                                <header><span class="comment-name">{{comment.user}}</span> - <span class="pubdate"> <time title="{{ comment.date | amDateFormat: 'dddd, MMMM Do YYYY, h:mm a' }}">{{ comment.date | amCalendar }}</time></span></header>
-                                <p>{{comment.body}}</p>
+                                <header><span class="commentors">{{comment.user}}</span> - <span class="pubdate comment_date"> <time title="{{ comment.date | amDateFormat: 'dddd, MMMM Do YYYY, h:mm a' }}">{{ comment.date | amCalendar }}</time></span></header>
+                                <p class="comment_body">{{comment.body}}</p>
                                 <p><a href ng-click="repsec1 = !repsec1">Reply</a> <!--<a href ng-click="replies = !replies">Replies</a>--></p>
                                 <form ng-submit="ctrl.rep(topic._id,comment._id,1,comment.full_slug,comment.full_slug,comment.slug,topic.topic,topic.url,topic.createdby,topic.name,topic.team_id)" name="form" role="form" >
                                     <div class="input-group input-group-sm" ng-show="repsec1">

@@ -28,7 +28,7 @@ img { border: 0; max-width: 100%; }
 /* comments area */
 #comments { display: block; }
 
-#comments .cmmnt, ul .cmmnt, ul ul .cmmnt { display: block; position: relative; padding-left: 65px;padding-top:7px;padding-top:10px; border-top: 1px solid #f4f4f4; }
+#comments .cmmnt, ul .cmmnt, ul ul .cmmnt { display: block; position: relative; padding-left: 50px;padding-top:5px;padding-top:5px; border-top: 1px solid #f4f4f4; }
 
 #comments .cmmnt .avatar  { position: absolute; top: 8px; left: 0; }
 #comments .cmmnt .avatar img {
@@ -181,6 +181,7 @@ img { border: 0; max-width: 100%; }
 {
     background-color: #000000;
 }
+
 .owner-name{
     margin-left: 50px;
     color: #555459!important;
@@ -194,7 +195,7 @@ img { border: 0; max-width: 100%; }
 }
 .div3 {
     border: 1px solid rgba(0,0,0,0.1);
-    border-radius: 5px;
+    border-radius: 8px !important;
     margin-right: 5px;
 }
 .description{
@@ -218,6 +219,75 @@ img { border: 0; max-width: 100%; }
     overflow-y: scroll;
     height:580px;
     overflow-x: hidden;
+    right:0;
+}
+.topic_date p{
+    margin: 0;
+    font-size: .8125rem;
+    color: #9e9ea6;
+    display: block;
+    -webkit-margin-before: 1em;
+    -webkit-margin-after: 1em;
+    -webkit-margin-start: 0px;
+    -webkit-margin-end: 0px;
+}
+.comment_date {
+    display: inline-block;
+    position: relative;
+    padding-right: .875rem;
+    font-size: 0.8em;
+    white-space: nowrap;
+    line-height: 1.1rem!important;
+    margin-bottom: 0rem;
+    color: #babbbf;
+    font-family: Slack-Lato,appleLogo,sans-serif;
+    -webkit-font-smoothing: antialiased;
+}
+.comment_body p{
+    margin: 0;
+    font-size: .9375rem;
+    line-height: 1.25rem!important;
+    word-wrap: break-word;
+    max-width: 460px;
+    color: #3d3c40;
+}
+.file_header_title{
+    margin: 0 0 .125rem;
+    line-height: 1.2375;
+    font-weight: 700;
+    text-overflow: ellipsis!important;
+    display: -webkit-box!important;
+    -webkit-line-clamp: 2!important;
+    -webkit-box-orient: vertical!important;
+    overflow: hidden!important;
+    white-space: inherit;
+}
+.overflow-elipsis {
+    font-family: Slack-Lato,appleLogo,sans-serif;
+    color: #555459;
+    -webkit-font-smoothing: antialiased;
+}
+.topic_desc {
+    font-family: Slack-Lato,appleLogo,sans-serif;
+    color: #3d3c40;
+}
+.commentors {
+    font-weight: 900;
+    padding-right: .25rem;
+    color: #3d3c40!important;
+    font-size: 13px;
+    text-decoration: none;
+    line-height: 1.1rem!important;
+}
+.comment_box{
+    box-shadow: none;
+    width: 100%;
+    color: #3d3c40;
+    font-size: .9375rem;
+    padding: .5rem;
+    border: 1px solid #C5C5C5;
+    border-radius: .25rem;
+    -webkit-appearance: none;
 }
 /*
 Copyright 2016 Google Inc. All Rights Reserved.
