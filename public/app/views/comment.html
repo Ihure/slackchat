@@ -100,7 +100,7 @@
                 <div class="row">
                     <ul id="comments">
                         <li class="cmmnt" ng-repeat="comment in comments |filter:{level:1}">
-                            <div class="avatar"><a href="javascript:void(0);"><img ng-src="{{comment.avator}}" width="40" height="40" alt="default avatar"></a></div>
+                            <div class="avatar"><a href="javascript:void(0);"><img ng-src="{{comment.avator}}" class="img-rounded member_image" alt="default avatar"></a></div>
                             <div class="cmmnt-content">
                                 <input type="hidden" ng-model="ctrl.parentid" value="{{comment._id}}"/>
                                 <!--<input type="hidden" ng-model="ctrl.level" value="{{comment.level}}"/>
@@ -119,7 +119,7 @@
                             <!--<ul class="replies" ng-repeat="reply in comments | custom:comment._id:2:comment.slug">-->
                             <ul class="replies" ng-repeat="reply in comments | filter:{parentid:comment._id}| filter:{level:2}| filter:{slugabove:comment.slug}">
                                 <li class="cmmnt">
-                                    <div class="avatar"><a href="javascript:void(0);"><img ng-src="{{reply.avator}}" width="40" height="40" alt="Professor photo avatar"></a></div>
+                                    <div class="avatar"><a href="javascript:void(0);"><img ng-src="{{reply.avator}}" class="img-rounded member_image" alt="Professor photo avatar"></a></div>
                                     <div class="cmmnt-content">
                                         <header><span class="commentors">{{reply.user}}</span> - <span class="pubdate" ><time title="{{ reply.date | amDateFormat: 'dddd, MMMM Do YYYY, h:mm a' }}">{{ reply.date | amCalendar }}</time> </span></header>
                                         <span class="comment_body" ng-bind-html="reply.body"></span>
@@ -134,7 +134,7 @@
 
                                     <ul class="replies" ng-repeat="rep in comments | filter:{parentid:comment._id}| filter:{level:3}|filter:{slugabove:reply.slug}">
                                         <li class="cmmnt">
-                                            <div class="avatar"><a href="javascript:void(0);"><img ng-src="{{rep.avator}}" width="40" height="40" alt="default avatar"></a></div>
+                                            <div class="avatar"><a href="javascript:void(0);"><img ng-src="{{rep.avator}}" class="img-rounded member_image" alt="default avatar"></a></div>
                                             <div class="cmmnt-content">
                                                 <header><span class="commentors"{{rep.user}}</span> - <span class="pubdate"> <time title="{{ rep.date | amDateFormat: 'dddd, MMMM Do YYYY, h:mm a' }}">{{ rep.date | amCalendar }}</time></span></header>
                                                 <span class="comment_body" ng-bind-html="rep.body"></span>
@@ -148,7 +148,7 @@
                                             </div>
                                             <ul class="replies" ng-repeat="frep in comments | filter:{parentid:comment._id}| filter:{level:4}|filter:{slugabove:rep.slug}">
                                                 <li class="cmmnt">
-                                                    <div class="avatar"><a href="javascript:void(0);"><img ng-src="{{frep.avator}}" width="40" height="40" alt="default avatar"></a></div>
+                                                    <div class="avatar"><a href="javascript:void(0);"><img ng-src="{{frep.avator}}" class="img-rounded member_image" alt="default avatar"></a></div>
                                                     <div class="cmmnt-content">
                                                         <header><span class="commentors">{{frep.user}}</span> - <span class="pubdate" ><time title="{{ frep.date | amDateFormat: 'dddd, MMMM Do YYYY, h:mm a' }}">{{ frep.date | amCalendar }}</time></span></header>
                                                         <span class="comment_body" ng-bind-html="frep.body"></span>
@@ -162,7 +162,7 @@
                                                     </div>
                                                     <ul class="replies" ng-repeat="lrep in comments | filter:{parentid:comment._id}| filter:{level:5}|filter:{slugabove:frep.slug}">
                                                         <li class="cmmnt">
-                                                            <div class="avatar"><a href="javascript:void(0);"><img ng-src="{{lrep.avator}}" width="40" height="40" alt="default avatar"></a></div>
+                                                            <div class="avatar"><a href="javascript:void(0);"><img ng-src="{{lrep.avator}}" class="img-rounded member_image" alt="default avatar"></a></div>
                                                             <div class="cmmnt-content">
                                                                 <header><span class="commentors">{{lrep.user}}</span> - <span class="pubdate" > <time title="{{ lrep.date | amDateFormat: 'dddd, MMMM Do YYYY, h:mm a' }}">{{ lrep.date | amCalendar }}</time></span></header>
                                                                 <span class="comment_body" ng-bind-html="lrep.body"></span>

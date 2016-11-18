@@ -28,7 +28,7 @@ img { border: 0; max-width: 100%; }
 /* comments area */
 #comments { display: block; }
 
-#comments .cmmnt, ul .cmmnt, ul ul .cmmnt { display: block; position: relative; padding-left: 50px;padding-top:5px;padding-top:5px; border-top: 1px solid #f4f4f4; }
+#comments .cmmnt, ul .cmmnt, ul ul .cmmnt { display: block; position: relative; padding-left: 55px;padding-top:5px;padding-top:5px; border-top: 1px solid #f4f4f4; }
 
 #comments .cmmnt .avatar  { position: absolute; top: 8px; left: 0; }
 #comments .cmmnt .avatar img {
