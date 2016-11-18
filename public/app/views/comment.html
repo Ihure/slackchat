@@ -109,7 +109,7 @@
                                 <input type="hidden" ng-model="ctrl.parentid" value="{{comment._id}}"/>
                                 <!--<input type="hidden" ng-model="ctrl.level" value="{{comment.level}}"/>
                                 <input type="hidden" ng-model="ctrl.slug" value="{{comment.slug}}"/>-->
-                                <header><span class="commentors">{{comment.user}}</span> - <span class="pubdate comment_date"> <time title="{{ comment.date | amDateFormat: 'dddd, MMMM Do YYYY, h:mm a' }}">{{ comment.date | amCalendar }}</time></span></header>
+                                <header><span class="commentors">{{comment.user}}</span> - <span class="pubdate topic_date"> <time title="{{ comment.date | amDateFormat: 'dddd, MMMM Do YYYY, h:mm a' }}">{{ comment.date | amCalendar }}</time></span></header>
                                 <!--<span class="comment_body" >{{comment.body}}</span>-->
                                 <span class="comment_body" ng-bind-html="comment.body"></span>
                                 <p><a href ng-click="repsec1 = !repsec1">Reply</a> <!--<a href ng-click="replies = !replies">Replies</a>--></p>
