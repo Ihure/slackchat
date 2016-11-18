@@ -231,8 +231,8 @@ h1{
     color: #232323;
 }
 .member_image{
-    width: 2.25rem;
-    height: 2.25rem;
+    width: 51px !important;
+    height: 51px !important;
     border-radius: .2rem;
     background-size: 100%;
     background-repeat: no-repeat;

@@ -121,7 +121,7 @@
                                 <li class="cmmnt">
                                     <div class="avatar"><a href="javascript:void(0);"><img ng-src="{{reply.avator}}" width="40" height="40" alt="Professor photo avatar"></a></div>
                                     <div class="cmmnt-content">
-                                        <header><span class="comment-name">{{reply.user}}</span> - <span class="pubdate" ><time title="{{ reply.date | amDateFormat: 'dddd, MMMM Do YYYY, h:mm a' }}">{{ reply.date | amCalendar }}</time> </span></header>
+                                        <header><span class="commentors">{{reply.user}}</span> - <span class="pubdate" ><time title="{{ reply.date | amDateFormat: 'dddd, MMMM Do YYYY, h:mm a' }}">{{ reply.date | amCalendar }}</time> </span></header>
                                         <span class="comment_body" ng-bind-html="reply.body"></span>
                                         <p><a href ng-click="repsec2 = !repsec2">Reply</a><!-- <a href ng-click="replies = !replies">Replies</a>--></p>
                                         <form ng-submit="ctrl.rep(topic._id,comment._id,2,reply.full_slug,reply.full_slug,reply.slug,topic.topic,topic.url,topic.createdby,topic.name,topic.team_id)" name="form" role="form">
@@ -136,7 +136,7 @@
                                         <li class="cmmnt">
                                             <div class="avatar"><a href="javascript:void(0);"><img ng-src="{{rep.avator}}" width="40" height="40" alt="default avatar"></a></div>
                                             <div class="cmmnt-content">
-                                                <header><span class="comment-name">{{rep.user}}</span> - <span class="pubdate"> <time title="{{ rep.date | amDateFormat: 'dddd, MMMM Do YYYY, h:mm a' }}">{{ rep.date | amCalendar }}</time></span></header>
+                                                <header><span class="commentors"{{rep.user}}</span> - <span class="pubdate"> <time title="{{ rep.date | amDateFormat: 'dddd, MMMM Do YYYY, h:mm a' }}">{{ rep.date | amCalendar }}</time></span></header>
                                                 <span class="comment_body" ng-bind-html="rep.body"></span>
                                                 <p><a href ng-click="repsec3 = !repsec3">Reply</a><!-- <a href ng-click="replies = !replies">Replies</a>--></p>
                                                 <form ng-submit="ctrl.rep(topic._id,comment._id,3,rep.full_slug,rep.full_slug,rep.slug,topic.topic,topic.url,topic.createdby,topic.name,topic.team_id)" name="form" role="form">
@@ -150,7 +150,7 @@
                                                 <li class="cmmnt">
                                                     <div class="avatar"><a href="javascript:void(0);"><img ng-src="{{frep.avator}}" width="40" height="40" alt="default avatar"></a></div>
                                                     <div class="cmmnt-content">
-                                                        <header><span class="comment-name">{{frep.user}}</span> - <span class="pubdate" ><time title="{{ frep.date | amDateFormat: 'dddd, MMMM Do YYYY, h:mm a' }}">{{ frep.date | amCalendar }}</time></span></header>
+                                                        <header><span class="commentors">{{frep.user}}</span> - <span class="pubdate" ><time title="{{ frep.date | amDateFormat: 'dddd, MMMM Do YYYY, h:mm a' }}">{{ frep.date | amCalendar }}</time></span></header>
                                                         <span class="comment_body" ng-bind-html="frep.body"></span>
                                                         <p><a href ng-click="repsec4 = !repsec4">Reply</a><!-- <a href ng-click="replies = !replies">Replies</a>--></p>
                                                         <form ng-submit="ctrl.rep(topic._id,comment._id,4,frep.full_slug,frep.full_slug,frep.slug,topic.topic,topic.url,topic.createdby,topic.name,topic.team_id)" name="form" role="form">
@@ -164,7 +164,7 @@
                                                         <li class="cmmnt">
                                                             <div class="avatar"><a href="javascript:void(0);"><img ng-src="{{lrep.avator}}" width="40" height="40" alt="default avatar"></a></div>
                                                             <div class="cmmnt-content">
-                                                                <header><span class="comment-name">{{lrep.user}}</span> - <span class="pubdate" > <time title="{{ lrep.date | amDateFormat: 'dddd, MMMM Do YYYY, h:mm a' }}">{{ lrep.date | amCalendar }}</time></span></header>
+                                                                <header><span class="commentors">{{lrep.user}}</span> - <span class="pubdate" > <time title="{{ lrep.date | amDateFormat: 'dddd, MMMM Do YYYY, h:mm a' }}">{{ lrep.date | amCalendar }}</time></span></header>
                                                                 <span class="comment_body" ng-bind-html="lrep.body"></span>
                                                             </div>
                                                         </li>
