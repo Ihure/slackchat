@@ -105,10 +105,30 @@ img { border: 0; max-width: 100%; }
 }
 .file-title-header {
     font-size: 34px;
-    line-height: 43px;
+    line-height: 20px;
     font-weight: 900;
     letter-spacing: -.03rem;
     padding: 0;
+    color: #232323;
+}
+h1{
+    margin-top: 10px;
+    margin-bottom: 15px;
+}
+/* do not group these rules */
+.black::-webkit-input-placeholder {
+    color: #232323;
+}
+.black:-moz-placeholder {
+    /* FF 4-18 */
+    color: #232323;
+}
+.black::-moz-placeholder {
+    /* FF 19+ */
+    color: #232323;
+}
+.black:-ms-input-placeholder {
+    /* IE 10+ */
     color: #232323;
 }
 .file-title-head {
@@ -131,7 +151,7 @@ img { border: 0; max-width: 100%; }
 .file-content {
     padding-left: 20px;
     margin-left: 50px;
-    margin-top: 50px;
+    margin-top: 40px;
 }
 .file-content textarea{
     border: none;
@@ -151,7 +171,7 @@ img { border: 0; max-width: 100%; }
 }
 .divider {
     width: 60px;
-    border-top: 1px solid #777;
+    border-top: 1px solid rgba(119, 119, 119, 0.75);
 }
 .ta-editor {
     min-height: 300px;
@@ -198,9 +218,17 @@ img { border: 0; max-width: 100%; }
     border-radius: 8px !important;
     margin-right: 5px;
 }
-.description{
+.div3 textarea{
+    border-radius: 4px !important;
+    margin-right: 5px;
+    overflow:hidden;
+}
+.note-editor{
     font-family: Slack-Lato,appleLogo,sans-serif;
     color: #3d3c40;
+    font-size: 18px;
+    font-weight: 400;
+    color: #232323;
 }
 .member_image{
     width: 2.25rem;
@@ -243,13 +271,12 @@ img { border: 0; max-width: 100%; }
     font-family: Slack-Lato,appleLogo,sans-serif;
     -webkit-font-smoothing: antialiased;
 }
-.comment_body p{
+.comment_body {
     margin: 0;
-    font-size: .9375rem;
-    line-height: 1.25rem!important;
     word-wrap: break-word;
     max-width: 460px;
     color: #3d3c40;
+    white-space: pre;
 }
 .file_header_title{
     margin: 0 0 .125rem;

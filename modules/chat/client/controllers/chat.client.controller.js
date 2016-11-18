@@ -1,7 +1,7 @@
 'use strict';
 
 // Create the 'chat' controller
-angular.module('chat').controller('ChatController', ['$scope', '$location', 'Authentication', 'Socket',
+angular.module('angularMaterialAdmin').controller('ChatController', ['$scope', '$location', 'Authentication', 'Socket',
   function ($scope, $location, Authentication, Socket) {
     // Create a messages array
     $scope.messages = [];
@@ -15,7 +15,6 @@ angular.module('chat').controller('ChatController', ['$scope', '$location', 'Aut
     if (!Socket.socket) {
       Socket.connect();
     }
-
     // Add an event listener to the 'chatMessage' event
     Socket.on('chatMessage', function (message) {
       $scope.messages.unshift(message);

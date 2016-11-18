@@ -35,9 +35,7 @@
             <div class='box-body '>
                 <!-- post text -->
                 <div class="box-head with-border">
-                    <p class="file-title-header">
-                        {{topic.topic}}
-                    </p>
+                    <h1 class="file-title-header " >{{topic.topic}}</h1>
                 </div>
                 <div ng-show="topic.status == 1" class="video-container">
                     <div ng-bind-html="topic.link | totrusted"></div>
@@ -56,7 +54,7 @@
                     </div><!-- /.attachment-pushed -->
                 </div><!-- /.attachment-block -->
                 <p><br/></p>
-                <span class="description" ng-bind-html="topic.description"></span>
+                <span class="note-editor" ng-bind-html="topic.description"></span>
                 <form action="#/comment?id" name="form" role="form" style="margin-top: 10px">
                     <input type="hidden" placeholder="Comment" name="id" id="id" ng-model="ctrl.id" value="{{topic._id}}" style="width: 100%"/>
                     <!-- Social sharing buttons -->

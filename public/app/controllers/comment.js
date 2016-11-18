@@ -194,6 +194,7 @@ angular.module('angularMaterialAdmin')
                     $scope.repse = true;
                     var promise = authenticationservice.postcomments(id, text, $sessionStorage.real_name, $sessionStorage.avator, parentid, level, slugabove, fullslug, slug);
                     promise.then(function (response) {
+                        console.log('posted comment is '+text);
                         var promise = authenticationservice.gettopic(tname,ctopic);
                         promise.then(function (response) {
                             $scope.topic = response.data;
