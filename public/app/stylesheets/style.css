@@ -51,7 +51,7 @@ img { border: 0; max-width: 100%; }
 
 #comments .cmmnt .cmmnt-content header { font-size: 1.0em; display: block; margin-bottom: 4px;}
 #comments .cmmnt .cmmnt-content header .pubdate { color: #777; }
-#comments .cmmnt .cmmnt-content header .userlink { font-weight: bold; }
+#comments .cmmnt .cmmnt-content header .userlink { font-weight: 400; }
 
 #comments .cmmnt .replies { margin-bottom: 10px; }
 
@@ -205,7 +205,8 @@ h1{
 .owner-name{
     margin-left: 50px;
     color: #555459!important;
-    font-weight: 500!important;
+    font-weight: 600!important;
+    font-size: 13px !important;
     font-family: Slack-Lato,appleLogo,sans-serif;
 }
 .comment-name{
@@ -277,6 +278,7 @@ h1{
     max-width: 460px;
     color: #3d3c40;
     white-space: pre;
+    font-weight: 400;
 }
 .file_header_title{
     margin: 0 0 .125rem;
@@ -299,7 +301,7 @@ h1{
     color: #3d3c40;
 }
 .commentors {
-    font-weight: 900;
+    font-weight: 600;
     padding-right: .25rem;
     color: #3d3c40!important;
     font-size: 13px;

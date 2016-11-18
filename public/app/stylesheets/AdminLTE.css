@@ -1,4 +1,4 @@
-@import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic);
+@import url(http://fonts.googleapis.com/css?family=Lato&subset=latin,latin-ext);
 /*!
  *   AdminLTE v2.3.0
  *   Author: Almsaeed Studio
@@ -21,10 +21,11 @@ body {
 body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  font-family: 'Source Sans Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-family: "Helvetica Neue",Helvetica,"Segoe UI",Tahoma,Arial,sans-serif;
   font-weight: 400;
   overflow-x: hidden;
   overflow-y: auto;
+  font-variant-ligatures: common-ligatures;
 }
 /* Layout */
 .wrapper {
@@ -163,7 +164,7 @@ h6,
 .h4,
 .h5,
 .h6 {
-  font-family: 'Source Sans Pro', sans-serif;
+  font-family: Slack-Lato,appleLogo,sans-serif;
 }
 /* General Links */
 a {
@@ -2992,7 +2993,7 @@ table.text-center th {
 .widget-user .widget-user-username {
   margin-top: 0;
   margin-bottom: 5px;
-  font-size: 25px;
+  font-size: 15px;
   font-weight: 300;
   text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
 }
@@ -4589,7 +4590,7 @@ table.text-center th {
   margin-left: 40px;
 }
 .user-block.user-block-sm .username {
-  font-size: 14px;
+  font-size: 13px;
 }
 .img-sm,
 .img-md,
