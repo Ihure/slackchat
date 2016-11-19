@@ -468,7 +468,7 @@ angular.module('angularMaterialAdmin')
         $scope.creates = false;
 
         vm.open = function (size) {
-            if($sessionStorage.userid == null || $sessionStorage.userid == undefined){
+            if($cookieStore.get('flowtalklog') == undefined || $sessionStorage.userid == undefined || $sessionStorage.userid== null){
                 var modalInstance = $uibModal.open({
                     animation: vm.animationsEnabled,
                     arialabelledBy: 'modal-title2',
