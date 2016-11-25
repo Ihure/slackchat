@@ -105,11 +105,12 @@ img { border: 0; max-width: 100%; }
 }
 .file-title-header {
     font-size: 34px;
-    line-height: 20px;
+    line-height: inherit;
     font-weight: 900;
     letter-spacing: -.03rem;
     padding: 0;
     color: #232323;
+    margin-top: 6px;
 }
 h1{
     margin-top: 10px;
@@ -147,6 +148,7 @@ h1{
     -moz-box-shadow: none;
     box-shadow: none;
     margin-top: 0px;
+    width: 100%;
 }
 .file-content {
     padding-left: 20px;
@@ -171,6 +173,7 @@ h1{
 }
 .divider {
     width: 60px;
+    margin-top:-10px;
     border-top: 1px solid rgba(119, 119, 119, 0.75);
 }
 .ta-editor {
@@ -318,16 +321,23 @@ h1{
     border-radius: .25rem;
     -webkit-appearance: none;
 }
+.col-xs-3 {
+    width: 11% !important;
+    }
 @media (min-width: 992px){
     .col-md-2 {
-        width: 20.666667% !important;
+        width: 11.666667% !important;
     }
+   .col-md-6 {
+        width: 68% !important;
+    } 
 }
 @media (min-width: 1324px){
     .col-md-2 {
-        width: 14.666667%!important;
+        width: 9.666667%!important;
     }
 }
+
 .input-group textarea{
     color: rgba(0,0,0,0.87)!important;
 }

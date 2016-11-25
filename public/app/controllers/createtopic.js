@@ -8,8 +8,46 @@
  * Controller of the slackchatApp
  */
 angular.module('angularMaterialAdmin')
-  .controller('createtopicCtrl',['authenticationservice','$scope','$location','$sessionStorage','ngClipboard','Notification','slackinteraction', function (authenticationservice,$scope,$location,$sessionStorage,ngClipboard,Notification,slackinteraction) {
+  .controller('createtopicCtrl',['authenticationservice','$scope','$location','$sessionStorage','ngClipboard','Notification','slackinteraction','$http', function (authenticationservice,$scope,$location,$sessionStorage,ngClipboard,Notification,slackinteraction,$http) {
       var ctrl = this;
+
+      if (navigator.geolocation){ navigator.geolocation.getCurrentPosition(function(position) {
+          //console.log('test evaluation ');
+          var lat = position.coords.latitude;
+          var lng = position.coords.longitude;
+          console.log('test evaluation ' +lat +' long ' +lng);
+          var url = "https://maps.googleapis.com/maps/api/geocode/json?latlng="+lat+","+lng+"&key=AIzaSyAApD0SrzAHCrAc-inaREdMX7EbyAxGsIA";
+          $http.get(url)
+              .then(function(result) {
+                  //console.log('test evaluation ');
+                  var address = result.data.results[4].formatted_address;
+                  //$scope.address = address;
+                  var time = new Date();
+                  var date = (time.getMonth() + 1) + "-" + time.getDate() + "-" + time.getFullYear();
+                  var fdate = '['+date+']'; 
+                  console.log('adress is '+address +' '+ fdate);
+        
+                      console.log('test scope ');
+                      var title = address+' '+ fdate;
+                      $scope.ctrl = {topic: title};
+                  
+              },function(error){
+              //console.log('error is '+error.data);
+              //console.log('error evaluation ');
+          });
+        }
+        );
+      }
+      //console.log('test evaluation ');
+         /* if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function(position){
+          //console.log('test evaluation ');
+          $scope.$apply(function(){
+            console.log('test evaluation ');
+            $scope.position = position;
+          });
+        });
+      }*/
 
       ctrl.add = function () {
           /*if(ctrl.emb == null || ctrl.emb == undefined){

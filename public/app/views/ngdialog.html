@@ -8,6 +8,7 @@
         color: #232323;
         padding-left: 0px;
     }
+
 </style>
 <div >
 <form ng-submit="ctrl.add()" name="form" role="form">
@@ -31,22 +32,22 @@
         <div class="col-md-2 col-xs-1">
 
         </div>
-        <div class="col-md-5 col-xs-5" >
+        <div class="col-md-6 col-xs-10" >
             <div class="col-md-2 hidden-xs col-xs-3" ng-controller="DiscussCtrl as ctrl">
                 <img ng-src="{{avator}}" class="img-rounded member_image" alt="user Image">
             </div>
-            <div class="col-md-8 col-xs-9" >
+            <div class="col-md-10 col-xs-9" >
                 <div class="row owner-detail" ng-controller="DiscussCtrl as ctrl">
                     <span>{{fname}}</span>
                 </div>
                 <div class="row" >
                     <h1 class="file-title-header">
-                        <textarea ng-model="ctrl.topic" class="black" required name="topic" id="topic" placeholder="Untitled" rows="1" autocomplete="off" data-autosize-on="true" style="overflow: hidden; word-wrap: break-word; height: 43px;" ></textarea>
+                        <textarea ng-model="ctrl.topic" class="black" required name="topic" id="topic" placeholder="Untitled" autocomplete="off" ng-value="string" style="overflow: hidden; word-wrap: break-word; " >title</textarea>
                     </h1>
                 </div>
             </div>
         </div>
-        <div class="col-md-5 ">
+        <div class=" hidden-xs" >
 
         </div>
     </div>
@@ -54,14 +55,14 @@
         <div class="col-md-2 col-xs-1">
 
         </div>
-        <div class="col-md-5 col-xs-5">
-            <div class="col-md-2 col-xs-3">
+        <div class="col-md-6 col-xs-10">
+            <div class="col-md-2 hidden-xs col-xs-3">
             </div>
-            <div class="col-md-8 col-xs-9">
+            <div class="col-md-10 col-xs-9">
                 <div class="divider"></div>
             </div>
         </div>
-        <div class="col-md-5 ">
+        <div class="hidden-xs ">
 
         </div>
     </div>
