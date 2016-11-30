@@ -8,8 +8,10 @@
  * Controller of the slackchatApp
  */
 angular.module('angularMaterialAdmin')
-  .controller('createtopicCtrl',['authenticationservice','$scope','$location','$sessionStorage','ngClipboard','Notification','slackinteraction','$http', function (authenticationservice,$scope,$location,$sessionStorage,ngClipboard,Notification,slackinteraction,$http) {
+  .controller('createtopicCtrl',['authenticationservice','$scope','$location','$sessionStorage','ngClipboard','Notification','slackinteraction','$http','OTSession','opentokinteraction','$timeout', function (authenticationservice,$scope,$location,$sessionStorage,ngClipboard,Notification,slackinteraction,$http,OTSession,opentokinteraction,$timeout) {
       var ctrl = this;
+
+
 
       if (navigator.geolocation){ navigator.geolocation.getCurrentPosition(function(position) {
           //console.log('test evaluation ');
@@ -38,6 +40,76 @@ angular.module('angularMaterialAdmin')
         }
         );
       }
+      //var apiKey =  '45727312';
+      //var sessionId = '1_MX40NTcyNzMxMn5-MTQ4MDQxNTA5MTcwMX5ieS9wUkMxbDZMYnBEdW1JWmlJblFHWUt-QX4';
+      //var token= 'T1==cGFydG5lcl9pZD00NTcyNzMxMiZzaWc9Y2EwMjMxZjllMGE4MWFmYzYxZDliNDFjNjJjYWViYWRkNzlkZDA4YTpzZXNzaW9uX2lkPTFfTVg0ME5UY3lOek14TW41LU1UUTRNRFF4TlRBNU1UY3dNWDVpZVM5d1VrTXhiRFpNWW5CRWRXMUpXbWxKYmxGSFdVdC1RWDQmY3JlYXRlX3RpbWU9MTQ4MDQxNTA5MiZub25jZT0wLjgzODU5MjM0NDAxNTU2MDkmcm9sZT1wdWJsaXNoZXImZXhwaXJlX3RpbWU9MTQ4MDQyNTg5MiZjb25uZWN0aW9uX2RhdGE9bmFtZSUzREpvaG5ueQ==';
+      //OTSession.init(apiKey, sessionId, token);
+
+      angular.element(document).ready(function () {
+          //document.getElementById('msg').innerHTML = 'Hello';
+          var apiKey =  '45727312';
+          var sessionId = '1_MX40NTcyNzMxMn5-MTQ4MDQxNTA5MTcwMX5ieS9wUkMxbDZMYnBEdW1JWmlJblFHWUt-QX4';
+          var token= 'T1==cGFydG5lcl9pZD00NTcyNzMxMiZzaWc9Y2EwMjMxZjllMGE4MWFmYzYxZDliNDFjNjJjYWViYWRkNzlkZDA4YTpzZXNzaW9uX2lkPTFfTVg0ME5UY3lOek14TW41LU1UUTRNRFF4TlRBNU1UY3dNWDVpZVM5d1VrTXhiRFpNWW5CRWRXMUpXbWxKYmxGSFdVdC1RWDQmY3JlYXRlX3RpbWU9MTQ4MDQxNTA5MiZub25jZT0wLjgzODU5MjM0NDAxNTU2MDkmcm9sZT1wdWJsaXNoZXImZXhwaXJlX3RpbWU9MTQ4MDQyNTg5MiZjb25uZWN0aW9uX2RhdGE9bmFtZSUzREpvaG5ueQ==';
+
+
+         /* var session = OT.initSession(apiKey, sessionId);
+           // Connect to our session and publish our feed
+           session.connect(token, function(error) {
+           publisher = OT.initPublisher( angular.element("publisher"));
+           session.publish(publisher);
+           });
+           // When a client connects, subscribe to its feed
+           session.on( {
+           streamCreated: function(event) {
+           session.subscribe(event.stream, "subscriber");
+           }});*/
+      });
+
+     /*var otsess = opentokinteraction.generate_session();
+        otsess.then(function (succ) {
+            //var sessionId = succ.data.sessionid;
+            //var apiKey = succ.data.apikey;
+            //console.log('api key is ' +apiKey);
+            //var token = succ.data.token;
+            //var apiKey =  '45727312';
+            //var sessionId = '1_MX40NTcyNzMxMn5-MTQ4MDQxNTA5MTcwMX5ieS9wUkMxbDZMYnBEdW1JWmlJblFHWUt-QX4';
+            //var token= 'T1==cGFydG5lcl9pZD00NTcyNzMxMiZzaWc9Y2EwMjMxZjllMGE4MWFmYzYxZDliNDFjNjJjYWViYWRkNzlkZDA4YTpzZXNzaW9uX2lkPTFfTVg0ME5UY3lOek14TW41LU1UUTRNRFF4TlRBNU1UY3dNWDVpZVM5d1VrTXhiRFpNWW5CRWRXMUpXbWxKYmxGSFdVdC1RWDQmY3JlYXRlX3RpbWU9MTQ4MDQxNTA5MiZub25jZT0wLjgzODU5MjM0NDAxNTU2MDkmcm9sZT1wdWJsaXNoZXImZXhwaXJlX3RpbWU9MTQ4MDQyNTg5MiZjb25uZWN0aW9uX2RhdGE9bmFtZSUzREpvaG5ueQ==';
+
+
+            /*var session = OT.initSession(apiKey, sessionId);
+            // Connect to our session and publish our feed
+            session.connect(token, function(error) {
+                publisher = OT.initPublisher( angular.element(publisher));
+                session.publish(publisher);
+            });
+            // When a client connects, subscribe to its feed
+            session.on( {
+                streamCreated: function(event) {
+                    session.subscribe(event.stream, "subscriber");
+                }});*/
+           /* //$scope.$apply(function() {
+                OTSession.init(succ.data.apikey, succ.data.sessionid, succ.data.token);
+            //})
+        },function (err) {
+
+        });*/
+
+
+     /* $scope.callAtTimeout = function () {
+          var otsess = opentokinteraction.generate_session();
+          otsess.then(function (succ) {
+              OTSession.init(succ.data.apikey, succ.data.sessionid, succ.data.token);
+          },function (err) {
+
+          });
+      };
+
+      $timeout( function(){ $scope.callAtTimeout(); }, 1500);*/
+
+
+
+      //OTSession.init(apiKey, sessionId, token);
+      //$scope.streams = OTSession.streams;
       //console.log('test evaluation ');
          /* if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(function(position){
@@ -148,4 +220,4 @@ angular.module('angularMaterialAdmin')
           $uibModalInstance.dismiss('cancel');
       };*/
 
-  }]);
+  }])

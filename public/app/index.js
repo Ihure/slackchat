@@ -16,7 +16,8 @@ angular.module('angularMaterialAdmin', [
   'ngStorage',
   'ui.bootstrap',
   'angularMoment',
-  'monospaced.elastic' ,
+  'monospaced.elastic',
+  'opentok',
   'app'
   ])
 

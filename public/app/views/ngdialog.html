@@ -8,6 +8,19 @@
         color: #232323;
         padding-left: 0px;
     }
+    ot-publisher,ot-subscriber,ot-layout {
+        display: block;
+        overflow: hidden;
+    }
+    ot-layout {
+        position: relative;
+        height: 310px;
+    }
+    .OT_publisher, .OT_subscriber {
+        position: relative;
+        width: 50%!important;
+        min-height: 300px !important;
+    }
 
 </style>
 <div >
@@ -76,6 +89,37 @@
             <!--<form method="post">
                 <div class="externalToolbarWrapper" id="externalToolbarWrapper" ui-tinymce="tinymceOptions" ng-model="tinymceModel"> p</div>
             </form>-->
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-2">
+
+        </div>
+        <div class="col-md-10">
+            <p><a href ng-click="repsec0 = !repsec0" id="record">Record</a></p>
+        </div>
+    </div>
+    <div class="row" ng-hide="!repsec0">
+        <div class="col-md-2">
+
+        </div>
+        <div class="col-md-10">
+            <div class="video" style="padding-left: 20px">
+                <div id="subscriber"></div>
+                <div id="publisher"></div>
+                <button class="btn btn-info" type="button"  id="start">start</button>
+                <button class="btn btn-info" type="button"  id="stop">stop</button>
+                <button class="btn btn-info" type="button"  id="get">get</button>
+            </div>
+            <!--<ot-layout props="{animate:true}">
+                <ot-subscriber ng-repeat="stream in streams"
+                               stream="stream"
+                               props="{style: {nameDisplayMode: 'off'}}">
+                </ot-subscriber>
+                <ot-publisher id="publishers"
+                              props="{style: {nameDisplayMode: 'off'}, frameRate: 30,name: 'Adam'}">
+                </ot-publisher>
+            </ot-layout>-->
         </div>
     </div>
     <div class="row">
@@ -167,6 +211,97 @@
 });
 
 </script>
+<script type="text/javascript">
+    var apiKey,
+            sessionId,
+            archiveID,
+            token;
+
+    //$(document).ready(function() {
+    $("#record").click(function() {
+        // Make an Ajax request to get the OpenTok API key, session ID, and token from the server
+        $.get(SAMPLE_SERVER_BASE_URL + '/api/create_session', function(res) {
+            console.log('i am chris' +res.apiKey);
+            apiKey = res.apiKey;
+            sessionId = res.sessionId;
+            token = res.token;
+
+            initializeSession();
+        });
+    });
+
+    function initializeSession() {
+        var session = OT.initSession(apiKey, sessionId);
+
+        // Subscribe to a newly created stream
+        session.on('streamCreated', function(event) {
+            session.subscribe(event.stream, 'subscriber', {
+                insertMode: 'append',
+                width: '100%',
+                height: '100%'
+            });
+        });
+
+        session.on('sessionDisconnected', function(event) {
+            console.log('You were disconnected from the session.', event.reason);
+        });
+
+        // Connect to the session
+        session.connect(token, function(error) {
+            // If the connection is successful, initialize a publisher and publish to the session
+            if (!error) {
+                var publisher = OT.initPublisher('publisher', {
+                    insertMode: 'append',
+                    width: '100%',
+                    height: '100%'
+                });
+
+                session.publish(publisher);
+            } else {
+                console.log('There was an error connecting to the session: ', error.code, error.message);
+            }
+        });
+    }
+    $("#start").click( function() {
+        console.log('clicked start');
+        startArchive();
+        }
+    );
+    $("#stop").click( function() {
+        stopArchive()
+        console.log('clicked stop');
+        }
+    );
+    $("#get").click( function() {
+        console.log('clicked get');
+        getArchive()
+        }
+    );
+    function startArchive() {
+        console.log('started archiving');
+        $.get(SAMPLE_SERVER_BASE_URL + '/api/start_rec/' + sessionId ,function(res) {
+            console.log('started archiving' +sessionId);
+            archiveID = res.archiveId;
+        });
+        //$('#start').hide();
+        //$('#stop').show();
+    }
+    function stopArchive() {
+        $.post(SAMPLE_SERVER_BASE_URL + '/api/stop_rec/' + archiveID);
+        //$('#stop').hide();
+        //$('#start').show();
+        //$('#view').prop('disabled', false);
+    }
+    function getArchive() {
+        $.post(SAMPLE_SERVER_BASE_URL + '/api/get_rec/' + archiveID);
+        //$('#stop').hide();
+        //$('#start').show();
+        //$('#view').prop('disabled', false);
+    }
+    // REMEMBER TO CREATE AN ACCOUNT WITH TOKBOX AND THEN POPULATE YOUR API_KEY, SESSION_ID, AND TOKEN IN THIS CODE
+    // Initialize session, set up event listeners, and connect
+</script>
+
 <!--
 Copyright 2016 Google Inc. All Rights Reserved.
 Use of this source code is governed by an MIT-style license that can be foundin the LICENSE file at http://material.angularjs.org/HEAD/license.

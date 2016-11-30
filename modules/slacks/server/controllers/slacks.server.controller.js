@@ -3,6 +3,10 @@
 /**
  * Module dependencies.
  */
+var apiKey ='45727312';
+var apiSecret = '604b6f147d1ac5754e6825a4419cc1eac83fbda1';
+var OpenTok = require('opentok'),
+    opentok = new OpenTok(apiKey, apiSecret);
 var path = require('path'),
   mongoose = require('mongoose'),
   Slack = mongoose.model('Slack'),
@@ -35,9 +39,45 @@ exports.create = function(req, res) {
   });
 };
 /**
+ * opentok intergration
+ */
+exports.create_session = function (req, res) {
+    // The session will the OpenTok Media Router, which is required for archiving:
+    opentok.createSession({mediaMode:"routed"}, function(err, session) {
+        if (err) return console.log(err);
+
+        // save the sessionId
+        //db.save('session', session.sessionId, done);
+        var token = session.generateToken({
+            role :       'publisher',
+            expireTime : (new Date().getTime() / 1000)+(180 * 60), // in one week
+            data :       'name=Johnny'
+        });
+        var sessionid = session.sessionId;
+        res.jsonp({sessionId:sessionid,token:token,apiKey:apiKey});
+    })
+};
+/**
+ *
+ * @param req
+ * @param res
+ * start archiving
+ */
+exports.start_archive = function (req, res) {
+    res.jsonp(req.slack);
+};
+/**
+ * stop archiving
+ */
+exports.stop_archive = function (req,res) {
+    res.jsonp(req.slack);
+};
+exports.get_archive = function (req,res) {
+    res.jsonp(req.slack);
+};
+/**
 * Create a Webhook
 */
-
 exports.create_hook = function(req, res) {
     var hook = new WebHook(req.body);
 
@@ -262,7 +302,42 @@ exports.slacksByID = function(req, res, next, id) {
   });
 };
 
+exports.startbyID = function(req, res, next, id) {
+    var archiveOptions = {
+        name: 'Important Presentation',
+        outputMode: 'individual'
+    };
+    var sessionId = req.params.sess_id;
+    opentok.startArchive(sessionId, archiveOptions, function(err, archive) {
+        if (err) {
+            return console.log(err);
+        } else {
+            // The id property is useful to save off into a database
+            console.log("new archive:" + archive.id);
+            req.slack ={sessionid:sessionId,archiveId:archive.id};
+            next();
+        }
+    });
+};
+exports.stopbyID = function(req, res, next, id) {
 
+    var archiveId = req.params.archive_id;
+    opentok.stopArchive(archiveId, function(err, archive) {
+        if (err) return console.log(err);
+
+        console.log("Stopped archive:" + archive.id);
+        req.slack ={archiveId:archiveId};
+    });
+};
+exports.archbyID = function(req, res, next, id) {
+
+    var archiveId = req.params.archive_ids;
+    opentok.getArchive(archiveId, function(err, archive) {
+        if (err) return console.log(err);
+
+        console.log(archive);
+    });
+    };
 exports.topicByID = function(req, res, next, id) {
 
 

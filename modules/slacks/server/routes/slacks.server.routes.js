@@ -12,6 +12,19 @@ module.exports = function(app) {
     .get(slacks.list)
     .post(slacks.create);
 
+  app.route('/api/create_session').all()
+      .get(slacks.create_session);
+
+  app.route('/api/start_rec/:sess_id').all()
+      .get(slacks.start_archive);
+
+  app.route('/api/stop_rec/:archive_id').all()
+        .post(slacks.stop_archive);
+
+  app.route('/api/get_rec/:archive_ids').all()
+        .post(slacks.get_archive);
+
+
   app.route('/api/hook').all()
     .post(slacks.create_hook);
 
@@ -67,4 +80,7 @@ module.exports = function(app) {
   app.param('creatorId', slacks.topicByID);
   app.param('tmId', slacks.slacksByID);
   app.param('tpcID', slacks.slacksByID);
+  app.param('sess_id', slacks.startbyID);
+  app.param('archive_id', slacks.stopbyID);
+  app.param('archive_ids', slacks.archbyID);
 };
