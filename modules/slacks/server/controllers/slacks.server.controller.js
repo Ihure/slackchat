@@ -304,8 +304,7 @@ exports.slacksByID = function(req, res, next, id) {
 
 exports.startbyID = function(req, res, next, id) {
     var archiveOptions = {
-        name: 'Important Presentation',
-        outputMode: 'individual'
+        name: 'Important Presentation'
     };
     var sessionId = req.params.sess_id;
     opentok.startArchive(sessionId, archiveOptions, function(err, archive) {
@@ -336,6 +335,8 @@ exports.archbyID = function(req, res, next, id) {
         if (err) return console.log(err);
 
         console.log(archive);
+        req.slack = archive;
+        next();
     });
     };
 exports.topicByID = function(req, res, next, id) {

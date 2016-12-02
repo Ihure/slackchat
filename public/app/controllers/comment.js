@@ -11,7 +11,7 @@
  * Controller of the slackchatApp
  */
 angular.module('angularMaterialAdmin')
-    .controller('CommentCtrl',['authenticationservice','$routeParams','$scope','$location','$sessionStorage','Notification','$timeout','$cookieStore','slackinteraction','$stateParams', function (authenticationservice,$routeParams,$scope,$location,$sessionStorage,Notification,$timeout,$cookieStore,slackinteraction,$stateParams) {
+    .controller('CommentCtrl',['authenticationservice','$routeParams','$scope','$location','$sessionStorage','Notification','$timeout','$cookieStore','slackinteraction','$stateParams',"$sce", function (authenticationservice,$routeParams,$scope,$location,$sessionStorage,Notification,$timeout,$cookieStore,slackinteraction,$stateParams,$sce) {
 
 
 
@@ -83,6 +83,16 @@ angular.module('angularMaterialAdmin')
                         var promise = authenticationservice.gettopic(tname,ctopic);
                         promise.then(function (response) {
                             $scope.topic = response.data;
+                            $scope.config = {
+                                sources: [
+                                    {src: $sce.trustAsResourceUrl("http://static.videogular.com/assets/videos/videogular.mp4"), type: "video/mp4"}
+                                ],
+
+                                theme: "app/js/videogular-themes-default/videogular.css",
+                                plugins: {
+                                    poster: "http://www.videogular.com/assets/images/videogular.png"
+                                }
+                            };
                             var comments = authenticationservice.getdiscussion(rid);
                             comments.then(function (responsec) {
                                     $scope.comments = responsec.data;
@@ -114,6 +124,29 @@ angular.module('angularMaterialAdmin')
                     var promise = authenticationservice.gettopic(tname,ctopic);
                     promise.then(function(response) {
                         $scope.topic = response.data;
+                     var video = slackinteraction.get_video(response.data.archid);
+                        video.then(function (res) {
+                            var vid = res.data.url;
+                            var oldURL = vid;
+                            var index = 0;
+                            var newURL = oldURL;
+                            index = oldURL.indexOf('?');
+                            if(index == -1){
+                                index = oldURL.indexOf('#');
+                            }
+                            if(index != -1){
+                                newURL = oldURL.substring(0, index);
+                            }
+                            console.log('video urls: ' + newURL);
+                            $scope.config = {
+                                sources: [
+                                    //{src: $sce.trustAsResourceUrl("http://static.videogular.com/assets/videos/videogular.mp4"), type: "video/mp4"}
+                                    {src: $sce.trustAsResourceUrl(newURL), type: "video/mp4"}
+                                ],
+
+                                theme: "app/js/videogular-themes-default/videogular.css"
+                            };
+                        })
                         var id = response.data._id;
                         var comments = authenticationservice.getdiscussion(id);
                         comments.then(function (response) {

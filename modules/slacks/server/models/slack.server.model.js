@@ -82,6 +82,10 @@ var SlackSchema = new Schema({
   userid: {
      type: String,
      default: ''
+  },
+  archid: {
+     type: String,
+     default: ''
   }
 });
 

@@ -1,24 +1,28 @@
 'use strict';
 
 angular.module('angularMaterialAdmin', [
-  'ngAnimate', 
-  'ngCookies', 
-  'ngTouch',
-  'ngSanitize',
-  'ui.router',
-  'ngMaterial',
-  'ngRoute',
-  'updateMeta',
-  'ui-notification',
-  'ngclipboard',
-  'ngClipboard',
-  'summernote',
-  'ngStorage',
-  'ui.bootstrap',
-  'angularMoment',
-  'monospaced.elastic',
-  'opentok',
-  'app'
+    'ngAnimate',
+    'ngCookies',
+    'ngTouch',
+    'ngSanitize',
+    'ui.router',
+    'ngMaterial',
+    'ngRoute',
+    'updateMeta',
+    'ui-notification',
+    'ngclipboard',
+    'ngClipboard',
+    'summernote',
+    'ngStorage',
+    'ui.bootstrap',
+    'angularMoment',
+    'monospaced.elastic',
+    'opentok',
+    "com.2fdevs.videogular",
+    "com.2fdevs.videogular.plugins.controls",
+    "com.2fdevs.videogular.plugins.overlayplay",
+    "com.2fdevs.videogular.plugins.poster",
+    'app'
   ])
 
   .config(function ($stateProvider, $urlRouterProvider, $mdThemingProvider,$mdIconProvider,NotificationProvider,$locationProvider) {

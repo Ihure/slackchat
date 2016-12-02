@@ -55,9 +55,10 @@
                 </div>
                 <div class="row" >
                     <h1 class="file-title-header">
-                        <textarea ng-model="ctrl.topic" class="black" required name="topic" id="topic" placeholder="Untitled" autocomplete="off" ng-value="string" style="overflow: hidden; word-wrap: break-word; " >title</textarea>
+                        <textarea ng-model="ctrl.topic" class="black" required name="topic" id="topic" placeholder="Untitled" autocomplete="off" style="overflow: hidden;" ></textarea>
                     </h1>
                 </div>
+                <input ng-model="ctrl.arch" class="black"  name="arch" id="arch" type="text" style="visibility: hidden" />
             </div>
         </div>
         <div class=" hidden-xs" >
@@ -150,61 +151,6 @@
 </div>
 <script>
     $(document).ready(function() {
-
-       /* $('summernote').summernote({
-            airMode: true,
-            focus: true,
-            popover: {
-                link: [
-                    ['link', ['linkDialogShow', 'unlink']]
-                ],
-                air: [
-                    ['color', ['color']],
-                    ['font', ['bold', 'underline', 'clear','superscript','subscript']],
-                    ['para', ['ul', 'paragraph','ol']],
-                    ['insert', ['link']]
-                ]
-            }
-
-        });*/
-        /*
-    });
-    $(document).ready(function () {
-        $('#summernote').summernote({
-            toolbar: [
-                // [groupName, [list of button]]
-                ['style', ['bold', 'italic', 'underline', 'clear']],
-                ['font', ['strikethrough', 'superscript', 'subscript']],
-                ['fontsize', ['fontsize']],
-                ['color', ['color']],
-                ['para', ['ul', 'ol', 'paragraph']],
-                ['height', ['height']]
-            ]
-        });
-    })*/
-   /**
-    * [editor description]
-    * @type {MediumEditor}
-    
-    var editor = new MediumEditor('.editable',{
-    toolbar: {
-        /* These are the default options for the toolbar,
-           if nothing is passed this is what is used *
-        allowMultiParagraphSelection: true,
-        buttons: ['bold', 'italic', 'underline', 'anchor', 'h2', 'h3', 'quote'],
-        diffLeft: 0,
-        diffTop: -10,
-        firstButtonClass: 'medium-editor-button-first',
-        lastButtonClass: 'medium-editor-button-last',
-        relativeContainer: null,
-        standardizeSelectionStart: false,
-        static: true,
-        /* options which only apply when static is true *
-        align: 'left',
-        sticky: false,
-        updateOnEmptySelection: false
-    }
-    });*/
    $("a").click(function(){
        $('summernote').focus();
    });
@@ -263,6 +209,7 @@
         });
     }
     $("#start").click( function() {
+        //$('#topic').text('start');
         console.log('clicked start');
         startArchive();
         }
@@ -270,6 +217,13 @@
     $("#stop").click( function() {
         stopArchive()
         console.log('clicked stop');
+        //$('#arch').val(archiveID);
+        $('#arch').val(archiveID).change();
+
+        var scope = angular.element($("#arch")).scope();
+        scope.$apply(function(){
+            scope.selectValue = archiveID;
+        });
         }
     );
     $("#get").click( function() {
@@ -288,6 +242,7 @@
     }
     function stopArchive() {
         $.post(SAMPLE_SERVER_BASE_URL + '/api/stop_rec/' + archiveID);
+        console.log('the archive id is: '+archiveID);
         //$('#stop').hide();
         //$('#start').show();
         //$('#view').prop('disabled', false);

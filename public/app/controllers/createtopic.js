@@ -10,123 +10,42 @@
 angular.module('angularMaterialAdmin')
   .controller('createtopicCtrl',['authenticationservice','$scope','$location','$sessionStorage','ngClipboard','Notification','slackinteraction','$http','OTSession','opentokinteraction','$timeout', function (authenticationservice,$scope,$location,$sessionStorage,ngClipboard,Notification,slackinteraction,$http,OTSession,opentokinteraction,$timeout) {
       var ctrl = this;
-
-
-
-      if (navigator.geolocation){ navigator.geolocation.getCurrentPosition(function(position) {
-          //console.log('test evaluation ');
-          var lat = position.coords.latitude;
-          var lng = position.coords.longitude;
-          console.log('test evaluation ' +lat +' long ' +lng);
-          var url = "https://maps.googleapis.com/maps/api/geocode/json?latlng="+lat+","+lng+"&key=AIzaSyAApD0SrzAHCrAc-inaREdMX7EbyAxGsIA";
-          $http.get(url)
-              .then(function(result) {
+      this.adds =function () {
+          console.log('archid is: ');
+      };
+      //$scope.ctrl = {topic: 'ihure'};
+      if (navigator.geolocation){
+          navigator.geolocation.getCurrentPosition(function(position) {
                   //console.log('test evaluation ');
-                  var address = result.data.results[4].formatted_address;
-                  //$scope.address = address;
-                  var time = new Date();
-                  var date = (time.getMonth() + 1) + "-" + time.getDate() + "-" + time.getFullYear();
-                  var fdate = '['+date+']'; 
-                  console.log('adress is '+address +' '+ fdate);
-        
-                      console.log('test scope ');
-                      var title = address+' '+ fdate;
-                      $scope.ctrl = {topic: title};
-                  
-              },function(error){
-              //console.log('error is '+error.data);
-              //console.log('error evaluation ');
-          });
-        }
-        );
+                  var lat = position.coords.latitude;
+                  var lng = position.coords.longitude;
+                  console.log('test evaluation ' +lat +' long ' +lng);
+                  var url = "https://maps.googleapis.com/maps/api/geocode/json?latlng="+lat+","+lng+"&key=AIzaSyAApD0SrzAHCrAc-inaREdMX7EbyAxGsIA";
+                  $http.get(url)
+                      .then(function(result) {
+                          //console.log('test evaluation ');
+                          var address = result.data.results[4].formatted_address;
+                          //$scope.address = address;
+                          var time = new Date();
+                          var date = (time.getMonth() + 1) + "-" + time.getDate() + "-" + time.getFullYear();
+                          var fdate = '['+date+']';
+                          console.log('adress is '+address +' '+ fdate);
+
+                          console.log('test scope ');
+                          var title = address+' '+ fdate;
+                          $scope.ctrl.topic = title;
+                      });
+              }
+          );
+
       }
-      //var apiKey =  '45727312';
-      //var sessionId = '1_MX40NTcyNzMxMn5-MTQ4MDQxNTA5MTcwMX5ieS9wUkMxbDZMYnBEdW1JWmlJblFHWUt-QX4';
-      //var token= 'T1==cGFydG5lcl9pZD00NTcyNzMxMiZzaWc9Y2EwMjMxZjllMGE4MWFmYzYxZDliNDFjNjJjYWViYWRkNzlkZDA4YTpzZXNzaW9uX2lkPTFfTVg0ME5UY3lOek14TW41LU1UUTRNRFF4TlRBNU1UY3dNWDVpZVM5d1VrTXhiRFpNWW5CRWRXMUpXbWxKYmxGSFdVdC1RWDQmY3JlYXRlX3RpbWU9MTQ4MDQxNTA5MiZub25jZT0wLjgzODU5MjM0NDAxNTU2MDkmcm9sZT1wdWJsaXNoZXImZXhwaXJlX3RpbWU9MTQ4MDQyNTg5MiZjb25uZWN0aW9uX2RhdGE9bmFtZSUzREpvaG5ueQ==';
-      //OTSession.init(apiKey, sessionId, token);
+      //$scope.ctrl = {topic: "yes"}
+      this.stop = function () {
 
-      angular.element(document).ready(function () {
-          //document.getElementById('msg').innerHTML = 'Hello';
-          var apiKey =  '45727312';
-          var sessionId = '1_MX40NTcyNzMxMn5-MTQ4MDQxNTA5MTcwMX5ieS9wUkMxbDZMYnBEdW1JWmlJblFHWUt-QX4';
-          var token= 'T1==cGFydG5lcl9pZD00NTcyNzMxMiZzaWc9Y2EwMjMxZjllMGE4MWFmYzYxZDliNDFjNjJjYWViYWRkNzlkZDA4YTpzZXNzaW9uX2lkPTFfTVg0ME5UY3lOek14TW41LU1UUTRNRFF4TlRBNU1UY3dNWDVpZVM5d1VrTXhiRFpNWW5CRWRXMUpXbWxKYmxGSFdVdC1RWDQmY3JlYXRlX3RpbWU9MTQ4MDQxNTA5MiZub25jZT0wLjgzODU5MjM0NDAxNTU2MDkmcm9sZT1wdWJsaXNoZXImZXhwaXJlX3RpbWU9MTQ4MDQyNTg5MiZjb25uZWN0aW9uX2RhdGE9bmFtZSUzREpvaG5ueQ==';
-
-
-         /* var session = OT.initSession(apiKey, sessionId);
-           // Connect to our session and publish our feed
-           session.connect(token, function(error) {
-           publisher = OT.initPublisher( angular.element("publisher"));
-           session.publish(publisher);
-           });
-           // When a client connects, subscribe to its feed
-           session.on( {
-           streamCreated: function(event) {
-           session.subscribe(event.stream, "subscriber");
-           }});*/
-      });
-
-     /*var otsess = opentokinteraction.generate_session();
-        otsess.then(function (succ) {
-            //var sessionId = succ.data.sessionid;
-            //var apiKey = succ.data.apikey;
-            //console.log('api key is ' +apiKey);
-            //var token = succ.data.token;
-            //var apiKey =  '45727312';
-            //var sessionId = '1_MX40NTcyNzMxMn5-MTQ4MDQxNTA5MTcwMX5ieS9wUkMxbDZMYnBEdW1JWmlJblFHWUt-QX4';
-            //var token= 'T1==cGFydG5lcl9pZD00NTcyNzMxMiZzaWc9Y2EwMjMxZjllMGE4MWFmYzYxZDliNDFjNjJjYWViYWRkNzlkZDA4YTpzZXNzaW9uX2lkPTFfTVg0ME5UY3lOek14TW41LU1UUTRNRFF4TlRBNU1UY3dNWDVpZVM5d1VrTXhiRFpNWW5CRWRXMUpXbWxKYmxGSFdVdC1RWDQmY3JlYXRlX3RpbWU9MTQ4MDQxNTA5MiZub25jZT0wLjgzODU5MjM0NDAxNTU2MDkmcm9sZT1wdWJsaXNoZXImZXhwaXJlX3RpbWU9MTQ4MDQyNTg5MiZjb25uZWN0aW9uX2RhdGE9bmFtZSUzREpvaG5ueQ==';
-
-
-            /*var session = OT.initSession(apiKey, sessionId);
-            // Connect to our session and publish our feed
-            session.connect(token, function(error) {
-                publisher = OT.initPublisher( angular.element(publisher));
-                session.publish(publisher);
-            });
-            // When a client connects, subscribe to its feed
-            session.on( {
-                streamCreated: function(event) {
-                    session.subscribe(event.stream, "subscriber");
-                }});*/
-           /* //$scope.$apply(function() {
-                OTSession.init(succ.data.apikey, succ.data.sessionid, succ.data.token);
-            //})
-        },function (err) {
-
-        });*/
-
-
-     /* $scope.callAtTimeout = function () {
-          var otsess = opentokinteraction.generate_session();
-          otsess.then(function (succ) {
-              OTSession.init(succ.data.apikey, succ.data.sessionid, succ.data.token);
-          },function (err) {
-
-          });
       };
 
-      $timeout( function(){ $scope.callAtTimeout(); }, 1500);*/
-
-
-
-      //OTSession.init(apiKey, sessionId, token);
-      //$scope.streams = OTSession.streams;
-      //console.log('test evaluation ');
-         /* if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(function(position){
-          //console.log('test evaluation ');
-          $scope.$apply(function(){
-            console.log('test evaluation ');
-            $scope.position = position;
-          });
-        });
-      }*/
-
-      ctrl.add = function () {
-          /*if(ctrl.emb == null || ctrl.emb == undefined){
-              var emb = '';
-          }else{
-              emb = ctrl.emb;
-          }*/
+      this.add = function () {
+          //console.log('archid is: ');
           //$scope.creates = false;
           var emb = '';
           var teamnames = $sessionStorage.team;
@@ -143,7 +62,8 @@ angular.module('angularMaterialAdmin')
                    var cid = getid.data.channel.id;
                     //console.log('user id '+getid.data.channel.id);
                     //console.log('error '+getid.data.error);
-                    var create = authenticationservice.createtopic(ctrl.topic, cid, $sessionStorage.avator, $sessionStorage.real_name,ctrl.desc,emb,teamname,condtopic,url,encoded,$sessionStorage.team_id,$sessionStorage.bid,$sessionStorage.btkn,$sessionStorage.userid);
+                    var create = authenticationservice.createtopic(ctrl.topic, cid, $sessionStorage.avator, $sessionStorage.real_name,ctrl.desc,emb,teamname,condtopic,url,encoded,$sessionStorage.team_id,$sessionStorage.bid,$sessionStorage.btkn,$sessionStorage.userid,ctrl.arch);
+                    console.log('archid is: '+ctrl.arch);
                     create.then(function(response) {
                         //$uibModalInstance.dismiss('cancel');
                         $scope.creates = false;

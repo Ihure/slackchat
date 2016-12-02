@@ -16,8 +16,7 @@ angular.module('angularMaterialAdmin')
 
         //ngMeta.setTag('description', 'Matthew Cooper');
         //ngMeta.setTag('og:title', 'My ass');
-
-        var vm = this;
+                        var vm = this;
 
         vm.menuItems = [ ];
         vm.selectItem = selectItem;

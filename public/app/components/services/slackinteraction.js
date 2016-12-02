@@ -51,6 +51,9 @@ angular.module('angularMaterialAdmin')
                 });
 
             },
+            get_video: function (archid) {
+                return $http.get('/api/get_rec/' + archid);
+            },
             get_id: function (token,user) {
                 var data ={
                     token: token,

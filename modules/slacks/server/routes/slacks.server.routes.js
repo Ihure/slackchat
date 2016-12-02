@@ -22,7 +22,7 @@ module.exports = function(app) {
         .post(slacks.stop_archive);
 
   app.route('/api/get_rec/:archive_ids').all()
-        .post(slacks.get_archive);
+        .get(slacks.get_archive);
 
 
   app.route('/api/hook').all()

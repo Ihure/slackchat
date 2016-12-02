@@ -57,7 +57,7 @@ angular.module('angularMaterialAdmin')
       testapi: function (token,user) {
         return $http.get('/api/slacks');
       },
-      createtopic: function (topic,user,avator,name,desc,link,tname,ctopic,url,encoded,tid,bid,btkn,userid) {
+      createtopic: function (topic,user,avator,name,desc,link,tname,ctopic,url,encoded,tid,bid,btkn,userid,archid) {
           var n = link.search("<iframe");
           var t = link.search("http");
           if(n >= 0){
@@ -90,7 +90,8 @@ angular.module('angularMaterialAdmin')
                   team_id:tid,
                   bot_id: bid,
                   bot_token: btkn,
-                  userid:userid
+                  userid:userid,
+                  archid:archid
               }
           });
       },
