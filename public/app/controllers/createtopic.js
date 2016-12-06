@@ -14,6 +14,15 @@ angular.module('angularMaterialAdmin')
           console.log('archid is: ');
       };
       //$scope.ctrl = {topic: 'ihure'};
+
+      this.toggle_vid = function (val) {
+         if(val == 'fa'){
+             $scope.repsec0 = true;
+             console.log('toggled');
+         }else{
+             $scope.repsec0 = false;
+         }
+      };
       if (navigator.geolocation){
           navigator.geolocation.getCurrentPosition(function(position) {
                   //console.log('test evaluation ');
@@ -24,7 +33,21 @@ angular.module('angularMaterialAdmin')
                   $http.get(url)
                       .then(function(result) {
                           //console.log('test evaluation ');
-                          var address = result.data.results[4].formatted_address;
+                          //var address = result.data.results[4].formatted_address;
+                          var indice=0;
+                          var results = result.data.results;
+                          for (var j=0; j<results.length; j++)
+                          {
+                              if (results[j].types[0]=='administrative_area_level_1')
+                              {
+                                  indice=j;
+                                  break;
+                              }
+                          }
+                          //var address1 = result.data.results[0].address_components[5].long_name;
+                          //var address2 = result.data.results[0].address_components[6].long_name;
+                          //var address = address1+','+address2;
+                          var address = result.data.results[indice].formatted_address;
                           //$scope.address = address;
                           var time = new Date();
                           var date = (time.getMonth() + 1) + "-" + time.getDate() + "-" + time.getFullYear();
@@ -45,6 +68,7 @@ angular.module('angularMaterialAdmin')
       };
 
       this.add = function () {
+          $scope.$destroy();
           //console.log('archid is: ');
           //$scope.creates = false;
           var emb = '';

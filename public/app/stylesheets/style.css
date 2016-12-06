@@ -243,6 +243,17 @@ h1{
     display: inline-block;
     position: relative;
 }
+.record_image{
+    width: 41px !important;
+    height: 41px !important;
+    border-radius: .2rem;
+    background-size: 100%;
+    background-repeat: no-repeat;
+    display: inline-block;
+    position: relative;
+    margin-top: -37px;
+    margin-left: 35px;
+}
 .no-x{
     overflow-x: hidden;
     margin-left: 1px;
