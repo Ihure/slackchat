@@ -127,6 +127,11 @@ angular.module('angularMaterialAdmin')
                      var video = slackinteraction.get_video(response.data.archid);
                         video.then(function (res) {
                             var vid = res.data.url;
+                            if (vid == undefined){
+                                $scope.show = false;
+                            }else{
+                                $scope.show = true;
+                            }
                             var oldURL = vid;
                             var index = 0;
                             var newURL = oldURL;

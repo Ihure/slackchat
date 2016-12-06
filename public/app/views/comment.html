@@ -62,7 +62,8 @@
                     <div ng-bind-html="topic.link | totrusted"></div>
 
                 </div>
-                <videogular vg-theme="config.theme">
+                <div class="videogular-container">
+                <videogular vg-theme="config.theme" ng-hide="!show">
                     <vg-media vg-src="config.sources"
                               vg-tracks="config.tracks">
                     </vg-media>
@@ -84,6 +85,7 @@
                     <vg-overlay-play></vg-overlay-play>
                     <vg-poster vg-url='config.plugins.poster'></vg-poster>
                 </videogular>
+                </div>
                 <div ng-show="topic.status == 0" class="video-container">
                     <iframe  ng-src="{{topic.link | trusturls}}" frameborder="0" allowfullscreen></iframe>
                 </div>
