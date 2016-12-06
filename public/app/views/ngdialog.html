@@ -110,9 +110,11 @@
             <div class="video" style="padding-left: 71px;margin-top: -17px;">
                 <div id="subscriber"></div>
                 <div id="publisher"></div>
-                <button class="btn btn-info" type="button"  id="start">start</button>
+                <p ng-hide="rec"><a href ng-click="ctrl.toggle_vid('rcstrt')" id="start"><img ng-src="images/Record.png" class="img-rounded recorder_image" alt="record Image"></a></p>
+                <p ng-hide="!rec"><a href ng-click="ctrl.toggle_vid('rcstp')" id="stop"><img ng-src="images/Record.png" class="img-rounded recorder_image" alt="record Image"></a> <blink>Recording</blink></p>
+                <!--<button class="btn btn-info" type="button"  id="start">start</button>
                 <button class="btn btn-info" type="button"  id="stop">stop</button>
-                <button class="btn btn-info" type="button"  id="get">get</button>
+                <button class="btn btn-info" type="button"  id="get">get</button>-->
             </div>
             <!--<ot-layout props="{animate:true}">
                 <ot-subscriber ng-repeat="stream in streams"

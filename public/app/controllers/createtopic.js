@@ -19,8 +19,15 @@ angular.module('angularMaterialAdmin')
          if(val == 'fa'){
              $scope.repsec0 = true;
              console.log('toggled');
-         }else{
+         }
+         else if(val == 'tr'){
              $scope.repsec0 = false;
+         }
+         else if(val == 'rcstrt'){
+             $scope.rec = true;
+         }
+         else if(val == 'rcstp'){
+             $scope.rec = false;
          }
       };
       if (navigator.geolocation){

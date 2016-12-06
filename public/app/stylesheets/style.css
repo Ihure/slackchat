@@ -254,6 +254,15 @@ h1{
     margin-top: -37px;
     margin-left: 35px;
 }
+.recorder_image{
+    width: 41px !important;
+    height: 41px !important;
+    border-radius: .2rem;
+    background-size: 100%;
+    background-repeat: no-repeat;
+    display: inline-block;
+    position: relative;
+}
 .no-x{
     overflow-x: hidden;
     margin-left: 1px;
